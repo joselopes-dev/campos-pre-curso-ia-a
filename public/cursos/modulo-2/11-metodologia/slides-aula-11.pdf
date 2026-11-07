@@ -1,0 +1,151 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R 9 0 R 12 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 952 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: MET-205: METODOLOGIA PARA ELABORACAO DE PRODUCOES TECNICAS -) '
+(PAGINA 1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 1: SECAO 1: ESTRUTURA CANONICA DE RELATORIOS TECNICOS E) '
+(NORMAS ABNT) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(A comunicacao cientifica e profissional na area de tecnologia rege-se por) '
+(padroes estruturais precisos \(ABNT NBR 10719 para relatorios tecnicos e NBR) '
+(6023 para citacoes e referencias\). Um relatorio de engenharia de IA) '
+(estrutura-se em: 1. Contextualizacao do Problema e Justificativa; 2.) '
+(Objetivos Gerais e Especificos; 3. Metodologia de Coleta e Engenharia de) '
+(Features; 4. Arquitetura e Modelagem; 5. Analise Critica de Resultados e) '
+(Conclusao.) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 917 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: MET-205: METODOLOGIA PARA ELABORACAO DE PRODUCOES TECNICAS -) '
+(PAGINA 2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 2: SECAO 2: REPRODUTIBILIDADE CIENTIFICA E DOCUMENTACAO DE) '
+(EXPERIMENTOS DE IA) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(A reprodutibilidade exige a fixacao de sementes aleatorias \(random seeds\)) '
+(em bibliotecas como NumPy, PyTorch e Scikit-Learn, o registro exato de) '
+(versoes no requirements.txt e a documentacao de hiperparametros. A adocao) '
+(de Model Cards \(fichas tecnicas de modelos\) detalha casos de uso) '
+(pretendidos, metricas de desempenho em subgrupos, limitacoes operacionais e) '
+(analise de riscos eticos de implantacao.) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 11 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 853 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: MET-205: METODOLOGIA PARA ELABORACAO DE PRODUCOES TECNICAS -) '
+(PAGINA 3]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 3: SECAO 3: COMUNICACAO TECNICA E VISUALIZACAO PARA) '
+(TOMADORES DE DECISAO) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(Engenheiros de IA devem traduzir indicadores tecnicos \(como Loss) '
+(logaritmica ou F1-score\) em impactos economicos e operacionais tangiveis) '
+(\(como reducao de custos de triagem ou aumento de precisao de diagnostico\).) '
+(Graficos explicativos devem conter rotulos de eixos claros, unidades de) '
+(medida explicitas e legendas compreensiveis sem ambiguidade.) '
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 13 0 R /Resources << /Font << /F1 14 0 R >> >> >>
+endobj
+13 0 obj
+<< /Length 775 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: MET-205: METODOLOGIA PARA ELABORACAO DE PRODUCOES TECNICAS -) '
+(PAGINA 4]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 4: SECAO 4: ROTEIRO PRATICO DE PRODUCAO TECNICA E) '
+(REFERENCIAS) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(Atividade: Elaborar um Model Card completo para um classificador preditivo,) '
+(detalhando dados de treino, limitacoes operacionais e metricas de equidade.) '
+(Referencias: Gil, Antonio Carlos \(Como Elaborar Projetos de Pesquisa\);) '
+(Mitchell et al. \(Model Cards for Model Reporting, ACM FAT\).) '
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000134 00000 n 
+0000000260 00000 n 
+0000001263 00000 n 
+0000001360 00000 n 
+0000001486 00000 n 
+0000002454 00000 n 
+0000002551 00000 n 
+0000002679 00000 n 
+0000003584 00000 n 
+0000003682 00000 n 
+0000003811 00000 n 
+0000004638 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+4736
+%%EOF

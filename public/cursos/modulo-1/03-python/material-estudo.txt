@@ -1,0 +1,13 @@
+# PYTHON-103: PROGRAMACAO EM PYTHON APLICADA A IA
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 03 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Ecossistema Cientifico de Python e Estruturas Nativas
+Python e a linguagem dominante no desenvolvimento de Inteligencia Artificial devido a sua sintaxe expressiva e ao robusto ecossistema de bibliotecas nativas e cientificas. Estruturas como listas, tuplas imutaveis, conjuntos (sets com busca O(1)) e dicionarios sao amplamente utilizadas para ingestao e estruturacao de dados brutos. Compreensoes de lista (list comprehensions) e geradores (generators) permitem processamento em streaming com baixo footprint de memoria.
+
+--- Página 2: Secao 2: Computacao Vetorial com NumPy e Manipulacao com Pandas
+A biblioteca NumPy fornece o objeto ndarray, permitindo operacoes vetorizadas implementadas em C com broadcasting sem necessidade de lacos for explicitos em Python. O Pandas organiza dados tabulares em DataFrames e Series, oferecendo metodos de alto desempenho para limpeza de valores ausentes (dropna, fillna), transformacao de colunas (apply, map), agregacoes agrupadas (groupby) e combinacao relacional de conjuntos de dados (merge, join).
+
+--- Página 3: Secao 3: Programacao Orientada a Objetos e Tratamento Robusto de Excecoes
+O encapsulamento em classes modela componentes de aprendizado de maquina segundo o padrao de estimadores (fit, predict, transform). Blocos try-except-finally e criacao de excecoes customizadas garantem que falhas de IO ou inconsistencias em schemas de datasets sejam tratadas sem interromper pipelines de treino de longa duracao.
+

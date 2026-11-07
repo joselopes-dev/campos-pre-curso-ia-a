@@ -1,0 +1,138 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R 9 0 R 12 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 785 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([CD-201: PYTHON PARA CIENCIA DE DADOS - PAGINA 1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 1: Objetivos de Aprendizagem e Manipulacao Estruturada com Pandas) '
+(Esta unidade capacita o estudante a ingerir, auditar e transformar bases de) '
+(dados complexas para pipelines analiticos. Compreende o uso aprofundado de) '
+(DataFrames e Series, indexacao booleana avancada, tratamento de valores) '
+(nulos via tecnicas estatisticas de imputacao e conversoes categoricas) '
+(\(One-Hot Encoding, Ordinal Encoding\) sem vazamento de dados \(data leakage\).) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 793 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([CD-201: PYTHON PARA CIENCIA DE DADOS - PAGINA 2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 2: Analise Exploratoria e Visualizacao Grafica com Matplotlib e) '
+(Seaborn) '
+(A analise exploratoria orientada por hipoteses emprega graficos de) '
+(dispersao para correlacoes bivariadas, boxplots para deteccao de anomalias) '
+(\(outliers\) pelo criterio de 1.5 IQR e histogramas com estimativa de) '
+(densidade de kernel \(KDE\). Matrizes de correlacao de Pearson e Spearman) '
+(expoe multicolinearidade entre atributos preditivos antes da etapa de) '
+(modelagem.) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 11 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 768 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([CD-201: PYTHON PARA CIENCIA DE DADOS - PAGINA 3]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 3: Pipelines Automatizados de Transformacao com Scikit-Learn) '
+(A classe Pipeline e o ColumnTransformer encapsulam etapas sequenciais de) '
+(padronizacao \(StandardScaler\), normalizacao min-max e transformacoes) '
+(matematicas \(log-transform, Yeo-Johnson\). O encapsulamento garante que) '
+(parametros como media e variancia sejam calculados exclusivamente no) '
+(conjunto de treino \(split de treino\) e replicados sem reajuste no teste.) '
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 13 0 R /Resources << /Font << /F1 14 0 R >> >> >>
+endobj
+13 0 obj
+<< /Length 665 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([CD-201: PYTHON PARA CIENCIA DE DADOS - PAGINA 4]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 4: Atividades Praticas e Referencias Tecnicas Recomendadas) '
+(Atividade 1: Carregar conjunto tabular publico, efetuar imputacao de) '
+(valores faltantes e gerar visualizacoes comparativas de features.) '
+(Referencias essenciais: McKinney, Wes \(Python for Data Analysis, O Reilly\);) '
+(VanderPlas, Jake \(Python Data Science Handbook\).) '
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000134 00000 n 
+0000000260 00000 n 
+0000001096 00000 n 
+0000001193 00000 n 
+0000001319 00000 n 
+0000002163 00000 n 
+0000002260 00000 n 
+0000002388 00000 n 
+0000003208 00000 n 
+0000003306 00000 n 
+0000003435 00000 n 
+0000004152 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+4250
+%%EOF

@@ -1,0 +1,16 @@
+# PLN-204: PROCESSAMENTO DE LINGUAGEM NATURAL E CHATBOTS
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 10 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Pre-processamento Textual e Modelagem Bag-of-Words/TF-IDF
+O processamento de texto inicia-se pela normalizacao de caracteres Unicode, remocao de pontuacao, conversao para caixa baixa e segmentacao em tokens lexicais. A lematizacao reduz palavras ao seu lema morfologico canonical, enquanto a contagem TF-IDF (Term Frequency-Inverse Document Frequency) pondera a raridade informacional de termos em relacao ao corpus documental, atenuando a influencia desproporcional de termos excessivamente frequentes.
+
+--- Página 2: Secao 2: Embeddings Semanticos e Modelos de Espaco Vetorial
+Modelos de distribuicao semantica como Word2Vec (arquiteturas Skip-gram e CBOW), GloVe e FastText mapeiam palavras em vetores densos em espacos geometricos continuos R^D, preservando relacoes de analogia vetorial (Rei - Homem + Mulher aprox Rainha). A similaridade semantica e quantificada pelo cosseno do angulo entre vetores, calculada pelo produto escalar normalizado pelas normas euclidianas dos vetores.
+
+--- Página 3: Secao 3: Arquiteturas de Chatbots e Reconhecimento de Intencoes (NLU)
+Sistemas conversacionais orientados a tarefas fundamentam-se em dois modulos principais de NLU: Classificacao de Intencao (identificacao do objetivo do usuario, ex: consultar_nota) e Extracao de Entidades (Named Entity Recognition - NER, ex: disciplina=LOG-102). O gerenciador de dialogo rastreia o estado da sessao (slot filling) e dispara acoes deterministicas ou respostas generativas contextuais.
+
+--- Página 4: Secao 4: Avaliacao de Coerencia Conversacional e Laboratorio
+Metricas automaticas como BLEU, ROUGE e perplexidade avaliam similaridade com respostas humanas de referencia. Atividade pratica: Construir pipeline de classificacao de intencoes com TF-IDF e LogisticRegression para um bot de suporte academico. Referencia: Jurafsky, Daniel & Martin, James (Speech and Language Processing, 3rd ed).
+

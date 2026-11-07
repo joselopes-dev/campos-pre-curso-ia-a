@@ -1,0 +1,16 @@
+# MLA-202: MACHINE LEARNING APLICADO
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 08 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Algoritmos Supervisionados de Regressao e Classificacao
+Regressoes lineares e logisticas utilizam otimizacao convexa por gradiente descendente com regularizacao L1 (Lasso) para selecao de features esparsas e L2 (Ridge) contra multicolinearidade. Arvores de decisao particionam o espaco amostral maximizando o ganho de informacao por Entropia de Shannon ou indice de Gini, servindo de base para ensambles poderosos como Random Forests e Gradient Boosting (XGBoost, LightGBM).
+
+--- Página 2: Secao 2: Metodos de Margem e Agrupamento Nao-Supervisionado
+Support Vector Machines (SVM) encontram o hiperplano separador com margem maxima entre classes, utilizando o truque do kernel (RBF Gaussiano, Polinomial) para mapeamento em espacos de dimensão infinita. No agrupamento nao-supervisionado, o algoritmo K-Means minimiza a inercia intra-cluster via metodo do cotovelo (Elbow Method) e score de silhueta, enquanto PCA reduz a dimensionalidade preservando a variancia maxima explicada.
+
+--- Página 3: Secao 3: Validacao Cruzada e Metricas Rigorosas de Avaliacao
+A divisao estratificada K-Fold previne desbalanceamento amostral. A avaliacao em classificacao binaria e multiclasse deve transcender a acuracia global: analisa-se a Matriz de Confusao, Precisao, Revocacao (Recall), F1-Score balanceado e a curva ROC com calculo da area sob a curva (AUC-ROC), essencial para diagnosticar taxas de falsos positivos e falsos negativos.
+
+--- Página 4: Secao 4: Exemplo de Implementacao e Exercicios de Fixacao
+Exemplo: Treinamento de estimador RandomForestClassifier com GridSearchCV para ajuste fino de max_depth e n_estimators. Atividade: Comparar acuracia balanceada e F1-score em dataset com 95% de classe majoritaria. Referencias: Hastie, Tibshirani & Friedman (The Elements of Statistical Learning); Geron, Aurelien (Hands-On Machine Learning).
+

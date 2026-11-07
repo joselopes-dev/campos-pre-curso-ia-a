@@ -1,0 +1,139 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R 9 0 R 12 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 798 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([VIS-306: VISAO COMPUTACIONAL APLICADA - PAGINA 1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 1: Fundamentos de Imagem Digital e Processamento Classico com OpenCV) '
+(Imagens digitais sao tensores tridimensionais \(H x W x C\) representando) '
+(intensidade luminosa nos canais de cores \(RGB ou BGR\). O processamento de) '
+(imagens emprega convolucoes com filtros lineares para suavizacao Gaussiana,) '
+(realce de contornos \(filtros Sobel e Laplaciano\), binarizacao por threshold) '
+(adaptativo \(metodo de Otsu\) e operacoes morfologicas de dilatacao e erosao.) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 817 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([VIS-306: VISAO COMPUTACIONAL APLICADA - PAGINA 2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 2: Deteccao de Objetos em Tempo Real com Arquiteturas YOLO) '
+(Diferentemente de classificadores tradicionais que processam a imagem) '
+(inteira para uma unica etiqueta, modelos de deteccao de objetos localizam) '
+(multiplas instancias e suas respectivas caixas delimitadoras \(bounding) '
+(boxes\). Arquiteturas como YOLO \(You Only Look Once\) operam em passagem) '
+(unica, predizendo coordenadas normalizadas e probabilidades de classes com) '
+(alta taxa de quadros por segundo \(FPS\).) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 11 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 775 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([VIS-306: VISAO COMPUTACIONAL APLICADA - PAGINA 3]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 3: Segmentacao Semantica e Reconhecimento de Padroes Complexos) '
+(A segmentacao semantica classifica cada pixel individual da imagem \(como) '
+(nas arquiteturas U-Net e Mask R-CNN\), essencial em aplicacoes medicas de) '
+(diagnostico por imagem e navegacao de veiculos autonomos. Tecnicas de) '
+(aumento de dados \(Data Augmentation\) como rotacoes, cortes aleatorios e) '
+(variacoes fotometricas ampliam a robustez contra mudancas de iluminacao.) '
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 13 0 R /Resources << /Font << /F1 14 0 R >> >> >>
+endobj
+13 0 obj
+<< /Length 820 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([VIS-306: VISAO COMPUTACIONAL APLICADA - PAGINA 4]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 4: Aplicacoes Industriais e Pratica com OpenCV e PyTorch) '
+(Sistemas visuais sao amplamente utilizados em inspecao de qualidade em) '
+(linhas de montagem, contagem automatizada e biometria facial com) '
+(preservacao de privacidade. Atividade: Implementar script em Python com) '
+(OpenCV para extracao de caracteristicas de bordas e contornos em pecas) '
+(industriais. Referencias: Szeliski, Richard \(Computer Vision: Algorithms) '
+(and Applications\); Bradski & Kaehler \(Learning OpenCV\).) '
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000134 00000 n 
+0000000260 00000 n 
+0000001109 00000 n 
+0000001206 00000 n 
+0000001332 00000 n 
+0000002200 00000 n 
+0000002297 00000 n 
+0000002425 00000 n 
+0000003252 00000 n 
+0000003350 00000 n 
+0000003479 00000 n 
+0000004351 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+4449
+%%EOF

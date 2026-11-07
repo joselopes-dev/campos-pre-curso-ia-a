@@ -1,0 +1,16 @@
+# SEG-301: SEGURANCA, GOVERNANCA DE DADOS E LGPD APLICADA
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 13 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Marco Legal da LGPD (Lei 13.709/2018) no Contexto de Inteligencia Artificial
+A Lei Geral de Protecao de Dados estabelece principios fundamentais para o tratamento de dados pessoais em sistemas de IA: Finalidade, Adequacao, Necessidade (minimizacao de dados), Livre Acesso, Seguranca e Nao-Discriminacao. O processamento para treino de modelos exige enquadramento em bases legais explicitas (como consentimento do titular ou legitimo interesse) e mecanismos de auditoria para atender solicitacoes de explicabilidade algoritmica.
+
+--- Página 2: Secao 2: Tecnicas de Anonimizacao e Privacidade Diferencial
+A anonimizacao efetiva remove o vinculo causal entre o dado e a pessoa natural. O modelo k-Anonimato garante que qualquer individuo nao seja distinguivel de pelo menos k-1 outros individuos em atributos quase-identificadores. A Privacidade Diferencial adiciona ruido matematico controlado (calibrado pela distribuicao de Laplace ou Gaussiana) aos gradientes ou consultas estatisticas, garantindo protecao formal contra ataques de inferencia de associacao (membership inference).
+
+--- Página 3: Secao 3: Auditoria de Vies Algoritmico e Seguranca Cibernetica de Modelos
+Vieses historicos presentes nos dados de treinamento podem amplificar discriminacoes sistemicas. Metricas de equidade (como Paridade Demografica e Igualdade de Oportunidades) devem ser auditadas. Em cibersegurança de IA, defesas contra ataques de envenenamento de dados (data poisoning), ataques adversariais com perturbacao de pixels e extracao indevida de pesos (model inversion) devem ser implementadas nos pipelines.
+
+--- Página 4: Secao 4: Relatorio de Impacto a Protecao de Dados (RIPD) e Pratica
+Atividade: Elaborar secao de avaliacao de riscos em um Relatorio de Impacto a Protecao de Dados (RIPD) para um sistema automatizado de analise de credito. Referencias: Legislacao oficial (Lei 13.709/2018); Guias Orientativos da Autoridade Nacional de Protecao de Dados (ANPD); Barocas, Hardt & Narayanan (Fairness and Machine Learning).
+

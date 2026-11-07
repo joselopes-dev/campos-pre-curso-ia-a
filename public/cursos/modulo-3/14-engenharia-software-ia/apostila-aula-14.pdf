@@ -1,0 +1,140 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R 9 0 R 12 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 811 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([ES-302: ENGENHARIA DE SOFTWARE PARA SISTEMAS DE IA - PAGINA 1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 1: Principios Arquiteturais de Software e Clean Code em IA) '
+(Sistemas com componentes de IA exigem separacao rigida entre regras de) '
+(negocio deterministicas, pipelines de engenharia de atributos e motores) '
+(probabilisticos de inferencia. Os principios SOLID \(como Responsabilidade) '
+(Unica e Inversao de Dependencia\) orientam a criacao de interfaces abstratas) '
+(para modelos, permitindo trocar algoritmos subjacentes sem impactar) '
+(consumidores downstream.) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 831 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([ES-302: ENGENHARIA DE SOFTWARE PARA SISTEMAS DE IA - PAGINA 2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 2: Desenvolvimento Orientado a Testes \(TDD\) para Dados e Modelos) '
+(Diferentemente do software tradicional, sistemas de IA falham) '
+(silenciosamente atraves de degradacao estatistica. Testes automatizados) '
+(dividem-se em: 1. Testes unitarios de transformacoes de dados; 2. Testes de) '
+(integridade de schemas de entrada \(validacao com Pydantic ou Zod\); 3.) '
+(Testes de invariancia e sensibilidade direcional de previsoes; 4. Testes de) '
+(regressao de desempenho minimo garantido.) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 11 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 788 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([ES-302: ENGENHARIA DE SOFTWARE PARA SISTEMAS DE IA - PAGINA 3]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 3: APIs RESTful Assincronas e Empacotamento em Conteineres Docker) '
+(Modelos em producao sao servidos via endpoints RESTful assincronos de alta) '
+(performance \(construidos em Express ou FastAPI\) com serializacao JSON) '
+(estrita. O empacotamento em imagens Docker multicamadas \(multi-stage) '
+(builds\) isola drivers CUDA, compiladores C++ e dependencias Python, gerando) '
+(imagens leves, imutaveis e reproduziveis em qualquer nuvem publica.) '
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 13 0 R /Resources << /Font << /F1 14 0 R >> >> >>
+endobj
+13 0 obj
+<< /Length 816 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([ES-302: ENGENHARIA DE SOFTWARE PARA SISTEMAS DE IA - PAGINA 4]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 4: Padroes de Projeto em Machine Learning e Laboratorio) '
+(Aplicacao dos padroes Strategy \(para alternar algoritmos em tempo de) '
+(execucao\) e Decorator \(para injetar telemetria e calculo de latencia em) '
+(chamadas de predict\). Atividade: Escrever Dockerfile otimizado e suite de) '
+(testes unitarios em pytest para uma API de inferencia preditiva.) '
+(Referencias: Martin, Robert \(Clean Code\); Fowler, Martin \(Patterns of) '
+(Enterprise Application Architecture\).) '
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000134 00000 n 
+0000000260 00000 n 
+0000001122 00000 n 
+0000001219 00000 n 
+0000001345 00000 n 
+0000002227 00000 n 
+0000002324 00000 n 
+0000002452 00000 n 
+0000003292 00000 n 
+0000003390 00000 n 
+0000003519 00000 n 
+0000004387 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+4485
+%%EOF

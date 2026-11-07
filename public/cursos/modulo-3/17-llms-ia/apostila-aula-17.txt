@@ -1,0 +1,16 @@
+# LLM-305: LLMS E INTELIGENCIA ARTIFICIAL GENERATIVA
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 17 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Arquitetura Transformer e Mecanismos de Auto-Atencao
+A revolucao dos Large Language Models baseia-se no mecanismo de auto-atencao escalonada (Scaled Dot-Product Attention) introduzido por Vaswani et al. (2017). Projecoes lineares geram tensores de Consulta (Q), Chave (K) e Valor (V). A formula Attention(Q,K,V) = softmax(QK^T / sqrt(d_k)) V permite que cada token pondere semanticamente todos os demais tokens da sequencia simultaneamente, superando os gargalos sequenciais de RNNs.
+
+--- Página 2: Secao 2: Engenharia de Prompts Avancada e Respostas Estruturadas
+Tecnicas como Few-Shot Prompting fornecem demonstracoes exemplares no proprio prompt de entrada; Chain-of-Thought (CoT) induz raciocinio explicito passo a passo antes da resposta final. A especificacao de schemas estruturados (JSON Mode / Structured Outputs) instrui a camada de amostragem do modelo a emitir exclusivamente dados aderentes a contratos estritos de tipos.
+
+--- Página 3: Secao 3: Arquitetura RAG Completa: Chunking, Embeddings e Reranking
+RAG (Retrieval-Augmented Generation) ancora geracoes em bases confiaveis de conhecimento proprio. O processo abrange: 1. Chunking semantico de documentos com sobreposicao (overlap); 2. Geracao de vetores densos via modelos de embedding; 3. Busca de k-vizinhos mais proximos por similaridade de cosseno; 4. Reordenacao (Reranking) contextual; 5. Insercao dos trechos citados no prompt do modelo gerador.
+
+--- Página 4: Secao 4: Integracao com o SDK @google/genai e Gemini 3.8 Flash
+O SDK oficial @google/genai fornece acesso a modelos de ultima geracao como Gemini 3.8 Flash. A integracao deve implementar respostas em fluxo (streaming), tratamento robusto de limites de cota (HTTP 429 com backoff exponencial) e fallback resiliente (como indexacao lexica TF-IDF). Atividade: Construir pipeline RAG ponta a ponta com recuperacao de trechos e citacao transparente de fontes.
+

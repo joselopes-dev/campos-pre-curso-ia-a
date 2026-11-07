@@ -1,0 +1,10 @@
+# IA-106: INTRODUCAO E FUNDAMENTOS DA INTELIGENCIA ARTIFICIAL
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 06 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Evolucao Historica dos Paradigmas de Inteligencia Artificial
+A Inteligencia Artificial evoluiu a partir do teste de Turing (1950) e da Conferencia de Dartmouth (1956). O paradigma simbolico (IA classica baseada em logica formal, sistemas especialistas e arvores de decisao com busca heuristica como A*) dominou as primeiras decadas. O paradigma conexionista (aprendizado estatistico e redes neurais artificiais) emergiu vitorioso gracas a disponibilidade de Big Data e processadores massivamente paralelos.
+
+--- Página 2: Secao 2: Taxonomia do Aprendizado de Maquina e Agentes Inteligentes
+O Aprendizado de Maquina se subdivide em tres categorias centrais: 1. Aprendizado Supervisionado, no qual o modelo aprende um mapeamento entre entradas X e rotulos verdadeiros Y (regressao e classificacao); 2. Aprendizado Nao-Supervisionado, que descobre estruturas latentes e agrupamentos intrinsecos nos dados sem anotacoes previas (clustering, k-means, PCA); 3. Aprendizado por Reforco, onde um agente interage com um ambiente dinamico maximizando recompensas cumulativas.
+

@@ -1,0 +1,140 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R 9 0 R 12 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 877 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([PLN-204: PROCESSAMENTO DE LINGUAGEM NATURAL E CHATBOTS - PAGINA 1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 1: Pre-processamento Textual e Modelagem Bag-of-Words/TF-IDF) '
+(O processamento de texto inicia-se pela normalizacao de caracteres Unicode,) '
+(remocao de pontuacao, conversao para caixa baixa e segmentacao em tokens) '
+(lexicais. A lematizacao reduz palavras ao seu lema morfologico canonical,) '
+(enquanto a contagem TF-IDF \(Term Frequency-Inverse Document Frequency\)) '
+(pondera a raridade informacional de termos em relacao ao corpus documental,) '
+(atenuando a influencia desproporcional de termos excessivamente frequentes.) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 835 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([PLN-204: PROCESSAMENTO DE LINGUAGEM NATURAL E CHATBOTS - PAGINA 2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 2: Embeddings Semanticos e Modelos de Espaco Vetorial) '
+(Modelos de distribuicao semantica como Word2Vec \(arquiteturas Skip-gram e) '
+(CBOW\), GloVe e FastText mapeiam palavras em vetores densos em espacos) '
+(geometricos continuos R^D, preservando relacoes de analogia vetorial \(Rei -) '
+(Homem + Mulher aprox Rainha\). A similaridade semantica e quantificada pelo) '
+(cosseno do angulo entre vetores, calculada pelo produto escalar normalizado) '
+(pelas normas euclidianas dos vetores.) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 11 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 841 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([PLN-204: PROCESSAMENTO DE LINGUAGEM NATURAL E CHATBOTS - PAGINA 3]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 3: Arquiteturas de Chatbots e Reconhecimento de Intencoes \(NLU\)) '
+(Sistemas conversacionais orientados a tarefas fundamentam-se em dois) '
+(modulos principais de NLU: Classificacao de Intencao \(identificacao do) '
+(objetivo do usuario, ex: consultar_nota\) e Extracao de Entidades \(Named) '
+(Entity Recognition - NER, ex: disciplina=LOG-102\). O gerenciador de dialogo) '
+(rastreia o estado da sessao \(slot filling\) e dispara acoes deterministicas) '
+(ou respostas generativas contextuais.) '
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 13 0 R /Resources << /Font << /F1 14 0 R >> >> >>
+endobj
+13 0 obj
+<< /Length 753 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([PLN-204: PROCESSAMENTO DE LINGUAGEM NATURAL E CHATBOTS - PAGINA 4]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 4: Avaliacao de Coerencia Conversacional e Laboratorio) '
+(Metricas automaticas como BLEU, ROUGE e perplexidade avaliam similaridade) '
+(com respostas humanas de referencia. Atividade pratica: Construir pipeline) '
+(de classificacao de intencoes com TF-IDF e LogisticRegression para um bot) '
+(de suporte academico. Referencia: Jurafsky, Daniel & Martin, James \(Speech) '
+(and Language Processing, 3rd ed\).) '
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000134 00000 n 
+0000000260 00000 n 
+0000001188 00000 n 
+0000001285 00000 n 
+0000001411 00000 n 
+0000002297 00000 n 
+0000002394 00000 n 
+0000002522 00000 n 
+0000003415 00000 n 
+0000003513 00000 n 
+0000003642 00000 n 
+0000004447 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+4545
+%%EOF

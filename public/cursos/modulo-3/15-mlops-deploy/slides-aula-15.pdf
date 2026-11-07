@@ -1,0 +1,147 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R 9 0 R 12 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 877 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: MLO-303: MLOPS E PRATICAS DE DEPLOY CONTINUO - PAGINA 1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 1: SECAO 1: FUNDAMENTOS DE MLOPS E NIVEIS DE MATURIDADE) '
+(OPERACIONAL) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(MLOps une Machine Learning, Engenharia de Software e Operacoes de TI para) '
+(automatizar o ciclo de vida completo de modelos. O Google define niveis de) '
+(maturidade que evoluem desde processos manuais orientados a scripts locais) '
+(\(Nivel 0\), passando por pipelines automatizados de treinamento \(Nivel 1\),) '
+(ate a integracao e entrega continua completa com CI/CD de modelos em) '
+(producao \(Nivel 2\).) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 844 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: MLO-303: MLOPS E PRATICAS DE DEPLOY CONTINUO - PAGINA 2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 2: SECAO 2: RASTREAMENTO DE EXPERIMENTOS E REGISTRO DE) '
+(MODELOS COM MLFLOW) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(Sistemas de rastreamento de experimentos registram de forma imutavel:) '
+(commit do codigo Git, versao do dataset de entrada, hiperparametros de) '
+(treino, curvas de perda e artefatos de pesos serializados. O Model Registry) '
+(gerencia o ciclo de vida de transicao de estados \(Staging, Production,) '
+(Archived\) com aprovacao formal antes do roteamento de trafego real.) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 11 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 837 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: MLO-303: MLOPS E PRATICAS DE DEPLOY CONTINUO - PAGINA 3]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 3: SECAO 3: ESTRATEGIAS DE DEPLOY EM NUVEM E INTEGRACAO COM) '
+(RENDER/GCP) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(Deploy em producao adota padroes como Canary Deployment \(roteamento gradual) '
+(de 5% a 100% de requisicoes para avaliar estabilidade\) e Blue-Green) '
+(Deployment \(troca instantanea de ambiente sem downtime\). O dimensionamento) '
+(automatico \(auto-scaling\) e health checks HTTP \(/api/health\) garantem alta) '
+(disponibilidade no Render e em provedores de nuvem.) '
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 13 0 R /Resources << /Font << /F1 14 0 R >> >> >>
+endobj
+13 0 obj
+<< /Length 857 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: MLO-303: MLOPS E PRATICAS DE DEPLOY CONTINUO - PAGINA 4]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 4: SECAO 4: MONITORAMENTO EM PRODUCAO E DETECCAO DE DATA) '
+(DRIFT) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(Modelos em producao degradam devido ao desvio nos dados \(Data Drift\) ou) '
+(desvio de conceito \(Concept Drift\). Testes estatisticos como) '
+(Kolmogorov-Smirnov \(KS\) e Divergencia de Kullback-Leibler monitoram) '
+(diferencas entre a distribuicao de treino e o trafego real de inferencia,) '
+(disparando retreinamento automatico. Referencia: Treveil et al.) '
+(\(Introducing MLOps, O Reilly\).) '
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000134 00000 n 
+0000000260 00000 n 
+0000001188 00000 n 
+0000001285 00000 n 
+0000001411 00000 n 
+0000002306 00000 n 
+0000002403 00000 n 
+0000002531 00000 n 
+0000003420 00000 n 
+0000003518 00000 n 
+0000003647 00000 n 
+0000004556 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+4654
+%%EOF

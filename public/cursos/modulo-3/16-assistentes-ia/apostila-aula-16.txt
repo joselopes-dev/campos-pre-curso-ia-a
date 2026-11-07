@@ -1,0 +1,16 @@
+# ASS-304: PLANEJAMENTO DE ASSISTENTES EM INTELIGENCIA ARTIFICIAL
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 16 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Paradigma de Agentes Autonomos e Raciocinio ReAct
+Assistentes inteligentes modernos transcendem chatbots estatisticos ao adotar o padrao ReAct (Reasoning and Acting). O modelo intercala passos de pensamento logico explicito (Thought), selecao de ferramentas operacionais (Action) e observacao de retornos do ambiente (Observation), permitindo decompor problemas complexos em subtarefas sequenciais verificaveis.
+
+--- Página 2: Secao 2: Chamada de Ferramentas (Tool Use e Function Calling)
+Grandes modelos de linguagem sao conectados a fontes de informacao em tempo real atraves de declaracao formal de schemas JSON (OpenAPI / Function Calling). O modelo nao executa codigo diretamente; em vez disso, formula uma chamada estruturada com argumentos validados que a aplicacao servidora executa e devolve como observacao contextual.
+
+--- Página 3: Secao 3: Memoria Conversacional, Guardrails e Mitigacao de Alucinacoes
+O gerenciamento de sessao utiliza estrategias como resumo dinamico (sliding window com summarization) para nao estourar a janela de contexto. Guardrails de seguranca filtram entradas maliciosas (jailbreak, prompt injection) e barram respostas fora do escopo institucional ou com dados confidenciais, assegurando confiabilidade operacional.
+
+--- Página 4: Secao 4: Design Instrucional e Avaliacao Qualitativa de Assistentes
+Projetar a personalidade e os limites instrucionais de um assistente pedagógico exige instrucoes de sistema (System Prompts) precisas, tom colaborativo e estimulo a autonomia do aluno sem fornecer respostas prontas. Atividade: Construir definicao de ferramentas para consulta de notas escolares via Function Calling. Referencias: Yao et al. (ReAct: Synergizing Reasoning and Acting in Language Models).
+

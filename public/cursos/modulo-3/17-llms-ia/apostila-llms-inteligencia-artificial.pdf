@@ -1,0 +1,142 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R 9 0 R 12 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 871 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([LLM-305: LLMS E INTELIGENCIA ARTIFICIAL GENERATIVA - PAGINA 1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 1: Arquitetura Transformer e Mecanismos de Auto-Atencao) '
+(A revolucao dos Large Language Models baseia-se no mecanismo de) '
+(auto-atencao escalonada \(Scaled Dot-Product Attention\) introduzido por) '
+(Vaswani et al. \(2017\). Projecoes lineares geram tensores de Consulta \(Q\),) '
+(Chave \(K\) e Valor \(V\). A formula Attention\(Q,K,V\) = softmax\(QK^T /) '
+(sqrt\(d_k\)\) V permite que cada token pondere semanticamente todos os demais) '
+(tokens da sequencia simultaneamente, superando os gargalos sequenciais de) '
+(RNNs.) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 798 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([LLM-305: LLMS E INTELIGENCIA ARTIFICIAL GENERATIVA - PAGINA 2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 2: Engenharia de Prompts Avancada e Respostas Estruturadas) '
+(Tecnicas como Few-Shot Prompting fornecem demonstracoes exemplares no) '
+(proprio prompt de entrada; Chain-of-Thought \(CoT\) induz raciocinio) '
+(explicito passo a passo antes da resposta final. A especificacao de schemas) '
+(estruturados \(JSON Mode / Structured Outputs\) instrui a camada de) '
+(amostragem do modelo a emitir exclusivamente dados aderentes a contratos) '
+(estritos de tipos.) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 11 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 835 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([LLM-305: LLMS E INTELIGENCIA ARTIFICIAL GENERATIVA - PAGINA 3]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 3: Arquitetura RAG Completa: Chunking, Embeddings e Reranking) '
+(RAG \(Retrieval-Augmented Generation\) ancora geracoes em bases confiaveis de) '
+(conhecimento proprio. O processo abrange: 1. Chunking semantico de) '
+(documentos com sobreposicao \(overlap\); 2. Geracao de vetores densos via) '
+(modelos de embedding; 3. Busca de k-vizinhos mais proximos por similaridade) '
+(de cosseno; 4. Reordenacao \(Reranking\) contextual; 5. Insercao dos trechos) '
+(citados no prompt do modelo gerador.) '
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 13 0 R /Resources << /Font << /F1 14 0 R >> >> >>
+endobj
+13 0 obj
+<< /Length 819 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([LLM-305: LLMS E INTELIGENCIA ARTIFICIAL GENERATIVA - PAGINA 4]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 4: Integracao com o SDK @google/genai e Gemini 3.8 Flash) '
+(O SDK oficial @google/genai fornece acesso a modelos de ultima geracao como) '
+(Gemini 3.8 Flash. A integracao deve implementar respostas em fluxo) '
+(\(streaming\), tratamento robusto de limites de cota \(HTTP 429 com backoff) '
+(exponencial\) e fallback resiliente \(como indexacao lexica TF-IDF\).) '
+(Atividade: Construir pipeline RAG ponta a ponta com recuperacao de trechos) '
+(e citacao transparente de fontes.) '
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000134 00000 n 
+0000000260 00000 n 
+0000001182 00000 n 
+0000001279 00000 n 
+0000001405 00000 n 
+0000002254 00000 n 
+0000002351 00000 n 
+0000002479 00000 n 
+0000003366 00000 n 
+0000003464 00000 n 
+0000003593 00000 n 
+0000004464 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+4562
+%%EOF

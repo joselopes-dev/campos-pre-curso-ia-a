@@ -1,0 +1,34 @@
+services:
+  # Serviço Web Full-Stack (Express API + React Frontend)
+  - type: web
+    name: lms-pre-curso-ia
+    env: node
+    region: oregon
+    plan: free
+    branch: main
+    buildCommand: npm install && npm run build
+    preDeployCommand: npm run migrate
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: ALLOW_MEMORY_STORE
+        value: "true"
+      # Banco de Dados PostgreSQL (Neon ou Render Postgres)
+      # Configure no dashboard do Render com a connection string do Neon:
+      # postgresql://neondb_owner:SENHA@ep-xxxx.us-east-2.aws.neon.tech/neondb?sslmode=require
+      - key: DATABASE_URL
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: josel6449@gmail.com
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: APP_URL
+        sync: false

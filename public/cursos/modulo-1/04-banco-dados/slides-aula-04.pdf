@@ -1,0 +1,83 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 914 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: BD-104: BANCOS DE DADOS RELACIONAIS E VETORIAIS - PAGINA 1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 1: SECAO 1: MODELAGEM RELACIONAL, NORMALIZACAO E POSTGRESQL) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(Bancos de dados relacionais como o PostgreSQL asseguram a integridade) '
+(transacional atraves das propriedades ACID \(Atomicidade, Consistencia,) '
+(Isolamento e Durabilidade\). A normalizacao de dados elimina redundancias e) '
+(anomalias de atualizacao por meio de chaves primarias \(PK\) e estrangeiras) '
+(\(FK\). Indices B-Tree aceleram consultas filtradas por clausulas WHERE,) '
+(enquanto transacoes com BEGIN e COMMIT previnem estados inconsistentes.) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 976 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: BD-104: BANCOS DE DADOS RELACIONAIS E VETORIAIS - PAGINA 2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 2: SECAO 2: BANCOS NOSQL E BANCOS DE DADOS VETORIAIS PARA) '
+(RAG E IA) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(Bancos NoSQL baseados em documentos JSON \(como MongoDB\) ou chave-valor em) '
+(memoria \(como Redis\) oferecem escalabilidade horizontal e flexibilidade de) '
+(schema para telemetria de modelos. Na era dos Large Language Models, bancos) '
+(de dados vetoriais \(ou a extensao pgvector no PostgreSQL\) armazenam) '
+(embeddings numericos densos gerados por modelos de linguagem, permitindo) '
+(buscas de similaridade semantica em larga escala via indices HNSW e IVFFlat) '
+(com metricas de distancia de cosseno.) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000001212 00000 n 
+0000001309 00000 n 
+0000001435 00000 n 
+0000002462 00000 n 
+trailer
+<< /Size 9 /Root 1 0 R >>
+startxref
+2559
+%%EOF

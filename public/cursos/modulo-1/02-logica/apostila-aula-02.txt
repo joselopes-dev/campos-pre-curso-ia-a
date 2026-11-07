@@ -1,0 +1,10 @@
+# LOG-102: LOGICA DE PROGRAMACAO E ALGORITMOS
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 02 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Notacao Big-O e Complexidade Assintotica de Algoritmos
+A analise assintotica mensura o crescimento do consumo de tempo e espaco de um algoritmo a medida que o tamanho da entrada N tende ao infinito. Operacoes de acesso direto em arrays e tabelas hash operam em tempo constante O(1). Algoritmos de busca binaria em bases ordenadas operam em O(log N). A ordenacao otima por comparacao (MergeSort e Timsort) atinge O(N log N). Algoritmos de ordenacao ingenua por lacos aninhados, como BubbleSort, degradam para O(N^2), tornando-se proibitivos para grandes massas de dados.
+
+--- Página 2: Secao 2: Estruturas de Dados Fundamentais e Modularizacao
+Vetores sao blocos contiguos de memoria de tamanho estatico ou dinamico indexados a partir de zero. Matrizes bidimensionais representam tensores de ordem dois, essenciais para representar imagens digitais e tabelas de features. A modularizacao com funcoes puras divide problemas complexos em sub-rotinas testaveis e desacopladas, facilitando a manutencao de pipelines analiticos e a paralelizacao de processamento.
+

@@ -1,0 +1,10 @@
+# BD-104: BANCOS DE DADOS RELACIONAIS E VETORIAIS
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 04 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Modelagem Relacional, Normalizacao e PostgreSQL
+Bancos de dados relacionais como o PostgreSQL asseguram a integridade transacional atraves das propriedades ACID (Atomicidade, Consistencia, Isolamento e Durabilidade). A normalizacao de dados elimina redundancias e anomalias de atualizacao por meio de chaves primarias (PK) e estrangeiras (FK). Indices B-Tree aceleram consultas filtradas por clausulas WHERE, enquanto transacoes com BEGIN e COMMIT previnem estados inconsistentes.
+
+--- Página 2: Secao 2: Bancos NoSQL e Bancos de Dados Vetoriais para RAG e IA
+Bancos NoSQL baseados em documentos JSON (como MongoDB) ou chave-valor em memoria (como Redis) oferecem escalabilidade horizontal e flexibilidade de schema para telemetria de modelos. Na era dos Large Language Models, bancos de dados vetoriais (ou a extensao pgvector no PostgreSQL) armazenam embeddings numericos densos gerados por modelos de linguagem, permitindo buscas de similaridade semantica em larga escala via indices HNSW e IVFFlat com metricas de distancia de cosseno.
+

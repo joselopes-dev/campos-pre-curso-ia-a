@@ -1,0 +1,16 @@
+# PPS-308: PRATICA PROFISSIONAL SUPERVISIONADA II (TCC APLICADO)
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 20 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Regulamento e Escopo do Trabalho de Conclusao de Curso (TCC)
+A Pratica Profissional Supervisionada II constitui o Trabalho de Conclusao de Curso (TCC) aplicado do Pre-Curso de Inteligencia Artificial (carga horaria: 10h). O projeto exige o desenvolvimento, a implantacao em producao e a defesa publica perante banca examinadora de uma solucao computacional completa que resolva um problema real.
+
+--- Página 2: Secao 2: Arquitetura Full-Stack da Solucao Tecnologica com IA Integrada
+O produto final deve integrar: 1. Frontend interativo acessivel; 2. Backend estruturado com autenticacao segura e persistencia de dados; 3. Modelo preditivo, agente conversacional ou pipeline RAG operando com dados reais; 4. Deploy funcional em ambiente de nuvem publica com monitoramento de saude operacional.
+
+--- Página 3: Secao 3: Documentacao Tecnica Final, Manual do Usuario e Repositorio
+A monografia tecnica segue as normas ABNT aplicaveis e inclui especificacao completa de arquitetura, analise critica de resultados obtidos, manual de instalacao e reproducao local com Docker/venv e politicas de governanca e conformidade com a LGPD.
+
+--- Página 4: Secao 4: Criterios Formais de Avaliacao da Banca Examinadora
+A banca avaliadora analisa: 1. Dominio conceitual e tecnico das competencias do curso; 2. Qualidade e robustez da implementacao pratica; 3. Demonstracao ao vivo da solucao em funcionamento; 4. Clareza e articulacao na defesa oral. A aprovacao com nota minima 7,0 e requisito indispensavel para obtencao do Certificado do Pre-Curso de IA.
+

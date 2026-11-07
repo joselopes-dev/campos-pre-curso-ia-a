@@ -1,0 +1,85 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1015 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: LOG-102: LOGICA DE PROGRAMACAO E ALGORITMOS - PAGINA 1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 1: SECAO 1: NOTACAO BIG-O E COMPLEXIDADE ASSINTOTICA DE) '
+(ALGORITMOS) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(A analise assintotica mensura o crescimento do consumo de tempo e espaco de) '
+(um algoritmo a medida que o tamanho da entrada N tende ao infinito.) '
+(Operacoes de acesso direto em arrays e tabelas hash operam em tempo) '
+(constante O\(1\). Algoritmos de busca binaria em bases ordenadas operam em) '
+(O\(log N\). A ordenacao otima por comparacao \(MergeSort e Timsort\) atinge O\(N) '
+(log N\). Algoritmos de ordenacao ingenua por lacos aninhados, como) '
+(BubbleSort, degradam para O\(N^2\), tornando-se proibitivos para grandes) '
+(massas de dados.) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 891 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: LOG-102: LOGICA DE PROGRAMACAO E ALGORITMOS - PAGINA 2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 2: SECAO 2: ESTRUTURAS DE DADOS FUNDAMENTAIS E) '
+(MODULARIZACAO) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(Vetores sao blocos contiguos de memoria de tamanho estatico ou dinamico) '
+(indexados a partir de zero. Matrizes bidimensionais representam tensores de) '
+(ordem dois, essenciais para representar imagens digitais e tabelas de) '
+(features. A modularizacao com funcoes puras divide problemas complexos em) '
+(sub-rotinas testaveis e desacopladas, facilitando a manutencao de pipelines) '
+(analiticos e a paralelizacao de processamento.) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000001314 00000 n 
+0000001411 00000 n 
+0000001537 00000 n 
+0000002479 00000 n 
+trailer
+<< /Size 9 /Root 1 0 R >>
+startxref
+2576
+%%EOF

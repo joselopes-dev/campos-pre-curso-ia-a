@@ -1,0 +1,16 @@
+# PPS-206: PRATICA PROFISSIONAL SUPERVISIONADA I
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 12 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Diretrizes e Concepcao do Projeto Integrador de Aprendizado de Maquina
+A Pratica Profissional Supervisionada I integra conhecimentos de Ciencia de Dados e Machine Learning em um problema concreto da comunidade ou do setor produtivo. Segue o ciclo de vida padrao CRISP-DM (Cross-Industry Standard Process for Data Mining): Compreensao do Negocio, Compreensao dos Dados, Preparacao dos Dados, Modelagem, Avaliacao e Implantacao Experimental.
+
+--- Página 2: Secao 2: Protocolo de Ingestao e Validacao de Dados Reais
+Estudantes devem realizar auditoria rigorosa de qualidade dos dados coletados: identificacao de valores duplicados, analise de completude de atributos obrigatorios, remocao ou mitigacao de outliers espurios e garantia de representatividade amostral sem viés sistematico de selecao antes de qualquer treino computacional.
+
+--- Página 3: Secao 3: Benchmark e Comparacao Empirica de Modelos Preditivos
+E obrigatorio comparar ao menos tres modelos concorrentes: um baseline deterministico ou linear simples, um modelo baseado em arvores de decisao e um modelo ensamble ou rede neural. A selecao do modelo vencedor deve basear-se em criterios de desempenho estatistico (F1-score balanceado) e restricoes de tempo de inferencia e consumo de memoria.
+
+--- Página 4: Secao 4: Entregaveis Obrigatorios e Criterios de Aprovacao
+Os entregaveis exigidos compreendem: 1. Repositorio de codigo versionado e documentado com README tecnico; 2. Pipeline reprodutivel de treino e inferencia; 3. Relatorio tecnico intermediario seguindo padroes ABNT. A avaliacao docente pondera rigor metodologico, clareza da apresentacao e viabilidade da solucao desenvolvida.
+

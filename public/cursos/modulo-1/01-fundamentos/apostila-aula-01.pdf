@@ -1,0 +1,115 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R 9 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 937 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([INF-101: FUNDAMENTOS DE INFORMATICA E LINUX CLI - PAGINA 1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 1: Arquitetura de Hardware e Aceleracao para Inteligencia Artificial) '
+(Redes neurais modernas demandam operacoes massivas de algebra linear,) '
+(especificamente multiplicacoes de matrizes densas conhecidas como GEMM.) '
+(Enquanto CPUs sao otimizadas para processamento serial com branches) '
+(complexos, GPUs e TPUs sao microarquitetadas para paralelismo massivo em) '
+(milhares de nucleos simultaneos. Tensor Cores operam com precisao mista) '
+(\(FP16, BF16 e INT8\), reduzindo a saturacao do barramento PCIe e permitindo) '
+(que tensores volumosos caibam na memoria HBM de alta largura de banda.) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 958 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([INF-101: FUNDAMENTOS DE INFORMATICA E LINUX CLI - PAGINA 2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 2: Sistemas Operacionais Linux e Terminal CLI em Ciencia de Dados) '
+(O terminal Linux e a interface padrao para orquestracao de experimentos,) '
+(computacao em nuvem e clusters de treinamento de IA. Comandos essenciais) '
+(incluem navegacao no filesystem \(ls -la, cd, mkdir -p\), monitoramento de) '
+(processos e utilizacao de GPU \(ps aux, top, htop, nvidia-smi\) e) '
+(processamento em fluxo atraves de pipes Unix \(|\). O utilitario grep filtra) '
+(logs de treino, awk realiza operacoes tabulares sobre datasets CSV, e sed) '
+(efetua transformacoes automatizadas de texto sem carregamento previo na) '
+(memoria RAM.) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 11 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 968 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([INF-101: FUNDAMENTOS DE INFORMATICA E LINUX CLI - PAGINA 3]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 3: Controle de Versao com Git e Ambientes Virtuais em Python) '
+(A reprodutibilidade cientifica em IA exige rastreamento rigoroso do) '
+(codigo-fonte e dos hiperparametros. O versionamento via Git deve obedecer) '
+(ao principio de commits atomicos com mensagens semanticas. Datasets) '
+(volumosos e checkpoints de pesos treinados \(como .pt, .onnx, .safetensors\)) '
+(nunca devem ser commitados no Git; utiliza-se o arquivo .gitignore e) '
+(ferramentas de versionamento de dados como DVC. Cada projeto deve ser) '
+(isolado em um ambiente virtual criado com python -m venv .venv para) '
+(prevenir incompatibilidade de dependencias.) '
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000001241 00000 n 
+0000001338 00000 n 
+0000001464 00000 n 
+0000002473 00000 n 
+0000002570 00000 n 
+0000002698 00000 n 
+0000003718 00000 n 
+trailer
+<< /Size 12 /Root 1 0 R >>
+startxref
+3816
+%%EOF

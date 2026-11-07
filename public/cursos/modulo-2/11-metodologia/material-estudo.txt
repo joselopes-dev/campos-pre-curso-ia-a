@@ -1,0 +1,16 @@
+# MET-205: METODOLOGIA PARA ELABORACAO DE PRODUCOES TECNICAS
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 11 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Estrutura Canonica de Relatorios Tecnicos e Normas ABNT
+A comunicacao cientifica e profissional na area de tecnologia rege-se por padroes estruturais precisos (ABNT NBR 10719 para relatorios tecnicos e NBR 6023 para citacoes e referencias). Um relatorio de engenharia de IA estrutura-se em: 1. Contextualizacao do Problema e Justificativa; 2. Objetivos Gerais e Especificos; 3. Metodologia de Coleta e Engenharia de Features; 4. Arquitetura e Modelagem; 5. Analise Critica de Resultados e Conclusao.
+
+--- Página 2: Secao 2: Reprodutibilidade Cientifica e Documentacao de Experimentos de IA
+A reprodutibilidade exige a fixacao de sementes aleatorias (random seeds) em bibliotecas como NumPy, PyTorch e Scikit-Learn, o registro exato de versoes no requirements.txt e a documentacao de hiperparametros. A adocao de Model Cards (fichas tecnicas de modelos) detalha casos de uso pretendidos, metricas de desempenho em subgrupos, limitacoes operacionais e analise de riscos eticos de implantacao.
+
+--- Página 3: Secao 3: Comunicacao Tecnica e Visualizacao para Tomadores de Decisao
+Engenheiros de IA devem traduzir indicadores tecnicos (como Loss logaritmica ou F1-score) em impactos economicos e operacionais tangiveis (como reducao de custos de triagem ou aumento de precisao de diagnostico). Graficos explicativos devem conter rotulos de eixos claros, unidades de medida explicitas e legendas compreensiveis sem ambiguidade.
+
+--- Página 4: Secao 4: Roteiro Pratico de Producao Tecnica e Referencias
+Atividade: Elaborar um Model Card completo para um classificador preditivo, detalhando dados de treino, limitacoes operacionais e metricas de equidade. Referencias: Gil, Antonio Carlos (Como Elaborar Projetos de Pesquisa); Mitchell et al. (Model Cards for Model Reporting, ACM FAT).
+

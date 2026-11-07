@@ -1,0 +1,16 @@
+# CD-201: PYTHON PARA CIENCIA DE DADOS
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 07 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Objetivos de Aprendizagem e Manipulacao Estruturada com Pandas
+Esta unidade capacita o estudante a ingerir, auditar e transformar bases de dados complexas para pipelines analiticos. Compreende o uso aprofundado de DataFrames e Series, indexacao booleana avancada, tratamento de valores nulos via tecnicas estatisticas de imputacao e conversoes categoricas (One-Hot Encoding, Ordinal Encoding) sem vazamento de dados (data leakage).
+
+--- Página 2: Secao 2: Analise Exploratoria e Visualizacao Grafica com Matplotlib e Seaborn
+A analise exploratoria orientada por hipoteses emprega graficos de dispersao para correlacoes bivariadas, boxplots para deteccao de anomalias (outliers) pelo criterio de 1.5 IQR e histogramas com estimativa de densidade de kernel (KDE). Matrizes de correlacao de Pearson e Spearman expoe multicolinearidade entre atributos preditivos antes da etapa de modelagem.
+
+--- Página 3: Secao 3: Pipelines Automatizados de Transformacao com Scikit-Learn
+A classe Pipeline e o ColumnTransformer encapsulam etapas sequenciais de padronizacao (StandardScaler), normalizacao min-max e transformacoes matematicas (log-transform, Yeo-Johnson). O encapsulamento garante que parametros como media e variancia sejam calculados exclusivamente no conjunto de treino (split de treino) e replicados sem reajuste no teste.
+
+--- Página 4: Secao 4: Atividades Praticas e Referencias Tecnicas Recomendadas
+Atividade 1: Carregar conjunto tabular publico, efetuar imputacao de valores faltantes e gerar visualizacoes comparativas de features. Referencias essenciais: McKinney, Wes (Python for Data Analysis, O Reilly); VanderPlas, Jake (Python Data Science Handbook).
+

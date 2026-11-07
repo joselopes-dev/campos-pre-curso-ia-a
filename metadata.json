@@ -1,0 +1,8 @@
+{
+  "name": "Remix-3 Plataforma Educacional IA - Curso Técnico",
+  "description": "CAMPOS IA — Plataforma Educacional para o Curso Técnico de Nível Médio em Inteligência Artificial (200 horas), com Tutor IA, catálogo de 20 disciplinas, desbloqueio sequencial e integração Render PostgreSQL.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

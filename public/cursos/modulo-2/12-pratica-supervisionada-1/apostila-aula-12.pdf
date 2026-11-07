@@ -1,0 +1,138 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R 9 0 R 12 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 805 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([PPS-206: PRATICA PROFISSIONAL SUPERVISIONADA I - PAGINA 1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 1: Diretrizes e Concepcao do Projeto Integrador de Aprendizado de) '
+(Maquina) '
+(A Pratica Profissional Supervisionada I integra conhecimentos de Ciencia de) '
+(Dados e Machine Learning em um problema concreto da comunidade ou do setor) '
+(produtivo. Segue o ciclo de vida padrao CRISP-DM \(Cross-Industry Standard) '
+(Process for Data Mining\): Compreensao do Negocio, Compreensao dos Dados,) '
+(Preparacao dos Dados, Modelagem, Avaliacao e Implantacao Experimental.) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 730 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([PPS-206: PRATICA PROFISSIONAL SUPERVISIONADA I - PAGINA 2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 2: Protocolo de Ingestao e Validacao de Dados Reais) '
+(Estudantes devem realizar auditoria rigorosa de qualidade dos dados) '
+(coletados: identificacao de valores duplicados, analise de completude de) '
+(atributos obrigatorios, remocao ou mitigacao de outliers espurios e) '
+(garantia de representatividade amostral sem viés sistematico de selecao) '
+(antes de qualquer treino computacional.) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 11 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 760 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([PPS-206: PRATICA PROFISSIONAL SUPERVISIONADA I - PAGINA 3]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 3: Benchmark e Comparacao Empirica de Modelos Preditivos) '
+(E obrigatorio comparar ao menos tres modelos concorrentes: um baseline) '
+(deterministico ou linear simples, um modelo baseado em arvores de decisao e) '
+(um modelo ensamble ou rede neural. A selecao do modelo vencedor deve) '
+(basear-se em criterios de desempenho estatistico \(F1-score balanceado\) e) '
+(restricoes de tempo de inferencia e consumo de memoria.) '
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 13 0 R /Resources << /Font << /F1 14 0 R >> >> >>
+endobj
+13 0 obj
+<< /Length 734 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([PPS-206: PRATICA PROFISSIONAL SUPERVISIONADA I - PAGINA 4]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 4: Entregaveis Obrigatorios e Criterios de Aprovacao) '
+(Os entregaveis exigidos compreendem: 1. Repositorio de codigo versionado e) '
+(documentado com README tecnico; 2. Pipeline reprodutivel de treino e) '
+(inferencia; 3. Relatorio tecnico intermediario seguindo padroes ABNT. A) '
+(avaliacao docente pondera rigor metodologico, clareza da apresentacao e) '
+(viabilidade da solucao desenvolvida.) '
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000134 00000 n 
+0000000260 00000 n 
+0000001116 00000 n 
+0000001213 00000 n 
+0000001339 00000 n 
+0000002120 00000 n 
+0000002217 00000 n 
+0000002345 00000 n 
+0000003157 00000 n 
+0000003255 00000 n 
+0000003384 00000 n 
+0000004170 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+4268
+%%EOF

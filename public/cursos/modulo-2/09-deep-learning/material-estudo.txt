@@ -1,0 +1,16 @@
+# DL-203: REDES NEURAIS ARTIFICIAIS E DEEP LEARNING
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 09 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Fundamentos do Perceptron Multicamadas e Algoritmo de Backpropagation
+Redes Neurais Profundas (Deep Learning) empilham camadas lineares densas alternadas com funcoes de ativacao nao-lineares (ReLU, Leaky ReLU, GeLU, Sigmoid e Softmax), permitindo aproximar qualquer funcao continua de acordo com o Teorema da Aproximacao Universal. O algoritmo de retropropagacao (Backpropagation) propaga o erro da funcao de perda da saida para a entrada utilizando a regra da cadeia do calculo diferencial.
+
+--- Página 2: Secao 2: Otimizadores Estocasticos e Regularizacao em Redes Neurais
+O algoritmo SGD com momento acelera o gradiente em direcoes consistentes e amortiza oscilacoes. Otimizadores adaptativos como Adam e AdamW calculam taxas de aprendizado individuais baseadas no primeiro e segundo momentos dos gradientes com desacoplamento de decaimento de peso (weight decay). Tecnicas como Dropout e Normalizacao em Lote (Batch Normalization) mitigam o desaparecimento do gradiente e o sobreajuste (overfitting).
+
+--- Página 3: Secao 3: Redes Convolucionais (CNN) e Redes Recorrentes (RNN e LSTM)
+Camadas convolucionais aplicam filtros espaciais que preservam invariancia translacional em imagens, combinadas com operacoes de pooling para diminuicao de resolucao. Para dados sequenciais temporais e texto, redes LSTM (Long Short-Term Memory) e GRU incorporam portoes de esquecimento (forget gates) e atualizacao de celula, resolvendo o problema do gradiente que explode ou desaparece ao longo de passos temporais longos.
+
+--- Página 4: Secao 4: Transfer Learning e Implementacao em PyTorch
+Transfer Learning consiste em aproveitar pesos convolucionais de redes pre-treinadas (como ResNet e EfficientNet treinadas na ImageNet) e congelar as camadas base, ajustando apenas a cabeca densa classificadora final. Atividade: Construir um classificador de tensores com PyTorch definindo a classe nn.Module, metodo forward e laco de treinamento supervisionado. Referencia: Goodfellow, Bengio & Courville (Deep Learning, MIT Press).
+

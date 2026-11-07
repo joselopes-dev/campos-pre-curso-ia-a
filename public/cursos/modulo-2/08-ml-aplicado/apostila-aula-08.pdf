@@ -1,0 +1,140 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R 9 0 R 12 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 832 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([MLA-202: MACHINE LEARNING APLICADO - PAGINA 1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 1: Algoritmos Supervisionados de Regressao e Classificacao) '
+(Regressoes lineares e logisticas utilizam otimizacao convexa por gradiente) '
+(descendente com regularizacao L1 \(Lasso\) para selecao de features esparsas) '
+(e L2 \(Ridge\) contra multicolinearidade. Arvores de decisao particionam o) '
+(espaco amostral maximizando o ganho de informacao por Entropia de Shannon) '
+(ou indice de Gini, servindo de base para ensambles poderosos como Random) '
+(Forests e Gradient Boosting \(XGBoost, LightGBM\).) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 839 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([MLA-202: MACHINE LEARNING APLICADO - PAGINA 2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 2: Metodos de Margem e Agrupamento Nao-Supervisionado) '
+(Support Vector Machines \(SVM\) encontram o hiperplano separador com margem) '
+(maxima entre classes, utilizando o truque do kernel \(RBF Gaussiano,) '
+(Polinomial\) para mapeamento em espacos de dimensão infinita. No agrupamento) '
+(nao-supervisionado, o algoritmo K-Means minimiza a inercia intra-cluster) '
+(via metodo do cotovelo \(Elbow Method\) e score de silhueta, enquanto PCA) '
+(reduz a dimensionalidade preservando a variancia maxima explicada.) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 11 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 774 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([MLA-202: MACHINE LEARNING APLICADO - PAGINA 3]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 3: Validacao Cruzada e Metricas Rigorosas de Avaliacao) '
+(A divisao estratificada K-Fold previne desbalanceamento amostral. A) '
+(avaliacao em classificacao binaria e multiclasse deve transcender a) '
+(acuracia global: analisa-se a Matriz de Confusao, Precisao, Revocacao) '
+(\(Recall\), F1-Score balanceado e a curva ROC com calculo da area sob a curva) '
+(\(AUC-ROC\), essencial para diagnosticar taxas de falsos positivos e falsos) '
+(negativos.) '
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 13 0 R /Resources << /Font << /F1 14 0 R >> >> >>
+endobj
+13 0 obj
+<< /Length 741 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([MLA-202: MACHINE LEARNING APLICADO - PAGINA 4]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 4: Exemplo de Implementacao e Exercicios de Fixacao) '
+(Exemplo: Treinamento de estimador RandomForestClassifier com GridSearchCV) '
+(para ajuste fino de max_depth e n_estimators. Atividade: Comparar acuracia) '
+(balanceada e F1-score em dataset com 95% de classe majoritaria.) '
+(Referencias: Hastie, Tibshirani & Friedman \(The Elements of Statistical) '
+(Learning\); Geron, Aurelien \(Hands-On Machine Learning\).) '
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000134 00000 n 
+0000000260 00000 n 
+0000001143 00000 n 
+0000001240 00000 n 
+0000001366 00000 n 
+0000002256 00000 n 
+0000002353 00000 n 
+0000002481 00000 n 
+0000003307 00000 n 
+0000003405 00000 n 
+0000003534 00000 n 
+0000004327 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+4425
+%%EOF

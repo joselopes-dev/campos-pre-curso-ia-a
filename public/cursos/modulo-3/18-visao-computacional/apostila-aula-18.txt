@@ -1,0 +1,16 @@
+# VIS-306: VISAO COMPUTACIONAL APLICADA
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 18 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Fundamentos de Imagem Digital e Processamento Classico com OpenCV
+Imagens digitais sao tensores tridimensionais (H x W x C) representando intensidade luminosa nos canais de cores (RGB ou BGR). O processamento de imagens emprega convolucoes com filtros lineares para suavizacao Gaussiana, realce de contornos (filtros Sobel e Laplaciano), binarizacao por threshold adaptativo (metodo de Otsu) e operacoes morfologicas de dilatacao e erosao.
+
+--- Página 2: Secao 2: Deteccao de Objetos em Tempo Real com Arquiteturas YOLO
+Diferentemente de classificadores tradicionais que processam a imagem inteira para uma unica etiqueta, modelos de deteccao de objetos localizam multiplas instancias e suas respectivas caixas delimitadoras (bounding boxes). Arquiteturas como YOLO (You Only Look Once) operam em passagem unica, predizendo coordenadas normalizadas e probabilidades de classes com alta taxa de quadros por segundo (FPS).
+
+--- Página 3: Secao 3: Segmentacao Semantica e Reconhecimento de Padroes Complexos
+A segmentacao semantica classifica cada pixel individual da imagem (como nas arquiteturas U-Net e Mask R-CNN), essencial em aplicacoes medicas de diagnostico por imagem e navegacao de veiculos autonomos. Tecnicas de aumento de dados (Data Augmentation) como rotacoes, cortes aleatorios e variacoes fotometricas ampliam a robustez contra mudancas de iluminacao.
+
+--- Página 4: Secao 4: Aplicacoes Industriais e Pratica com OpenCV e PyTorch
+Sistemas visuais sao amplamente utilizados em inspecao de qualidade em linhas de montagem, contagem automatizada e biometria facial com preservacao de privacidade. Atividade: Implementar script em Python com OpenCV para extracao de caracteristicas de bordas e contornos em pecas industriais. Referencias: Szeliski, Richard (Computer Vision: Algorithms and Applications); Bradski & Kaehler (Learning OpenCV).
+

@@ -1,0 +1,10 @@
+# MAT-105: MATEMATICA COMPUTACIONAL E ESTATISTICA PARA IA
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 05 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Algebra Linear Aplicada e Multiplicacao de Matrizes
+Tensores multidimensionais sao a base matematica de todas as representacoes neurais. O produto escalar (dot product) quantifica o alinhamento direcional entre dois vetores e e a operacao central do mecanismo de atencao (Attention Is All You Need) nos modelos Transformer. Autovalores, autovetores e Decomposicao em Valores Singulares (SVD) viabilizam a reducao de dimensionalidade em tecnicas como Analise de Componentes Principais (PCA).
+
+--- Página 2: Secao 2: Estatistica Descritiva, Probabilidade e Teorema de Bayes
+Medidas de tendencia central (media aritmetica, mediana e moda) combinadas com medidas de dispersao (variancia, desvio-padrao e amplitude interquartil) caracterizam a distribuicao de features preditivas. O Teorema de Bayes formaliza a atualizacao da probabilidade a posteriori de uma hipotese a luz de novas evidencias observadas, constituindo a base de classificadores probabilisticos e modelos Bayesianos.
+

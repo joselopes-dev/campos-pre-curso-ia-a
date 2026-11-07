@@ -1,0 +1,16 @@
+# GP-307: GESTAO DE PROJETOS EM INTELIGENCIA ARTIFICIAL
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 19 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Metodologias Ageis e Ciclo de Vida de Projetos de Dados
+A gestao de projetos de IA difere do desenvolvimento de software tradicional devido a alta incerteza inerente a dados e experimentacao cientifica. A combinacao do framework Scrum com o ciclo de vida CRISP-DM organiza sprints iterativos de exploracao, definindo criterios claros de parada (Timeboxing) para evitar prototipacoes sem retorno tangivel.
+
+--- Página 2: Secao 2: Gestao de Incerteza, Viabilidade Tecnica e Definicao de MVP
+Antes de investir meses em treinamento massivo, a equipe de IA valida a viabilidade de dados (disponibilidade, qualidade e representatividade) e a viabilidade tecnica (existencia de modelos pre-treinados ou baselines simples). O Produto Minimo Viavel (MVP) deve entregar valor imediato com o menor custo de infraestrutura possivel.
+
+--- Página 3: Secao 3: Indicadores de Desempenho (KPIs de Negocio) e Metricas de Modelos
+O sucesso de um projeto de IA e medido pelo impacto estrategico no negocio: reducao de retrabalho, elevacao de satisfacao do cliente ou otimizacao de receita. O gestor estabelece o alinhamento entre metricas tecnicas (F1-score, Recall) e os Objetivos e Resultados-Chave (OKRs) da organizacao.
+
+--- Página 4: Secao 4: Matriz de Riscos em Projetos de IA e Referencias em Gestao
+Mapeamento de riscos especificos de IA: indisponibilidade de dados rotulados, data drift em producao, custos descontrolados de computacao em nuvem e riscos de conformidade regulatoria com a LGPD. Atividade: Elaborar termo de abertura de projeto (Project Charter) para uma solucao preditiva. Referencias: Schwaber & Sutherland (O Guia do Scrum); Project Management Institute (PMBOK Guide).
+

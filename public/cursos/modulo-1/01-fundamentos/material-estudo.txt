@@ -1,0 +1,13 @@
+# INF-101: FUNDAMENTOS DE INFORMATICA E LINUX CLI
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 01 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Arquitetura de Hardware e Aceleracao para Inteligencia Artificial
+Redes neurais modernas demandam operacoes massivas de algebra linear, especificamente multiplicacoes de matrizes densas conhecidas como GEMM. Enquanto CPUs sao otimizadas para processamento serial com branches complexos, GPUs e TPUs sao microarquitetadas para paralelismo massivo em milhares de nucleos simultaneos. Tensor Cores operam com precisao mista (FP16, BF16 e INT8), reduzindo a saturacao do barramento PCIe e permitindo que tensores volumosos caibam na memoria HBM de alta largura de banda.
+
+--- Página 2: Secao 2: Sistemas Operacionais Linux e Terminal CLI em Ciencia de Dados
+O terminal Linux e a interface padrao para orquestracao de experimentos, computacao em nuvem e clusters de treinamento de IA. Comandos essenciais incluem navegacao no filesystem (ls -la, cd, mkdir -p), monitoramento de processos e utilizacao de GPU (ps aux, top, htop, nvidia-smi) e processamento em fluxo atraves de pipes Unix (|). O utilitario grep filtra logs de treino, awk realiza operacoes tabulares sobre datasets CSV, e sed efetua transformacoes automatizadas de texto sem carregamento previo na memoria RAM.
+
+--- Página 3: Secao 3: Controle de Versao com Git e Ambientes Virtuais em Python
+A reprodutibilidade cientifica em IA exige rastreamento rigoroso do codigo-fonte e dos hiperparametros. O versionamento via Git deve obedecer ao principio de commits atomicos com mensagens semanticas. Datasets volumosos e checkpoints de pesos treinados (como .pt, .onnx, .safetensors) nunca devem ser commitados no Git; utiliza-se o arquivo .gitignore e ferramentas de versionamento de dados como DVC. Cada projeto deve ser isolado em um ambiente virtual criado com python -m venv .venv para prevenir incompatibilidade de dependencias.
+

@@ -1,0 +1,154 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R 9 0 R 12 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 981 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: SEG-301: SEGURANCA, GOVERNANCA DE DADOS E LGPD APLICADA - PAGINA) '
+(1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 1: SECAO 1: MARCO LEGAL DA LGPD \(LEI 13.709/2018\) NO) '
+(CONTEXTO DE INTELIGENCIA ARTIFICIAL) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(A Lei Geral de Protecao de Dados estabelece principios fundamentais para o) '
+(tratamento de dados pessoais em sistemas de IA: Finalidade, Adequacao,) '
+(Necessidade \(minimizacao de dados\), Livre Acesso, Seguranca e) '
+(Nao-Discriminacao. O processamento para treino de modelos exige) '
+(enquadramento em bases legais explicitas \(como consentimento do titular ou) '
+(legitimo interesse\) e mecanismos de auditoria para atender solicitacoes de) '
+(explicabilidade algoritmica.) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 981 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: SEG-301: SEGURANCA, GOVERNANCA DE DADOS E LGPD APLICADA - PAGINA) '
+(2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 2: SECAO 2: TECNICAS DE ANONIMIZACAO E PRIVACIDADE) '
+(DIFERENCIAL) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(A anonimizacao efetiva remove o vinculo causal entre o dado e a pessoa) '
+(natural. O modelo k-Anonimato garante que qualquer individuo nao seja) '
+(distinguivel de pelo menos k-1 outros individuos em atributos) '
+(quase-identificadores. A Privacidade Diferencial adiciona ruido matematico) '
+(controlado \(calibrado pela distribuicao de Laplace ou Gaussiana\) aos) '
+(gradientes ou consultas estatisticas, garantindo protecao formal contra) '
+(ataques de inferencia de associacao \(membership inference\).) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 11 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 936 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: SEG-301: SEGURANCA, GOVERNANCA DE DADOS E LGPD APLICADA - PAGINA) '
+(3]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 3: SECAO 3: AUDITORIA DE VIES ALGORITMICO E SEGURANCA) '
+(CIBERNETICA DE MODELOS) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(Vieses historicos presentes nos dados de treinamento podem amplificar) '
+(discriminacoes sistemicas. Metricas de equidade \(como Paridade Demografica) '
+(e Igualdade de Oportunidades\) devem ser auditadas. Em cibersegurança de IA,) '
+(defesas contra ataques de envenenamento de dados \(data poisoning\), ataques) '
+(adversariais com perturbacao de pixels e extracao indevida de pesos \(model) '
+(inversion\) devem ser implementadas nos pipelines.) '
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 13 0 R /Resources << /Font << /F1 14 0 R >> >> >>
+endobj
+13 0 obj
+<< /Length 844 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([SLIDES: SEG-301: SEGURANCA, GOVERNANCA DE DADOS E LGPD APLICADA - PAGINA) '
+(4]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(LAMINA DIDATICA 4: SECAO 4: RELATORIO DE IMPACTO A PROTECAO DE DADOS \(RIPD\)) '
+(E PRATICA) '
+(SINTESE CONCEITUAL E DIAGRAMAS:) '
+(Atividade: Elaborar secao de avaliacao de riscos em um Relatorio de Impacto) '
+(a Protecao de Dados \(RIPD\) para um sistema automatizado de analise de) '
+(credito. Referencias: Legislacao oficial \(Lei 13.709/2018\); Guias) '
+(Orientativos da Autoridade Nacional de Protecao de Dados \(ANPD\); Barocas,) '
+(Hardt & Narayanan \(Fairness and Machine Learning\).) '
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000134 00000 n 
+0000000260 00000 n 
+0000001292 00000 n 
+0000001389 00000 n 
+0000001515 00000 n 
+0000002547 00000 n 
+0000002644 00000 n 
+0000002772 00000 n 
+0000003760 00000 n 
+0000003858 00000 n 
+0000003987 00000 n 
+0000004883 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+4981
+%%EOF

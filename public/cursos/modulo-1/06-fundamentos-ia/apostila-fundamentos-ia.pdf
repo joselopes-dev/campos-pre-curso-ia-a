@@ -1,0 +1,81 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 895 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([IA-106: INTRODUCAO E FUNDAMENTOS DA INTELIGENCIA ARTIFICIAL - PAGINA 1]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 1: Evolucao Historica dos Paradigmas de Inteligencia Artificial) '
+(A Inteligencia Artificial evoluiu a partir do teste de Turing \(1950\) e da) '
+(Conferencia de Dartmouth \(1956\). O paradigma simbolico \(IA classica baseada) '
+(em logica formal, sistemas especialistas e arvores de decisao com busca) '
+(heuristica como A*\) dominou as primeiras decadas. O paradigma conexionista) '
+(\(aprendizado estatistico e redes neurais artificiais\) emergiu vitorioso) '
+(gracas a disponibilidade de Big Data e processadores massivamente) '
+(paralelos.) '
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 919 >>
+stream
+BT
+/F1 11 Tf
+45 740 Td
+15 TL
+([IA-106: INTRODUCAO E FUNDAMENTOS DA INTELIGENCIA ARTIFICIAL - PAGINA 2]) '
+(CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL \(200 HORAS\)) '
+(MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO) '
+(Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao) '
+(Profissional e Tecnologica) '
+(Secao 2: Taxonomia do Aprendizado de Maquina e Agentes Inteligentes) '
+(O Aprendizado de Maquina se subdivide em tres categorias centrais: 1.) '
+(Aprendizado Supervisionado, no qual o modelo aprende um mapeamento entre) '
+(entradas X e rotulos verdadeiros Y \(regressao e classificacao\); 2.) '
+(Aprendizado Nao-Supervisionado, que descobre estruturas latentes e) '
+(agrupamentos intrinsecos nos dados sem anotacoes previas \(clustering,) '
+(k-means, PCA\); 3. Aprendizado por Reforco, onde um agente interage com um) '
+(ambiente dinamico maximizando recompensas cumulativas.) '
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000001193 00000 n 
+0000001290 00000 n 
+0000001416 00000 n 
+0000002386 00000 n 
+trailer
+<< /Size 9 /Root 1 0 R >>
+startxref
+2483
+%%EOF

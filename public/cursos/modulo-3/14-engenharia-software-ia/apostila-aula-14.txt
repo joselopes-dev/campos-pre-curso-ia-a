@@ -1,0 +1,16 @@
+# ES-302: ENGENHARIA DE SOFTWARE PARA SISTEMAS DE IA
+# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)
+# DISCIPLINA 14 | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO
+
+--- Página 1: Secao 1: Principios Arquiteturais de Software e Clean Code em IA
+Sistemas com componentes de IA exigem separacao rigida entre regras de negocio deterministicas, pipelines de engenharia de atributos e motores probabilisticos de inferencia. Os principios SOLID (como Responsabilidade Unica e Inversao de Dependencia) orientam a criacao de interfaces abstratas para modelos, permitindo trocar algoritmos subjacentes sem impactar consumidores downstream.
+
+--- Página 2: Secao 2: Desenvolvimento Orientado a Testes (TDD) para Dados e Modelos
+Diferentemente do software tradicional, sistemas de IA falham silenciosamente atraves de degradacao estatistica. Testes automatizados dividem-se em: 1. Testes unitarios de transformacoes de dados; 2. Testes de integridade de schemas de entrada (validacao com Pydantic ou Zod); 3. Testes de invariancia e sensibilidade direcional de previsoes; 4. Testes de regressao de desempenho minimo garantido.
+
+--- Página 3: Secao 3: APIs RESTful Assincronas e Empacotamento em Conteineres Docker
+Modelos em producao sao servidos via endpoints RESTful assincronos de alta performance (construidos em Express ou FastAPI) com serializacao JSON estrita. O empacotamento em imagens Docker multicamadas (multi-stage builds) isola drivers CUDA, compiladores C++ e dependencias Python, gerando imagens leves, imutaveis e reproduziveis em qualquer nuvem publica.
+
+--- Página 4: Secao 4: Padroes de Projeto em Machine Learning e Laboratorio
+Aplicacao dos padroes Strategy (para alternar algoritmos em tempo de execucao) e Decorator (para injetar telemetria e calculo de latencia em chamadas de predict). Atividade: Escrever Dockerfile otimizado e suite de testes unitarios em pytest para uma API de inferencia preditiva. Referencias: Martin, Robert (Clean Code); Fowler, Martin (Patterns of Enterprise Application Architecture).
+
