@@ -721,7 +721,7 @@ export const Classroom: React.FC<ClassroomProps> = ({
                 </span>
               </div>
               <div className="flex items-center space-x-1 shrink-0 text-emerald-700">
-                <span>{isMobileLessonsOpen ? 'Ocultar Aulas' : `Aulas (${lessons.length})`}</span>
+                <span>{isMobileLessonsOpen ? 'Ocultar Detalhes' : lessons.length === 1 ? 'Aula 01' : `Aulas (${lessons.length})`}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isMobileLessonsOpen ? 'rotate-180' : ''}`} />
               </div>
             </button>
@@ -732,9 +732,9 @@ export const Classroom: React.FC<ClassroomProps> = ({
             <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-xs space-y-2">
             <div className="flex items-center justify-between pb-1">
               <h2 className="text-xs font-black text-gray-500 uppercase tracking-wider">
-                Aulas da Disciplina ({lessons.length})
+                {lessons.length === 1 ? 'Aula da Disciplina' : `Aulas da Disciplina (${lessons.length})`}
               </h2>
-              <span className="text-[10px] text-gray-400 font-mono">5 etapas/aula</span>
+              <span className="text-[10px] text-gray-400 font-mono">5 etapas</span>
             </div>
 
             <div className="space-y-1.5">

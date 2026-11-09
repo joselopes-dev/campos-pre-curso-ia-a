@@ -43,7 +43,7 @@ export const DISCIPLINES: Discipline[] = [
       'Compreender fundamentos de arquitetura de hardware para aceleração computacional',
     ],
     localMaterialPath: '/cursos/modulo-1/01-fundamentos',
-    totalLessons: 4,
+    totalLessons: 1,
   },
   {
     id: 'disc-02',
@@ -59,7 +59,7 @@ export const DISCIPLINES: Discipline[] = [
       'Calcular complexidade assintótica básica de algoritmos',
     ],
     localMaterialPath: '/cursos/modulo-1/02-logica',
-    totalLessons: 4,
+    totalLessons: 1,
   },
   {
     id: 'disc-03',
@@ -75,7 +75,7 @@ export const DISCIPLINES: Discipline[] = [
       'Manipular estruturas de dados eficientes (listas, dicionários, tuplas, conjuntos)',
     ],
     localMaterialPath: '/cursos/modulo-1/03-python',
-    totalLessons: 5,
+    totalLessons: 1,
   },
   {
     id: 'disc-04',
@@ -91,7 +91,7 @@ export const DISCIPLINES: Discipline[] = [
       'Compreender o ecossistema e pipelines de processamento de Big Data',
     ],
     localMaterialPath: '/cursos/modulo-1/04-banco-dados',
-    totalLessons: 3,
+    totalLessons: 1,
   },
   {
     id: 'disc-05',
@@ -107,7 +107,7 @@ export const DISCIPLINES: Discipline[] = [
       'Realizar análise exploratória de dados e testes estatísticos descritivos',
     ],
     localMaterialPath: '/cursos/modulo-1/05-matematica-estatistica',
-    totalLessons: 4,
+    totalLessons: 1,
   },
   {
     id: 'disc-06',
@@ -123,7 +123,7 @@ export const DISCIPLINES: Discipline[] = [
       'Avaliar métricas de desempenho (acurácia, precisão, recall, F1-score)',
     ],
     localMaterialPath: '/cursos/modulo-1/06-fundamentos-ia',
-    totalLessons: 4,
+    totalLessons: 1,
   },
 
   // MÓDULO II (60h - 6 disciplinas de 10h)
@@ -141,7 +141,7 @@ export const DISCIPLINES: Discipline[] = [
       'Construir pipelines automatizados de preparação de features',
     ],
     localMaterialPath: '/cursos/modulo-2/07-python-ciencia-dados',
-    totalLessons: 4,
+    totalLessons: 1,
   },
   {
     id: 'disc-08',
@@ -157,7 +157,7 @@ export const DISCIPLINES: Discipline[] = [
       'Interpretar a importância de atributos e curvas ROC/AUC',
     ],
     localMaterialPath: '/cursos/modulo-2/08-ml-aplicado',
-    totalLessons: 4,
+    totalLessons: 1,
   },
   {
     id: 'disc-09',
@@ -173,7 +173,7 @@ export const DISCIPLINES: Discipline[] = [
       'Aplicar técnicas de Transfer Learning com modelos pré-treinados',
     ],
     localMaterialPath: '/cursos/modulo-2/09-deep-learning',
-    totalLessons: 5,
+    totalLessons: 1,
   },
   {
     id: 'disc-10',
@@ -189,7 +189,7 @@ export const DISCIPLINES: Discipline[] = [
       'Implementar interfaces conversacionais interativas',
     ],
     localMaterialPath: '/cursos/modulo-2/10-pln-chatbots',
-    totalLessons: 3,
+    totalLessons: 1,
   },
   {
     id: 'disc-11',
@@ -205,7 +205,7 @@ export const DISCIPLINES: Discipline[] = [
       'Comunicar resultados complexos para stakeholders técnicos e não-técnicos',
     ],
     localMaterialPath: '/cursos/modulo-2/11-metodologia',
-    totalLessons: 3,
+    totalLessons: 1,
   },
   {
     id: 'disc-12',
@@ -221,7 +221,7 @@ export const DISCIPLINES: Discipline[] = [
       'Apresentar produto técnico funcional com documentação completa',
     ],
     localMaterialPath: '/cursos/modulo-2/12-pratica-supervisionada-1',
-    totalLessons: 3,
+    totalLessons: 1,
   },
 
   // MÓDULO III (80h - 8 disciplinas de 10h)
@@ -239,7 +239,7 @@ export const DISCIPLINES: Discipline[] = [
       'Aplicar práticas de segurança da informação em infraestruturas de dados',
     ],
     localMaterialPath: '/cursos/modulo-3/13-seguranca-lgpd',
-    totalLessons: 3,
+    totalLessons: 1,
   },
   {
     id: 'disc-14',
@@ -255,7 +255,7 @@ export const DISCIPLINES: Discipline[] = [
       'Escrever testes automatizados de regressão para dados e modelos',
     ],
     localMaterialPath: '/cursos/modulo-3/14-engenharia-software-ia',
-    totalLessons: 3,
+    totalLessons: 1,
   },
   {
     id: 'disc-15',
@@ -271,7 +271,7 @@ export const DISCIPLINES: Discipline[] = [
       'Executar deploy em ambientes escaláveis de computação em nuvem (Render, GCP)',
     ],
     localMaterialPath: '/cursos/modulo-3/15-mlops-deploy',
-    totalLessons: 3,
+    totalLessons: 1,
   },
   {
     id: 'disc-16',
@@ -287,7 +287,7 @@ export const DISCIPLINES: Discipline[] = [
       'Garantir barreiras de segurança (guardrails) e alinhamento do assistente',
     ],
     localMaterialPath: '/cursos/modulo-3/16-assistentes-ia',
-    totalLessons: 3,
+    totalLessons: 1,
   },
   {
     id: 'disc-17',
@@ -303,7 +303,7 @@ export const DISCIPLINES: Discipline[] = [
       'Utilizar o SDK @google/genai com streaming e tratamento robusto de erros',
     ],
     localMaterialPath: '/cursos/modulo-3/17-llms-ia',
-    totalLessons: 3,
+    totalLessons: 1,
   },
   {
     id: 'disc-18',
@@ -319,7 +319,7 @@ export const DISCIPLINES: Discipline[] = [
       'Integrar visão computacional com sistemas de automação e controle',
     ],
     localMaterialPath: '/cursos/modulo-3/18-visao-computacional',
-    totalLessons: 3,
+    totalLessons: 1,
   },
   {
     id: 'disc-19',
@@ -335,7 +335,7 @@ export const DISCIPLINES: Discipline[] = [
       'Mapear riscos técnicos, prazos e custos computacionais de modelos',
     ],
     localMaterialPath: '/cursos/modulo-3/19-gestao-projetos-ia',
-    totalLessons: 3,
+    totalLessons: 1,
   },
   {
     id: 'disc-20',
@@ -351,7 +351,7 @@ export const DISCIPLINES: Discipline[] = [
       'Elaborar documentação técnica final e repositório de código aberto',
     ],
     localMaterialPath: '/cursos/modulo-3/20-pratica-supervisionada-2',
-    totalLessons: 4,
+    totalLessons: 1,
   },
 ];
 
@@ -360,7 +360,7 @@ export function getDisciplineLessons(disciplineId: string): Lesson[] {
   if (!discipline) return [];
 
   const discNum = String(discipline.order || 1).padStart(2, '0');
-  const count = discipline.totalLessons;
+  const count = 1; // Apenas a primeira aula de cada disciplina
   const lessons: Lesson[] = [];
 
   for (let i = 1; i <= count; i++) {
@@ -410,8 +410,8 @@ export function getDisciplineLessons(disciplineId: string): Lesson[] {
         {
           stepNumber: 5,
           type: 'next_unlock',
-          title: 'Liberação da Próxima Aula',
-          description: 'Conclusão formal registrada no banco de dados e desbloqueio do conteúdo subsequente.',
+          title: 'Conclusão da Aula e Liberação da Avaliação Final',
+          description: 'Conclusão formal registrada no banco de dados e desbloqueio da Avaliação Final da disciplina.',
           isAvailable: true,
         },
       ],
@@ -574,4 +574,3 @@ export function getDisciplineFinalExam(disciplineId: string): FinalExamQuestion[
 
   return questions;
 }
-

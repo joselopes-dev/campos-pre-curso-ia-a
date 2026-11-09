@@ -69,8 +69,9 @@ export async function runMigrations() {
         ]
       );
 
-      // Seed das aulas de cada disciplina
+      // Seed das aulas de cada disciplina (apenas a Aula 01)
       const lessons = getDisciplineLessons(d.id);
+      await client.query('DELETE FROM lessons WHERE discipline_id = $1 AND order_num > $2', [d.id, lessons.length]);
       for (const lesson of lessons) {
         await client.query(
           `INSERT INTO lessons (id, discipline_id, order_num, title, summary, steps_config)

@@ -456,7 +456,7 @@ export const db = {
 
     return {
       success: true,
-      message: stepNumber === 5 ? 'Aula concluída com sucesso! Próxima aula desbloqueada.' : `Etapa ${stepNumber} validada e concluída.`,
+      message: stepNumber === 5 ? 'Aula concluída com sucesso! Avaliação Final da disciplina liberada.' : `Etapa ${stepNumber} validada e concluída.`,
       unlockedNextStep: unlockedNext,
     };
   },

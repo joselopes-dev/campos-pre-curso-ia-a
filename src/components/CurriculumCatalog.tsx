@@ -196,7 +196,7 @@ export const CurriculumCatalog: React.FC<CurriculumCatalogProps> = ({
                       <FolderCheck className="w-3.5 h-3.5 text-emerald-600" />
                       <span className="font-mono text-[10px] text-gray-600">{d.localMaterialPath}</span>
                     </span>
-                    <span>• {d.totalLessons} aulas estruturadas</span>
+                    <span>• {d.totalLessons} {d.totalLessons === 1 ? 'aula estruturada' : 'aulas estruturadas'}</span>
                   </div>
 
                   {/* Competências Curriculares (Acordeão) */}
