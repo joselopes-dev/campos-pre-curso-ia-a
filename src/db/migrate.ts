@@ -13,19 +13,34 @@ dotenv.config();
 
 const connectionString = process.env.DATABASE_URL;
 
-export async function runMigrations() {
-  console.log('🔄 [Migrate] Iniciando migrações do banco de dados...');
+// Detecção do ambiente de execução Render.com
+const isRenderEnvironment = Boolean(
+  process.env.RENDER === 'true' ||
+  Boolean(process.env.RENDER_SERVICE_ID) ||
+  process.env.IS_RENDER === 'true' ||
+  process.env.FORCE_MIGRATE === 'true'
+);
 
-  if (!connectionString) {
-    console.warn('⚠️ [Migrate] DATABASE_URL não definida. Migração em PostgreSQL ignorada.');
+export async function runMigrations() {
+  console.log('🔄 [Migrate] Verificando ambiente para migrações do banco...');
+
+  // Conectar e executar migração de banco exclusivamente no Render
+  if (!isRenderEnvironment) {
+    console.log('ℹ️ [Migrate] Ambiente local detectado. O banco de dados PostgreSQL é conectado exclusivamente no Render. Migração ignorada no ambiente local.');
+    return { success: true, reason: 'LOCAL_SKIP_MIGRATE_RENDER_ONLY' };
+  }
+
+  if (!connectionString || connectionString.includes('localhost:5432/lms_ia')) {
+    console.warn('⚠️ [Migrate] Executando no Render, porém DATABASE_URL não foi definida. Migração ignorada.');
     return { success: false, reason: 'DATABASE_URL_NOT_SET' };
   }
 
+  console.log('🚀 [Migrate] Ambiente Render detectado. Iniciando conexão e migrações no PostgreSQL...');
+
   const pool = new pg.Pool({
     connectionString,
-    ssl: process.env.NODE_ENV === 'production' || connectionString.includes('render.com')
-      ? { rejectUnauthorized: false }
-      : false,
+    ssl: { rejectUnauthorized: false }, // Render PostgreSQL exige SSL com rejectUnauthorized: false
+    connectionTimeoutMillis: 10000,
   });
 
   const client = await pool.connect();

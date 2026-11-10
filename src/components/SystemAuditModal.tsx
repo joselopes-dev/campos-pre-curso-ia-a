@@ -104,18 +104,18 @@ export const SystemAuditModal: React.FC<SystemAuditModalProps> = ({ isOpen, onCl
               <div className="p-4 rounded-xl border border-gray-200 bg-white space-y-2">
                 <div className="flex items-center space-x-2 text-gray-900 font-bold">
                   <Database className="w-4 h-4 text-emerald-700" />
-                  <span>Camada de Persistência (PostgreSQL)</span>
+                  <span>Camada de Persistência (PostgreSQL no Render)</span>
                 </div>
                 <div className="space-y-1 text-gray-700">
                   <p>• Motor Ativo: <strong>{healthData.database?.engine}</strong></p>
                   <p>
-                    • Suporte a SSL Render: <strong>{healthData.database?.postgres?.sslEnabled ? 'Habilitado' : 'Automático'}</strong>
+                    • Conexão PostgreSQL: <strong className="text-emerald-700">Ativa exclusivamente no Render.com</strong>
                   </p>
                   <p>
                     • Migração Inicial: <strong className="text-emerald-700">001_initial_schema.sql (pronta)</strong>
                   </p>
                   <p className="text-[11px] text-gray-500">
-                    O script <code className="text-emerald-800">npm run migrate</code> executa todas as tabelas e seeds no PostgreSQL do Render.
+                    O script <code className="text-emerald-800">npm run migrate</code> executa no pre-deploy do Render conectando à <code className="text-emerald-800">DATABASE_URL</code> oficial.
                   </p>
                 </div>
               </div>

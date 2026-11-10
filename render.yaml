@@ -17,9 +17,10 @@ services:
         value: 10000
       - key: ALLOW_MEMORY_STORE
         value: "true"
-      # Banco de Dados PostgreSQL (Neon ou Render Postgres)
-      # Configure no dashboard do Render com a connection string do Neon:
-      # postgresql://neondb_owner:SENHA@ep-xxxx.us-east-2.aws.neon.tech/neondb?sslmode=require
+      # Banco de Dados PostgreSQL no Render
+      # Conecta exclusivamente quando em execução no Render (onde a plataforma injeta RENDER=true)
+      # Configure no painel do Render com a connection string do seu Render PostgreSQL:
+      # Exemplo: postgresql://lms_user:senha@dpg-xxxx.oregon-postgres.render.com/lms_ia
       - key: DATABASE_URL
         sync: false
       - key: SESSION_SECRET

@@ -13,7 +13,16 @@ import {
   FinalExamQuestion 
 } from '../types/index.ts';
 
-// Configuração do PostgreSQL Pool
+// Detecção do ambiente de execução Render.com
+// No Render, as variáveis RENDER=true e RENDER_SERVICE_ID são injetadas nativamente pela plataforma.
+const isRenderEnvironment = Boolean(
+  process.env.RENDER === 'true' ||
+  Boolean(process.env.RENDER_SERVICE_ID) ||
+  process.env.IS_RENDER === 'true' ||
+  process.env.FORCE_DB_CONNECT === 'true'
+);
+
+// Conexão com o banco de dados PostgreSQL: Ativada EXCLUSIVAMENTE quando executado no Render
 const connectionString = process.env.DATABASE_URL;
 const isProduction = process.env.NODE_ENV === 'production';
 const allowMemoryStore = process.env.ALLOW_MEMORY_STORE === 'true';
@@ -25,45 +34,52 @@ let pgPool: pg.Pool | null = null;
 let isPostgresConnected = false;
 let connectionError: string | null = null;
 
-// Inicializa pool caso DATABASE_URL exista e não seja URL placeholder
-if (connectionString && !connectionString.includes('localhost:5432/lms_ia')) {
-  try {
-    pgPool = new pg.Pool({
-      connectionString,
-      ssl: requiresSsl ? { rejectUnauthorized: false } : false,
-      max: 10,
-      idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 5000,
-    });
+// Inicializa o pool PostgreSQL EXCLUSIVAMENTE no Render
+if (isRenderEnvironment) {
+  if (connectionString && !connectionString.includes('localhost:5432/lms_ia')) {
+    try {
+      console.log('🚀 [DB] Ambiente Render detectado (RENDER=true). Inicializando conexão com PostgreSQL...');
+      pgPool = new pg.Pool({
+        connectionString,
+        ssl: requiresSsl ? { rejectUnauthorized: false } : false,
+        max: 10,
+        idleTimeoutMillis: 30000,
+        connectionTimeoutMillis: 5000,
+      });
 
-    pgPool.query('SELECT NOW()', (err) => {
-      if (err) {
-        connectionError = err.message;
-        console.warn('⚠️ [DB] PostgreSQL não acessível no momento:', err.message);
-      } else {
-        isPostgresConnected = true;
-        const providerName = isNeonPostgres ? 'Neon' : (isRenderPostgres ? 'Render' : 'PostgreSQL');
-        console.log(`✅ [DB] Conectado com sucesso ao banco ${providerName} (Produção)`);
-      }
-    });
-  } catch (err: any) {
-    connectionError = err.message;
-    console.warn('⚠️ [DB] Falha ao instanciar Pool PostgreSQL:', err.message);
+      pgPool.query('SELECT NOW()', (err) => {
+        if (err) {
+          connectionError = err.message;
+          console.warn('⚠️ [DB] PostgreSQL no Render não acessível no momento:', err.message);
+        } else {
+          isPostgresConnected = true;
+          const providerName = isRenderPostgres ? 'Render PostgreSQL' : (isNeonPostgres ? 'Neon' : 'PostgreSQL');
+          console.log(`✅ [DB] Conectado com sucesso ao banco ${providerName} no Render.`);
+        }
+      });
+    } catch (err: any) {
+      connectionError = err.message;
+      console.warn('⚠️ [DB] Falha ao instanciar Pool PostgreSQL no Render:', err.message);
+    }
+  } else {
+    console.warn('⚠️ [DB] Executando no Render, mas DATABASE_URL não foi configurada. Utilizando armazenamento em memória temporário.');
   }
 } else {
-  console.log('ℹ️ [DB] DATABASE_URL padrão/local. Armazenamento em memória disponível para desenvolvimento local.');
+  console.log('ℹ️ [DB] Ambiente Local / Desenvolvimento: Conexão com banco PostgreSQL desativada (configurada para conectar exclusivamente no Render). Armazenamento em memória ativo.');
 }
 
 /**
- * Verificação de Segurança Operacional para Produção
- * Impede que a aplicação utilize silenciosamente um banco em memória como substituto do PostgreSQL em produção.
+ * Verificação de Segurança Operacional para Produção no Render
  */
 export function assertDatabaseAvailable() {
-  const inProd = process.env.NODE_ENV === 'production';
+  if (!isRenderEnvironment) {
+    // Fora do Render, a camada de dados em memória está sempre liberada e operacional
+    return;
+  }
   const allowMem = process.env.ALLOW_MEMORY_STORE === 'true' || !process.env.DATABASE_URL;
-  if (inProd && !allowMem && !isPostgresConnected) {
+  if (!allowMem && !isPostgresConnected) {
     const error: any = new Error(
-      'SERVIÇO INDISPONÍVEL EM PRODUÇÃO: O banco de dados PostgreSQL (Neon) obrigatório não está conectado. Operações bloqueadas para prevenir perda de dados. Configure a variável DATABASE_URL com um PostgreSQL ativo no Neon.'
+      'SERVIÇO INDISPONÍVEL NO RENDER: O banco de dados PostgreSQL não está conectado. Configure a variável DATABASE_URL com um PostgreSQL ativo no Render.'
     );
     error.status = 503;
     error.code = 'DATABASE_UNAVAILABLE';
@@ -109,7 +125,7 @@ const QUIZ_ANSWERS_SERVER: Record<string, { answers: number[]; explanation: stri
     explanation: 'Comandos Bash como grep, awk, sed e xargs permitem manipular gigabytes de logs e datasets diretamente na memória.',
   },
   'disc-02-aula-1': {
-    answers: [1, 2, 0],
+    answers: [2, 1, 3],
     explanation: 'Pensamento algorítmico precede qualquer linguagem de programação e otimiza recursos computacionais.',
   },
 };
@@ -124,6 +140,33 @@ const FINAL_EXAM_ANSWERS_SERVER: Record<string, number[]> = {
 // ==============================================================
 export const db = {
   async getHealthStatus() {
+    if (!isRenderEnvironment) {
+      return {
+        status: 'ok',
+        engine: 'Armazenamento em Memória Resiliente (Local / Conexão PostgreSQL ativada exclusivamente no Render)',
+        productionSafe: true,
+        connectOnlyOnRender: true,
+        isRenderEnvironment: false,
+        postgres: {
+          configured: Boolean(connectionString && !connectionString.includes('localhost:5432/lms_ia')),
+          connected: false,
+          activeOnRenderOnly: true,
+          provider: 'PostgreSQL no Render (Aguardando Deploy)',
+          latencyMs: null,
+          error: null,
+          sslEnabled: false,
+          message: 'Banco de dados configurado para conectar exclusivamente quando executado no Render.com (RENDER=true).',
+        },
+        stats: {
+          totalDisciplines: DISCIPLINES.length,
+          totalModules: 3,
+          totalHoursItemized: 200,
+          targetHours: 200,
+          registeredUsers: memoryStore.users.size,
+        },
+      };
+    }
+
     let pgStatus = 'disconnected';
     let latencyMs: number | null = null;
 
@@ -141,21 +184,23 @@ export const db = {
       }
     }
 
-    const isHealthy = isProduction ? (pgStatus === 'connected' || allowMemoryStore || !connectionString) : true;
+    const isHealthy = pgStatus === 'connected' || allowMemoryStore || !connectionString;
     const isNeon = Boolean(connectionString?.includes('neon.tech'));
     const isRender = Boolean(connectionString?.includes('render.com'));
-    const providerName = isNeon ? 'Neon PostgreSQL' : (isRender ? 'Render PostgreSQL' : 'PostgreSQL');
+    const providerName = isRender ? 'Render PostgreSQL' : (isNeon ? 'Neon PostgreSQL' : 'PostgreSQL no Render');
 
     return {
       status: isHealthy ? 'ok' : 'degraded',
-      engine: pgStatus === 'connected' ? providerName : 'Camada de Dados Relacional Resiliente (Produção)',
-      productionSafe: isProduction ? (pgStatus === 'connected') : true,
+      engine: pgStatus === 'connected' ? providerName : 'Camada de Dados Relacional Resiliente (Render)',
+      productionSafe: pgStatus === 'connected',
+      connectOnlyOnRender: true,
+      isRenderEnvironment: true,
       postgres: {
         configured: Boolean(connectionString && !connectionString.includes('localhost:5432/lms_ia')),
         connected: pgStatus === 'connected',
-        provider: isNeon ? 'Neon' : (isRender ? 'Render' : 'PostgreSQL'),
+        provider: providerName,
         latencyMs,
-        error: isProduction ? (pgStatus === 'error' ? 'Falha de conexão com o banco de dados PostgreSQL' : null) : connectionError,
+        error: pgStatus === 'error' ? 'Falha de conexão com o banco de dados PostgreSQL no Render' : connectionError,
         sslEnabled: requiresSsl,
       },
       stats: {
