@@ -109,7 +109,7 @@ const QUIZ_ANSWERS_SERVER: Record<string, { answers: number[]; explanation: stri
     explanation: 'Comandos Bash como grep, awk, sed e xargs permitem manipular gigabytes de logs e datasets diretamente na memória.',
   },
   'disc-02-aula-1': {
-    answers: [2, 1, 3],
+    answers: [2, 1, 2],
     explanation: 'Pensamento algorítmico precede qualquer linguagem de programação e otimiza recursos computacionais.',
   },
 };
