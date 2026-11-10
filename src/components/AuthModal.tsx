@@ -8,6 +8,8 @@ interface AuthModalProps {
   onLoginSuccess: (user: User) => void;
 }
 
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '271409256917-dbbv48015no5uiicp9slk7vm3ona8gr.apps.googleusercontent.com';
+
 export const AuthModal: React.FC<AuthModalProps> = ({
   isOpen,
   onClose,
@@ -18,15 +20,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [emailInput, setEmailInput] = useState('');
   const [nameInput, setNameInput] = useState('');
 
-  // Inicializa Google Identity Services se disponível
   useEffect(() => {
     if (!isOpen) return;
 
-    const google = (window as any).google;
-    if (google && google.accounts && google.accounts.id) {
+    const initGoogle = () => {
+      const google = (window as any).google;
+      if (!google?.accounts?.id) return;
+
       try {
         google.accounts.id.initialize({
-          client_id: 'seu-google-client-id.apps.googleusercontent.com',
+          client_id: GOOGLE_CLIENT_ID,
           callback: async (response: any) => {
             if (response.credential) {
               setLoading(true);
@@ -37,7 +40,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ credential: response.credential }),
                 });
-
                 const data = await res.json();
                 if (!res.ok) {
                   setErrorMessage(data.error || 'Falha na validação com o Google.');
@@ -56,6 +58,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         const targetDiv = document.getElementById('google-btn-container');
         if (targetDiv) {
+          targetDiv.innerHTML = '';
           google.accounts.id.renderButton(targetDiv, {
             theme: 'outline',
             size: 'large',
@@ -67,6 +70,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       } catch (err) {
         console.warn('Google Identity Services inicialização controlada:', err);
       }
+    };
+
+    // Se o script do Google ainda não carregou, carrega ele
+    if (!(window as any).google) {
+      const script = document.createElement('script');
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.defer = true;
+      script.onload = initGoogle;
+      document.head.appendChild(script);
+    } else {
+      initGoogle();
     }
   }, [isOpen]);
 
@@ -76,11 +91,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       setErrorMessage('Por favor, informe um e-mail institucional válido.');
       return;
     }
-
     try {
       setLoading(true);
       setErrorMessage(null);
-
       const res = await fetch('/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -89,13 +102,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           name: nameInput.trim() || undefined,
         }),
       });
-
       const data = await res.json();
       if (!res.ok) {
         setErrorMessage(data.error || 'Falha ao autenticar.');
         return;
       }
-
       onLoginSuccess(data.user);
       onClose();
     } catch (err: any) {
@@ -110,7 +121,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4 animate-in fade-in duration-200">
       <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden border border-gray-200 flex flex-col">
-        {/* Cabeçalho Oficial */}
         <div className="bg-[#004d25] text-white p-5 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-white">
@@ -124,15 +134,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <p className="text-[11px] text-emerald-200/80">Ambiente Virtual de Aprendizagem Oficial</p>
             </div>
           </div>
-          <button
-            onClick={onClose}
-            className="p-1 rounded-lg text-emerald-200 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-          >
+          <button onClick={onClose} className="p-1 rounded-lg text-emerald-200 hover:text-white hover:bg-white/10 transition-colors cursor-pointer">
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Corpo do Modal */}
         <div className="p-6 space-y-5 text-xs text-gray-700">
           <div className="text-center space-y-1">
             <h3 className="text-base font-bold text-gray-900">Acesso à Plataforma</h3>
@@ -148,12 +154,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             </div>
           )}
 
-          {/* Botão Oficial Google Identity Services */}
           <div className="flex flex-col items-center justify-center space-y-2">
             <div id="google-btn-container" className="min-h-[44px]"></div>
           </div>
 
-          {/* Divisor */}
           <div className="relative flex py-1 items-center">
             <div className="grow border-t border-gray-200"></div>
             <span className="shrink mx-3 text-gray-400 text-[10px] font-bold uppercase tracking-wider">
@@ -162,42 +166,22 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             <div className="grow border-t border-gray-200"></div>
           </div>
 
-          {/* Formulário de Acesso Institucional Direto */}
           <form onSubmit={handleEmailLogin} className="space-y-3">
             <div>
               <label className="block text-gray-700 font-bold mb-1">E-mail Institucional</label>
               <div className="relative">
                 <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
-                <input
-                  type="email"
-                  required
-                  placeholder="ex: seu.nome@escola.edu.br"
-                  value={emailInput}
-                  onChange={(e) => setEmailInput(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                />
+                <input type="email" required placeholder="ex: seu.nome@escola.edu.br" value={emailInput} onChange={(e) => setEmailInput(e.target.value)} className="w-full pl-9 pr-3 py-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" />
               </div>
             </div>
-
             <div>
               <label className="block text-gray-700 font-bold mb-1">Nome Completo (Opcional)</label>
               <div className="relative">
                 <UserIcon className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
-                <input
-                  type="text"
-                  placeholder="Nome para registro acadêmico"
-                  value={nameInput}
-                  onChange={(e) => setNameInput(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                />
+                <input type="text" placeholder="Nome para registro acadêmico" value={nameInput} onChange={(e) => setNameInput(e.target.value)} className="w-full pl-9 pr-3 py-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" />
               </div>
             </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-[#006633] hover:bg-[#004d25] disabled:opacity-50 text-white font-bold py-2.5 px-4 rounded-lg shadow-xs transition-colors flex items-center justify-center space-x-2 cursor-pointer mt-2"
-            >
+            <button type="submit" disabled={loading} className="w-full bg-[#006633] hover:bg-[#004d25] disabled:opacity-50 text-white font-bold py-2.5 px-4 rounded-lg shadow-xs transition-colors flex items-center justify-center space-x-2 cursor-pointer mt-2">
               <span>{loading ? 'Validando acesso...' : 'Acessar Ambiente Oficial'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
@@ -205,9 +189,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
           <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-200 text-[11px] text-emerald-900 flex items-start space-x-2">
             <ShieldCheck className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
-            <p>
-              <strong>Segurança Operacional:</strong> Sessões autenticadas utilizam cookies HttpOnly criptografados com SameSite rigoroso e auditoria de acesso no servidor.
-            </p>
+            <p><strong>Segurança Operacional:</strong> Sessões autenticadas utilizam cookies HttpOnly criptografados com SameSite rigoroso e auditoria de acesso no servidor.</p>
           </div>
         </div>
       </div>
