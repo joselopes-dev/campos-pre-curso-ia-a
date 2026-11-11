@@ -10,6 +10,13 @@ interface AuthModalProps {
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '271409256917-dbbv48015no5uiicp9slk7vm3ona8gr.apps.googleusercontent.com';
 
+// Lê resposta com segurança: se o servidor devolver vazio / HTML (Render dormindo), não explode
+async function parseSafeJson(res: Response) {
+  const text = await res.text();
+  if (!text) return {};
+  try { return JSON.parse(text); } catch { return { _raw: text }; }
+}
+
 export const AuthModal: React.FC<AuthModalProps> = ({
   isOpen,
   onClose,
@@ -37,15 +44,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               try {
                 const res = await fetch('/api/v1/auth/google', {
                   method: 'POST',
+                  credentials: 'include',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ credential: response.credential }),
                 });
-                const data = await res.json();
+                const data = await parseSafeJson(res);
                 if (!res.ok) {
-                  setErrorMessage(data.error || 'Falha na validação com o Google.');
-                } else {
+                  setErrorMessage(data.error || data.message || `Falha na validação Google (${res.status}). Tente de novo em 30s - o servidor pode estar acordando.`);
+                } else if (data.user) {
                   onLoginSuccess(data.user);
                   onClose();
+                } else {
+                  setErrorMessage('Resposta inválida do servidor. Tente de novo.');
                 }
               } catch (err: any) {
                 setErrorMessage('Erro ao conectar ao servidor: ' + err.message);
@@ -72,7 +82,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       }
     };
 
-    // Se o script do Google ainda não carregou, carrega ele
     if (!(window as any).google) {
       const script = document.createElement('script');
       script.src = 'https://accounts.google.com/gsi/client';
@@ -96,15 +105,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       setErrorMessage(null);
       const res = await fetch('/api/v1/auth/login', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: emailInput.trim(),
           name: nameInput.trim() || undefined,
         }),
       });
-      const data = await res.json();
+      const data = await parseSafeJson(res);
       if (!res.ok) {
-        setErrorMessage(data.error || 'Falha ao autenticar.');
+        setErrorMessage(data.error || data.message || `Falha ao autenticar (${res.status}).`);
         return;
       }
       onLoginSuccess(data.user);
