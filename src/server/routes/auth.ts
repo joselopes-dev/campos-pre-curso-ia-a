@@ -1,137 +1,230 @@
+
 import { Router, Request, Response } from 'express';
 import { OAuth2Client } from 'google-auth-library';
 import { db } from '../db.ts';
 
 export const authRouter = Router();
 
-const googleClientId = process.env.GOOGLE_CLIENT_ID || '';
-const oauth2Client = googleClientId ? new OAuth2Client(googleClientId) : null;
+const googleClientId = (process.env.GOOGLE_CLIENT_ID || '').trim();
+const oauth2Client = googleClientId
+  ? new OAuth2Client(googleClientId)
+  : null;
+
 const isProduction = process.env.NODE_ENV === 'production';
-const allowDevLogin = process.env.ALLOW_DEV_LOGIN === 'true';
+const allowDevLogin =
+  !isProduction && process.env.ALLOW_DEV_LOGIN === 'true';
 
-// Cookie de Sessão HttpOnly Seguro
 const SESSION_COOKIE_NAME = 'lms_session';
-const COOKIE_OPTIONS = {
-  httpOnly: true,
-  secure: isProduction,
-  sameSite: 'lax' as const,
-  maxAge: 1000 * 60 * 60 * 24 * 7, // 7 dias
-  path: '/',
-};
 
-// ==============================================================
-// 1. LOGIN / CADASTRO COM GOOGLE IDENTITY SERVICES
-// ==============================================================
+function setSessionCookie(
+  req: Request,
+  res: Response,
+  sessionToken: string
+) {
+  res.cookie(SESSION_COOKIE_NAME, sessionToken, {
+    httpOnly: true,
+    secure: isProduction || req.secure,
+    sameSite: 'lax',
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    path: '/',
+  });
+}
+
+function clearSessionCookie(req: Request, res: Response) {
+  res.clearCookie(SESSION_COOKIE_NAME, {
+    httpOnly: true,
+    secure: isProduction || req.secure,
+    sameSite: 'lax',
+    path: '/',
+  });
+}
+
+function sendAuthError(
+  res: Response,
+  error: any,
+  defaultMessage: string
+) {
+  const status = Number(error?.status) || 500;
+
+  return res.status(status).json({
+    success: false,
+    error: defaultMessage,
+    code: error?.code || 'AUTHENTICATION_ERROR',
+    message: isProduction
+      ? 'Não foi possível concluir a autenticação.'
+      : error?.message || defaultMessage,
+  });
+}
+
+// ======================================================
+// 1. LOGIN COM GOOGLE — PRODUÇÃO
+// ======================================================
+
 authRouter.post('/google', async (req: Request, res: Response) => {
   try {
-    const { credential } = req.body;
+    const { credential } = req.body || {};
 
     if (!credential || typeof credential !== 'string') {
-      return res.status(400).json({ error: 'Credencial Google (ID Token) não fornecida ou inválida.' });
-    }
-
-    // Em produção, se GOOGLE_CLIENT_ID não estiver configurado, recusa formalmente sem simulação
-    if (isProduction && !googleClientId) {
-      return res.status(503).json({
-        error: 'Integração Google OAuth pendente: GOOGLE_CLIENT_ID não configurado no ambiente de produção.',
-        details: 'Configure o Client ID no Google Cloud Console e adicione a variável GOOGLE_CLIENT_ID no painel do Render.',
+      return res.status(400).json({
+        success: false,
+        error: 'Credencial Google não fornecida.',
       });
     }
 
-    let payload: { sub: string; email?: string; name?: string; picture?: string; exp?: number; iss?: string } | undefined;
-
-    if (oauth2Client && googleClientId) {
-      try {
-        // Validação criptográfica com verificação de assinatura, expiração e audiência
-        const ticket = await oauth2Client.verifyIdToken({
-          idToken: credential,
-          audience: googleClientId,
-        });
-        payload = ticket.getPayload();
-      } catch (verifyErr: any) {
-        return res.status(401).json({
-          error: 'Assinatura, público-alvo ou validade do ID Token Google inválidos.',
-          details: verifyErr.message,
-        });
-      }
-    } else {
-      // Modo Desenvolvimento / Teste Local (apenas quando não em produção)
-      try {
-        const parts = credential.split('.');
-        if (parts.length === 3) {
-          const raw = Buffer.from(parts[1], 'base64').toString('utf8');
-          payload = JSON.parse(raw);
-        } else {
-          return res.status(400).json({ error: 'Estrutura JWT do token Google malformada.' });
-        }
-      } catch {
-        return res.status(400).json({ error: 'Falha ao decodificar token de teste em modo de desenvolvimento.' });
-      }
+    if (!oauth2Client || !googleClientId) {
+      return res.status(503).json({
+        success: false,
+        error: 'Login Google não configurado no servidor.',
+        code: 'GOOGLE_CLIENT_ID_MISSING',
+      });
     }
 
-    // Verificação de expiração e integridade
+    // Validação criptográfica real do token Google.
+    // Não aceitar JWT apenas decodificado.
+    const ticket = await oauth2Client.verifyIdToken({
+      idToken: credential,
+      audience: googleClientId,
+    });
+
+    const payload = ticket.getPayload();
+
     if (!payload || !payload.sub || !payload.email) {
-      return res.status(401).json({ error: 'Token Google rejeitado: campos sub (identificador estável) e e-mail são obrigatórios.' });
+      return res.status(401).json({
+        success: false,
+        error: 'Identidade Google inválida ou incompleta.',
+      });
     }
 
-    if (payload.exp && payload.exp * 1000 < Date.now()) {
-      return res.status(401).json({ error: 'Token Google expirado. Por favor, autentique-se novamente.' });
+    if (payload.email_verified !== true) {
+      return res.status(401).json({
+        success: false,
+        error: 'O Google não confirmou a verificação deste e-mail.',
+      });
     }
 
-    // Persiste ou recupera usuário associado ao Google sub estável
+    const email = payload.email.trim().toLowerCase();
+
+    // Recupera ou cadastra o usuário no PostgreSQL.
     const user = await db.upsertGoogleUser({
       googleSub: payload.sub,
-      email: payload.email,
-      name: payload.name || payload.email.split('@')[0],
+      email,
+      name: payload.name || email.split('@')[0],
       picture: payload.picture,
     });
 
-    // Cria sessão no banco de dados
+    if (!user?.id) {
+      throw new Error('Não foi possível recuperar ou cadastrar o usuário.');
+    }
+
+    // Cria sessão persistente.
     const sessionToken = await db.createSession(
       user.id,
       req.ip || req.socket.remoteAddress,
       req.headers['user-agent']
     );
 
-    // Auditoria de segurança
-    await db.logAudit(user.id, 'LOGIN_GOOGLE', 'auth', req.ip, { email: user.email, role: user.role });
+    if (!sessionToken) {
+      throw new Error('Não foi possível criar a sessão do usuário.');
+    }
 
-    // Emite cookie HttpOnly
-    res.cookie(SESSION_COOKIE_NAME, sessionToken, COOKIE_OPTIONS);
+    await db.logAudit(
+      user.id,
+      'LOGIN_GOOGLE',
+      'auth',
+      req.ip,
+      {
+        email: user.email,
+        role: user.role,
+      }
+    );
 
-    return res.json({
+    setSessionCookie(req, res, sessionToken);
+
+    return res.status(200).json({
       success: true,
+      authenticated: true,
       user,
-      message: 'Autenticação Google concluída com sucesso.',
+      message: 'Login realizado com sucesso.',
     });
+
   } catch (error: any) {
-    console.error('❌ Erro na validação Google OAuth:', error);
-    return res.status(error.status || 500).json({
-      error: 'Falha na validação da identidade Google.',
-      details: error.message,
-    });
+    console.error(
+      '[AUTH] Falha no login Google:',
+      error?.message || 'Erro desconhecido'
+    );
+
+    return sendAuthError(
+      res,
+      error,
+      'Não foi possível validar sua conta Google.'
+    );
   }
 });
 
-// ==============================================================
-// 1.1 LOGIN INSTITUCIONAL SEGURO POR E-MAIL (PRODUÇÃO)
-// ==============================================================
-authRouter.post('/login', async (req: Request, res: Response) => {
+// ======================================================
+// 2. LOGIN SOMENTE POR E-MAIL
+// Não autentica identidade: bloqueado em produção.
+// ======================================================
+
+authRouter.post('/login', async (_req: Request, res: Response) => {
+  return res.status(403).json({
+    success: false,
+    error: 'O acesso por e-mail sem validação de identidade está desativado.',
+    code: 'EMAIL_ONLY_LOGIN_DISABLED',
+    message: 'Utilize o botão Continuar com Google.',
+  });
+});
+
+// ======================================================
+// 3. LOGIN DE DESENVOLVIMENTO
+// Disponível somente fora da produção e com autorização.
+// ======================================================
+
+authRouter.post('/dev-login', async (req: Request, res: Response) => {
   try {
-    const { email, name } = req.body;
-    if (!email || typeof email !== 'string' || !email.includes('@')) {
-      return res.status(400).json({ error: 'Por favor, informe um endereço de e-mail válido.' });
+    if (!allowDevLogin) {
+      return res.status(403).json({
+        success: false,
+        error: 'Login de desenvolvimento desativado.',
+      });
     }
 
-    const cleanEmail = email.trim().toLowerCase();
-    let user = await db.findUserByEmail(cleanEmail);
+    const { role } = req.body || {};
+
+    if (!['aluno', 'professor', 'administrador'].includes(role)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Perfil de desenvolvimento inválido.',
+      });
+    }
+
+    const emailByRole: Record<string, string> = {
+      administrador: process.env.ADMIN_EMAIL || '',
+      professor: 'professor@camposia.edu.br',
+      aluno: 'aluno@camposia.edu.br',
+    };
+
+    const email = emailByRole[role].trim().toLowerCase();
+
+    if (!email) {
+      return res.status(503).json({
+        success: false,
+        error: 'E-mail de administrador não configurado.',
+      });
+    }
+
+    let user = await db.findUserByEmail(email);
 
     if (!user) {
       user = await db.upsertGoogleUser({
-        googleSub: `inst-${cleanEmail.replace(/[^a-z0-9]/g, '_')}`,
-        email: cleanEmail,
-        name: name?.trim() || cleanEmail.split('@')[0].replace(/[._]/g, ' '),
+        googleSub: `dev-${role}-${email}`,
+        email,
+        name: `Usuário de teste ${role}`,
       });
+    }
+
+    if (!user?.id) {
+      throw new Error('Não foi possível criar o usuário de teste.');
     }
 
     const sessionToken = await db.createSession(
@@ -140,129 +233,102 @@ authRouter.post('/login', async (req: Request, res: Response) => {
       req.headers['user-agent']
     );
 
-    await db.logAudit(user.id, 'LOGIN_INSTITUTIONAL', 'auth', req.ip, { email: user.email, role: user.role });
+    await db.logAudit(
+      user.id,
+      'LOGIN_DEV_SESSION',
+      'auth',
+      req.ip,
+      { role: user.role }
+    );
 
-    res.cookie(SESSION_COOKIE_NAME, sessionToken, COOKIE_OPTIONS);
+    setSessionCookie(req, res, sessionToken);
 
     return res.json({
       success: true,
+      authenticated: true,
       user,
-      message: 'Sessão institucional iniciada com sucesso.',
     });
+
   } catch (error: any) {
-    return res.status(500).json({ error: error.message });
+    console.error('[AUTH] Erro no login de desenvolvimento:', error);
+
+    return sendAuthError(
+      res,
+      error,
+      'Não foi possível iniciar a sessão de desenvolvimento.'
+    );
   }
 });
 
-// ==============================================================
-// 2. LOGIN RÁPIDO DE DESENVOLVIMENTO / AUDITORIA CONTROLADA
-// Bloqueado estritamente em produção a menos que ALLOW_DEV_LOGIN='true'
-// ==============================================================
-authRouter.post('/dev-login', async (req: Request, res: Response) => {
+// ======================================================
+// 4. RECUPERAR USUÁRIO DA SESSÃO
+// ======================================================
+
+authRouter.get('/me', async (req: Request, res: Response) => {
   try {
-    if (isProduction && !allowDevLogin) {
-      return res.status(403).json({
-        error: 'Acesso negado: O seletor de perfis de teste está estritamente desabilitado em ambiente de produção.',
+    const token = req.cookies?.[SESSION_COOKIE_NAME];
+
+    if (!token) {
+      return res.status(401).json({
+        authenticated: false,
+        user: null,
       });
     }
 
-    const { role } = req.body;
-    let targetUser;
-
-    if (role === 'administrador') {
-      const adminEmail = process.env.ADMIN_EMAIL || 'josel6449@gmail.com';
-      targetUser = await db.findUserByEmail(adminEmail);
-      if (!targetUser) {
-        targetUser = await db.upsertGoogleUser({
-          googleSub: 'admin-dev-sub-camposia',
-          email: adminEmail,
-          name: 'Administrador (Coordenação)',
-        });
-      }
-    } else if (role === 'professor') {
-      const profEmail = 'professor@camposia.edu.br';
-      targetUser = await db.findUserByEmail(profEmail);
-      if (!targetUser) {
-        targetUser = await db.upsertGoogleUser({
-          googleSub: 'prof-dev-sub-camposia',
-          email: profEmail,
-          name: 'Prof. Docente (CAMPOS IA)',
-        });
-        targetUser.role = 'professor';
-      }
-    } else {
-      const studentEmail = 'aluno@camposia.edu.br';
-      targetUser = await db.findUserByEmail(studentEmail);
-      if (!targetUser) {
-        targetUser = await db.upsertGoogleUser({
-          googleSub: 'student-dev-sub-camposia',
-          email: studentEmail,
-          name: 'Novo Aluno (CAMPOS IA)',
-        });
-      }
-    }
-
-    if (!targetUser) {
-      return res.status(404).json({ error: 'Falha ao instanciar usuário de demonstração.' });
-    }
-
-    const sessionToken = await db.createSession(
-      targetUser.id,
-      req.ip || req.socket.remoteAddress,
-      req.headers['user-agent']
-    );
-
-    await db.logAudit(targetUser.id, 'LOGIN_DEV_SESSION', 'auth', req.ip, { role: targetUser.role });
-
-    res.cookie(SESSION_COOKIE_NAME, sessionToken, COOKIE_OPTIONS);
-
-    return res.json({
-      success: true,
-      user: targetUser,
-      message: `Sessão iniciada como perfil: ${targetUser.role}`,
-    });
-  } catch (error: any) {
-    return res.status(error.status || 500).json({ error: error.message });
-  }
-});
-
-// ==============================================================
-// 3. RECUPERAR USUÁRIO ATUAL (SESSÃO ATIVA)
-// ==============================================================
-authRouter.get('/me', async (req: Request, res: Response) => {
-  try {
-    const token = req.cookies[SESSION_COOKIE_NAME];
-    if (!token) {
-      return res.status(401).json({ authenticated: false, user: null });
-    }
-
     const user = await db.getSession(token);
+
     if (!user) {
-      res.clearCookie(SESSION_COOKIE_NAME, { path: '/' });
-      return res.status(401).json({ authenticated: false, user: null });
+      clearSessionCookie(req, res);
+
+      return res.status(401).json({
+        authenticated: false,
+        user: null,
+      });
     }
 
     return res.json({
       authenticated: true,
       user,
     });
+
   } catch (error: any) {
-    return res.status(error.status || 500).json({ error: error.message });
+    console.error('[AUTH] Erro ao recuperar sessão:', error);
+
+    return sendAuthError(
+      res,
+      error,
+      'Não foi possível recuperar a sessão.'
+    );
   }
 });
 
-// ==============================================================
-// 4. LOGOUT
-// ==============================================================
+// ======================================================
+// 5. ENCERRAR SESSÃO
+// ======================================================
+
 authRouter.post('/logout', async (req: Request, res: Response) => {
   try {
-    const token = req.cookies[SESSION_COOKIE_NAME];
+    const token = req.cookies?.[SESSION_COOKIE_NAME];
+
     if (token) {
       await db.deleteSession(token);
     }
-    res.clearCookie(SESSION_COOKIE_NAME, { path: '/' });
-    return res.json({ success: true, message: 'Sessão encerrada com sucesso.' });
+
+    clearSessionCookie(req, res);
+
+    return res.json({
+      success: true,
+      message: 'Sessão encerrada com sucesso.',
+    });
+
   } catch (error: any) {
-    return res.status(error.status || 500).json({ error: error.message });
+    console.error('[AUTH] Erro ao encerrar sessão:', error);
+
+    return sendAuthError(
+      res,
+      error,
+      'Não foi possível encerrar a sessão.'
+    );
   }
 });
+
