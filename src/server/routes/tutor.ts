@@ -7,23 +7,95 @@ import { ragService } from '../rag.ts';
 
 export const tutorRouter = Router();
 
-// Inicialização do cliente Gemini apenas no servidor com User-Agent 'aistudio-build'
-const apiKey = process.env.GEMINI_API_KEY;
-let aiClient: GoogleGenAI | null = null;
+// Cliente Gemini criado no servidor, de forma tardia, para ler as variáveis
+// disponíveis no Render sem expor a chave ao frontend.
+// GEMINI_API_KEY é o nome preferencial; os outros nomes são aceitos como compatibilidade.
+const GEMINI_MODEL = process.env.GEMINI_MODEL?.trim() || 'gemini-3.1-flash-lite';
+const GEMINI_TIMEOUT_MS = Math.min(
+  Math.max(Number(process.env.GEMINI_TIMEOUT_MS) || 45000, 15000),
+  90000,
+);
 
-if (apiKey && apiKey !== 'MY_GEMINI_API_KEY') {
-  try {
-    aiClient = new GoogleGenAI({
-      apiKey,
-      httpOptions: {
-        headers: {
-          'User-Agent': 'aistudio-build',
-        },
-      },
-    });
-  } catch (err) {
-    console.warn('⚠️ Falha ao inicializar GoogleGenAI:', err);
+let cachedGeminiKey: string | null = null;
+let cachedGeminiClient: GoogleGenAI | null = null;
+
+function getGeminiApiKey(): string | null {
+  const candidates = [
+    process.env.GEMINI_API_KEY,
+    process.env.GOOGLE_API_KEY,
+    process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+  ];
+
+  const key = candidates.find((value) => typeof value === 'string' && value.trim().length > 0)?.trim();
+  if (!key || key === 'MY_GEMINI_API_KEY' || key.toLowerCase().includes('your_api_key')) {
+    return null;
   }
+
+  return key;
+}
+
+function getGeminiClient(): GoogleGenAI | null {
+  const apiKey = getGeminiApiKey();
+
+  if (!apiKey) {
+    cachedGeminiKey = null;
+    cachedGeminiClient = null;
+    return null;
+  }
+
+  if (!cachedGeminiClient || cachedGeminiKey !== apiKey) {
+    cachedGeminiClient = new GoogleGenAI({ apiKey });
+    cachedGeminiKey = apiKey;
+    console.info(`🤖 [Tutor IA] Cliente Gemini inicializado. Modelo: ${GEMINI_MODEL}`);
+  }
+
+  return cachedGeminiClient;
+}
+
+function getGeminiPublicError(error: any): { status: number; message: string } {
+  const rawMessage = String(error?.message || 'Erro desconhecido na API Gemini');
+  const message = rawMessage.toLowerCase();
+  const apiStatus = Number(error?.status || error?.code || error?.response?.status || 0);
+
+  if (error?.code === 'GEMINI_TIMEOUT' || message.includes('timeout') || message.includes('tempo limite')) {
+    return {
+      status: 504,
+      message: 'O Gemini demorou mais que o esperado para responder. Aguarde alguns segundos e tente novamente.',
+    };
+  }
+
+  if (apiStatus === 401 || apiStatus === 403 || message.includes('api key not valid') || message.includes('permission_denied')) {
+    return {
+      status: 502,
+      message: 'A chave Gemini configurada no Render foi recusada. Confira se GEMINI_API_KEY contém uma chave válida do Google AI Studio.',
+    };
+  }
+
+  if (apiStatus === 429 || message.includes('resource_exhausted') || message.includes('quota')) {
+    return {
+      status: 429,
+      message: 'O limite gratuito de solicitações do Gemini foi atingido. Aguarde a renovação da cota e tente novamente.',
+    };
+  }
+
+  if (apiStatus === 404 || message.includes('model') && (message.includes('not found') || message.includes('not supported'))) {
+    return {
+      status: 502,
+      message: `O modelo ${GEMINI_MODEL} não está disponível para esta chave Gemini. Confira a disponibilidade do modelo no Google AI Studio ou defina GEMINI_MODEL no Render.`,
+    };
+  }
+
+  if (apiStatus >= 500 || message.includes('fetch failed') || message.includes('network')) {
+    return {
+      status: 502,
+      message: 'A API Gemini está temporariamente indisponível. Aguarde um pouco e tente novamente.',
+    };
+  }
+
+  return {
+    status: 500,
+    message: 'Ocorreu uma falha interna ao processar a mensagem do Tutor IA. Consulte os logs do Render para identificar a causa.',
+  };
 }
 
 // ==============================================================
@@ -108,8 +180,10 @@ tutorRouter.post('/chat', async (req: Request, res: Response) => {
       lessonId,
     });
 
-    // 4. Se a chave Gemini não estiver configurada no ambiente
-    if (!aiClient || !process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === 'MY_GEMINI_API_KEY') {
+    // 4. Cliente Gemini: a chave é lida no servidor a cada requisição
+    // (com cache do cliente) para aceitar a variável já configurada no Render.
+    const aiClient = getGeminiClient();
+    if (!aiClient) {
       let pendingMessage =
         `Olá, ${user.name.split(' ')[0]}! Eu sou o Tutor IA da disciplina "${discipline.title}" (${discipline.code}).\n\n` +
         `O acervo didático dos 20 componentes curriculares e a busca por similaridade RAG estão ativos na plataforma.\n\n`;
@@ -121,7 +195,7 @@ tutorRouter.post('/chat', async (req: Request, res: Response) => {
           `Para que eu gere explicações em linguagem natural com raciocínio pedagógico, configure a variável GEMINI_API_KEY no painel de segredos do AI Studio ou no Render.com.`;
       } else {
         pendingMessage += `Os materiais didáticos cadastrados para este componente curricular não contêm informações específicas suficientes sobre a dúvida apresentada.\n\n` +
-          `Configure a variável GEMINI_API_KEY para habilitar respostas completas em tempo real com o modelo Gemini 3.8 Flash.`;
+          `Configure a variável GEMINI_API_KEY para habilitar respostas completas em tempo real com o modelo Gemini 3.1 Flash-Lite.`;
       }
 
       const botMsg = await db.addChatMessage({
@@ -181,23 +255,36 @@ DIRETRIZES DE SEGURANÇA E DEFESA CONTRA INJEÇÃO DE PROMPT:
         `Instrução: Informe explicitamente ao aluno que os materiais cadastrados não contêm essa informação e diferencie fornecendo uma explicação geral de IA.`;
     }
 
-    // 7. Chamada ao Gemini SDK com Timeout de 15 segundos
-    const timeoutPromise = new Promise<never>((_, reject) =>
-      setTimeout(() => reject(new Error('Tempo limite excedido na resposta do modelo (Timeout 15s).')), 15000)
-    );
+    // 7. Chamada ao Gemini. O nível LOW reduz a latência e o consumo de tokens.
+    // O timeout foi ampliado porque 15 segundos interrompia respostas válidas do modelo.
+    let timeoutHandle: ReturnType<typeof setTimeout> | undefined;
+    let response: any;
 
-    const generatePromise = aiClient.models.generateContent({
-      model: 'gemini-3.8-flash',
-      contents: userPromptWithRAG,
-      config: {
-        systemInstruction,
-        temperature: 0.4, // Temperatura reduzida para maior aderência factual aos materiais
-        maxOutputTokens: 800,
-      },
-    });
+    try {
+      const generatePromise = aiClient.models.generateContent({
+        model: GEMINI_MODEL,
+        contents: userPromptWithRAG,
+        config: {
+          systemInstruction,
+          maxOutputTokens: 2048,
+        },
+      });
 
-    const response: any = await Promise.race([generatePromise, timeoutPromise]);
-    const replyText = response.text || 'Não consegui formular uma resposta no momento. Por favor, reformule sua dúvida.';
+      const timeoutPromise = new Promise<never>((_, reject) => {
+        timeoutHandle = setTimeout(() => {
+          const timeoutError: any = new Error(`Tempo limite excedido após ${GEMINI_TIMEOUT_MS}ms.`);
+          timeoutError.code = 'GEMINI_TIMEOUT';
+          reject(timeoutError);
+        }, GEMINI_TIMEOUT_MS);
+      });
+
+      response = await Promise.race([generatePromise, timeoutPromise]);
+    } finally {
+      if (timeoutHandle) clearTimeout(timeoutHandle);
+    }
+
+    const replyText = response?.text?.trim() ||
+      'Não consegui formular uma resposta completa no momento. Por favor, reformule sua dúvida.';
 
     const botMessage = await db.addChatMessage({
       userId: user.id,
@@ -219,10 +306,17 @@ DIRETRIZES DE SEGURANÇA E DEFESA CONTRA INJEÇÃO DE PROMPT:
         : 'Aviso: Tópico não localizado nos materiais cadastrados. Explicação geral fornecida.',
     });
   } catch (error: any) {
-    console.error('❌ Erro no processamento do Tutor IA:', error);
-    return res.status(500).json({
-      error: 'Falha temporária ao comunicar com o Tutor IA.',
-      details: error.message,
+    console.error('❌ Erro no processamento do Tutor IA:', {
+      message: error?.message,
+      status: error?.status,
+      code: error?.code,
+      name: error?.name,
+    });
+
+    const publicError = getGeminiPublicError(error);
+    return res.status(publicError.status).json({
+      error: publicError.message,
+      code: error?.code === 'GEMINI_TIMEOUT' ? 'GEMINI_TIMEOUT' : 'GEMINI_API_ERROR',
     });
   }
 });
