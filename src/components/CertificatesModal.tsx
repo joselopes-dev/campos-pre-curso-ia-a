@@ -34,7 +34,7 @@ interface MyCertificateResponse {
   requirements: string[];
 }
 
-export const CertificatesModal: React.FC<CertificatesModalProps> = ({ user, progressData }) => {
+export const CertificatesModal: React.FC<CertificatesModalProps> = ({ user }) => {
   const [certInfo, setCertInfo] = useState<MyCertificateResponse | null>(null);
   const [loadingInfo, setLoadingInfo] = useState(true);
   const [issuing, setIssuing] = useState(false);
@@ -126,9 +126,10 @@ export const CertificatesModal: React.FC<CertificatesModalProps> = ({ user, prog
     setTimeout(() => setCopiedCode(false), 2000);
   };
 
-  const approvedCount = certInfo?.approvedDisciplinesCount ?? (progressData?.completedDisciplinesCount || 0);
-  const totalDisciplines = certInfo?.totalDisciplinesCount || 20;
-  const isEligible = certInfo?.eligible || approvedCount >= totalDisciplines;
+  // Elegibilidade oficial vem exclusivamente do backend; progresso de aulas não substitui aprovação.
+  const approvedCount = certInfo?.approvedDisciplinesCount ?? 0;
+  const totalDisciplines = certInfo?.totalDisciplinesCount ?? 20;
+  const isEligible = certInfo?.eligible === true;
   const hasCertificate = Boolean(certInfo?.hasCertificate && certInfo?.certificate);
 
   return (
