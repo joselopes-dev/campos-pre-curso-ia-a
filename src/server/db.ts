@@ -1148,10 +1148,10 @@ export const db = {
     if (existing) return { success: true, certificate: existing };
 
     const approvals = await this.getUserApprovals(userId);
-    const approvedCount = approvals.filter(
-      (approval) => approval.approved &&
-        (approval.finalGrade === undefined || approval.finalGrade >= 7.0)
-    ).length;
+    const approvedCount = approvals.filter((approval) => {
+      const grade = Number(approval.finalGrade);
+      return approval.approved === true && Number.isFinite(grade) && grade >= 7.0;
+    }).length;
 
     if (approvedCount < DISCIPLINES.length) {
       return {
@@ -1217,7 +1217,10 @@ export const db = {
 
     // 1. Auditoria dos 20 componentes aprovados
     const approvals = await this.getUserApprovals(userId);
-    const approvedCount = approvals.filter((a) => a.approved).length;
+    const approvedCount = approvals.filter((approval) => {
+      const grade = Number(approval.finalGrade);
+      return approval.approved === true && Number.isFinite(grade) && grade >= 7.0;
+    }).length;
 
     if (approvedCount < DISCIPLINES.length) {
       return {
