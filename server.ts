@@ -62,7 +62,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🎓 CAMPOS IA ativa em http://0.0.0.0:${PORT}`);
+    console.log(`🎓 CAMPUS IA ativa em http://0.0.0.0:${PORT}`);
     console.log(`🩺 Endpoint de saúde disponível em http://0.0.0.0:${PORT}/api/health`);
     console.log(`📂 Acervo didático local servido a partir de: ${coursesDir}`);
   });

@@ -138,7 +138,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h2 className="text-lg font-black tracking-tight text-white font-mono">CAMPOS IA</h2>
+                <h2 className="text-lg font-black tracking-tight text-white font-mono">CAMPUS IA</h2>
                 <span className="text-[10px] bg-emerald-700/80 text-emerald-200 px-1.5 py-0.5 rounded font-bold uppercase">Produção</span>
               </div>
               <p className="text-[11px] text-emerald-200/80">Ambiente Virtual de Aprendizagem Oficial</p>

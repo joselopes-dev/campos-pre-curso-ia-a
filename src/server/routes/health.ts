@@ -17,7 +17,7 @@ healthRouter.get('/', async (_req: Request, res: Response) => {
     // Retorna HTTP 200 para garantir que o health check do Render passe com sucesso
     res.status(200).json({
       status: isPostgresReady ? 'ok' : 'degraded',
-      service: 'CAMPOS IA - Backend LMS (Pré-Curso de Inteligência Artificial)',
+      service: 'CAMPUS IA - Backend LMS (Pré-Curso de Inteligência Artificial)',
       timestamp: new Date().toISOString(),
       uptimeSeconds: Math.floor(process.uptime()),
       environment: process.env.NODE_ENV || 'development',

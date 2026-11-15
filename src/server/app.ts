@@ -64,7 +64,7 @@ export function createExpressApp(): Express {
   app.get('/api/v1/system/status', (_req: Request, res: Response) => {
     res.json({
       online: true,
-      stage: 'Modo de Produção Oficial — Plataforma Educacional CAMPOS IA (200 horas)',
+      stage: 'Modo de Produção Oficial — Plataforma Educacional CAMPUS IA (200 horas)',
       version: '2.0.0',
     });
   });

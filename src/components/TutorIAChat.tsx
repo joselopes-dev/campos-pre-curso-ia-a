@@ -62,7 +62,7 @@ export const TutorIAChat: React.FC<TutorIAChatProps> = ({
               {
                 id: 'welcome-msg',
                 role: 'assistant',
-                content: `Olá! Sou o Tutor IA da plataforma **CAMPOS IA** para apoio pedagógico na disciplina **${selectedDiscipline.title}** (${selectedDiscipline.code}).\n\nComo posso ajudar você a compreender os conceitos fundamentais, praticar exemplos ou resolver dúvidas do material didático?`,
+                content: `Olá! Sou o Tutor IA da plataforma **CAMPUS IA** para apoio pedagógico na disciplina **${selectedDiscipline.title}** (${selectedDiscipline.code}).\n\nComo posso ajudar você a compreender os conceitos fundamentais, praticar exemplos ou resolver dúvidas do material didático?`,
                 timestamp: new Date().toISOString(),
                 disciplineId: selectedDiscipline.id,
               },

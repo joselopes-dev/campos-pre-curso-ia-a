@@ -59,7 +59,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             Olá, {user.name.split(' ')[0]}!
           </h1>
           <p className="mt-2 text-emerald-100 text-sm sm:text-base leading-relaxed">
-            Bem-vindo(a) à plataforma <strong>CAMPOS IA</strong>. Acompanhe seu progresso sequencial, acesse os materiais didáticos e tire dúvidas com o Tutor IA.
+            Bem-vindo(a) à plataforma <strong>CAMPUS IA</strong>. Acompanhe seu progresso sequencial, acesse os materiais didáticos e tire dúvidas com o Tutor IA.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3 items-center">
