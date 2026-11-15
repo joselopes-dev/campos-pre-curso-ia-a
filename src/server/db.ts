@@ -855,7 +855,7 @@ export const db = {
   async gradeFinalExam(
     _userId: string, _disciplineId: string, _answers: number[]
   ): Promise<any> {
-    throw httpError('A avaliação final separada de 10 questões não é mais utilizada no CAMPOS IA.', 410);
+    throw httpError('A avaliação final separada de 10 questões não é mais utilizada no CAMPUS IA.', 410);
   },
 
   async getDisciplineApproval(userId: string, disciplineId: string): Promise<DisciplineApproval | null> {

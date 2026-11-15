@@ -118,7 +118,7 @@ export default function App() {
         <div className="text-center space-y-4">
           <div className="w-12 h-12 border-4 border-[#006633] border-t-transparent rounded-full animate-spin mx-auto"></div>
           <div>
-            <h2 className="text-xl font-black text-gray-900 tracking-tight font-mono">CAMPOS IA</h2>
+            <h2 className="text-xl font-black text-gray-900 tracking-tight font-mono">CAMPUS IA</h2>
             <p className="text-xs text-gray-500 mt-1">Carregando matriz curricular de 20 disciplinas e verificando backend...</p>
           </div>
         </div>
@@ -149,7 +149,7 @@ export default function App() {
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                   <span>Pré-Curso de Inteligência Artificial • 200 Horas</span>
                 </div>
-                <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white font-mono drop-shadow-sm">CAMPOS IA</h1>
+                <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white font-mono drop-shadow-sm">CAMPUS IA</h1>
                 <p className="text-sm sm:text-base text-emerald-100/90 leading-relaxed font-normal">
                   Ambiente Virtual de Aprendizagem oficial com 20 disciplinas sequenciais, acervo técnico local completo, sala de aula com progressão em 5 etapas, Tutor IA com RAG e certificação digital com validação pública.
                 </p>
@@ -195,7 +195,7 @@ export default function App() {
             <div className="bg-white p-12 rounded-2xl border border-gray-200 text-center space-y-4 max-w-lg mx-auto my-12">
               <div className="w-12 h-12 bg-emerald-50 text-[#006633] rounded-full flex items-center justify-center mx-auto font-black text-xl">🔒</div>
               <h2 className="text-lg font-bold text-gray-900">Autenticação Necessária</h2>
-              <p className="text-xs text-gray-500">Para ingressar na Sala de Aula e salvar seu progresso sequencial na plataforma <strong>CAMPOS IA</strong>, realize seu acesso seguro com o Google.</p>
+              <p className="text-xs text-gray-500">Para ingressar na Sala de Aula e salvar seu progresso sequencial na plataforma <strong>CAMPUS IA</strong>, realize seu acesso seguro com o Google.</p>
               <button onClick={() => setIsAuthOpen(true)} className="bg-[#006633] hover:bg-[#004d25] text-white font-bold px-6 py-2.5 rounded-xl text-xs transition-colors cursor-pointer">Entrar na Plataforma</button>
             </div>
           )
@@ -207,7 +207,7 @@ export default function App() {
             <div className="bg-white p-12 rounded-2xl border border-gray-200 text-center space-y-4 max-w-lg mx-auto my-12">
               <div className="w-12 h-12 bg-amber-50 text-amber-700 rounded-full flex items-center justify-center mx-auto font-black text-xl">🎓</div>
               <h2 className="text-lg font-bold text-gray-900">Autenticação de Certificados</h2>
-              <p className="text-xs text-gray-500">Acesse com sua conta para verificar sua elegibilidade ou emitir seu diploma oficial com QR Code na plataforma <strong>CAMPOS IA</strong>.</p>
+              <p className="text-xs text-gray-500">Acesse com sua conta para verificar sua elegibilidade ou emitir seu diploma oficial com QR Code na plataforma <strong>CAMPUS IA</strong>.</p>
               <button onClick={() => setIsAuthOpen(true)} className="bg-[#006633] hover:bg-[#004d25] text-white font-bold px-6 py-2.5 rounded-xl text-xs transition-colors cursor-pointer">Entrar na Plataforma</button>
             </div>
           )
@@ -219,7 +219,7 @@ export default function App() {
       <footer className="bg-white border-t border-gray-200 mt-auto py-6 text-xs text-gray-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-2">
-            <span className="font-black text-gray-950 tracking-wider text-sm font-mono">CAMPOS IA</span><span>•</span><span className="text-gray-700 font-medium">Pré-Curso de Inteligência Artificial</span><span>•</span><span className="text-emerald-700 font-bold">200 Horas</span>
+            <span className="font-black text-gray-950 tracking-wider text-sm font-mono">CAMPUS IA</span><span>•</span><span className="text-gray-700 font-medium">Pré-Curso de Inteligência Artificial</span><span>•</span><span className="text-emerald-700 font-bold">200 Horas</span>
           </div>
           <div className="flex items-center space-x-4 text-[11px]">
             <button onClick={() => setIsAuditOpen(true)} className="text-[#006633] font-bold hover:underline cursor-pointer">Status do Sistema & Infraestrutura</button><span>•</span><span>Língua Portuguesa (Brasil)</span>

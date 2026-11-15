@@ -306,7 +306,7 @@ function getLessonQuizQuestions(discipline: any, lesson: any) {
       ],
     },
     {
-      question: `3. Por que a verificação de requisitos e progressão acadêmica é implementada no backend da plataforma CAMPOS IA?`,
+      question: `3. Por que a verificação de requisitos e progressão acadêmica é implementada no backend da plataforma CAMPUS IA?`,
       options: [
         'Para assegurar a integridade do percurso formativo e impedir bypass de etapas no cliente.',
         'Apenas para aumentar a latência de rede nas requisições HTTP.',

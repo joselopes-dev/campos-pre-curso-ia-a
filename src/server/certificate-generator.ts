@@ -27,9 +27,9 @@ export async function generateCertificatePDF(options: GenerateCertificateOptions
         margins: { top: 30, bottom: 30, left: 30, right: 30 },
         info: {
           Title: `Certificado de Conclusão - ${certificate.userName}`,
-          Author: 'CAMPOS IA',
+          Author: 'CAMPUS IA',
           Subject: certificate.courseTitle,
-          Keywords: 'Certificado, Inteligência Artificial, CAMPOS IA',
+          Keywords: 'Certificado, Inteligência Artificial, CAMPUS IA',
           CreationDate: certificate.issuedAt ? new Date(certificate.issuedAt) : new Date(),
         },
       });
@@ -125,7 +125,7 @@ export async function generateCertificatePDF(options: GenerateCertificateOptions
       // 6. Rodapé sem declarar assinatura digital inexistente.
       doc.font('Helvetica').fontSize(6.5).fillColor('#888888')
         .text(
-          `Documento gerado pela plataforma CAMPOS IA. Validação pública pela chave ${certificate.validationCode}.`,
+          `Documento gerado pela plataforma CAMPUS IA. Validação pública pela chave ${certificate.validationCode}.`,
           40, pageHeight - 33, { align: 'center', width: pageWidth - 80 }
         );
       doc.end();

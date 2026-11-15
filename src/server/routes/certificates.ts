@@ -55,7 +55,7 @@ certificatesRouter.get('/verify/:code', async (req: Request, res: Response) => {
         status: cert.status,
         issuedAt: cert.issuedAt,
       },
-      institution: 'CAMPOS IA - Plataforma Educacional',
+      institution: 'CAMPUS IA - Plataforma Educacional',
     });
   } catch (error: unknown) {
     console.error('[CERTIFICATES] Falha na verificação pública:', error);

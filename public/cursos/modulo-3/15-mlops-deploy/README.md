@@ -1,6 +1,6 @@
 # MLO-303: MLOps e Praticas de Deploy Continuo
 
-Plataforma CAMPOS IA — Pré-Curso de Inteligência Artificial (200 horas).
+Plataforma CAMPUS IA — Pré-Curso de Inteligência Artificial (200 horas).
 Componente Curricular 15 (Carga horária: 10 horas regimental).
 
 Acervo didático oficial de apoio ao aprendizado, laboratórios práticos e suporte via Tutor IA com RAG.

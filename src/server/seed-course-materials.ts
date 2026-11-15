@@ -27,7 +27,7 @@ function generateValidPDF(title: string, author: string, pages: Array<{ header: 
     objects.push(`${pageObjNum} 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents ${contentObjNum} 0 R /Resources << /Font << /F1 ${fontObjNum} 0 R >> >> >>\nendobj`);
     
     // Cabeçalho institucional padronizado para modo de produção oficial
-    const headerL1 = 'CAMPOS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL (200 HORAS)';
+    const headerL1 = 'CAMPUS IA — PRE-CURSO DE INTELIGENCIA ARTIFICIAL (200 HORAS)';
     const headerL2 = 'MATERIAL DIDATICO INSTITUCIONAL — MODO DE PRODUCAO';
     const headerL3 = 'Ambiente Virtual de Aprendizagem Oficial • Rede Federal de Educacao Profissional e Tecnologica';
     const fullText = `[${title.toUpperCase()} - PAGINA ${i + 1}]\n${headerL1}\n${headerL2}\n${headerL3}\n\n${page.header}\n\n${page.text}`;
@@ -534,7 +534,7 @@ export function seedAllCourseMaterials() {
 
     // 1. Gera o arquivo PDF completo da disciplina com estrutura oficial
     const pdfPath = path.join(fullDirPath, disc.pdfName);
-    const pdfBuffer = generateValidPDF(disc.title, 'CAMPOS IA — Corpo Docente Oficial', disc.pages);
+    const pdfBuffer = generateValidPDF(disc.title, 'CAMPUS IA — Corpo Docente Oficial', disc.pages);
     fs.writeFileSync(pdfPath, pdfBuffer);
 
     // 2. Garante a existência de apostila-aula-XX.pdf (numerada pela disciplina)
@@ -557,7 +557,7 @@ export function seedAllCourseMaterials() {
       header: `LAMINA DIDATICA ${idx + 1}: ${p.header.toUpperCase()}`,
       text: `SINTESE CONCEITUAL E DIAGRAMAS:\n${p.text}`,
     }));
-    const slidesBuffer = generateValidPDF(`SLIDES: ${disc.title}`, 'CAMPOS IA — Corpo Docente Oficial', slidesPages);
+    const slidesBuffer = generateValidPDF(`SLIDES: ${disc.title}`, 'CAMPUS IA — Corpo Docente Oficial', slidesPages);
     fs.writeFileSync(slidesPdfPath, slidesBuffer);
 
     // Remove slides genéricos antigos em disciplinas > 1
@@ -571,7 +571,7 @@ export function seedAllCourseMaterials() {
     // 3. Gera a versão em texto estruturado oficial
     const txtPath = path.join(fullDirPath, 'material-estudo.txt');
     let txtContent = `# ${disc.title.toUpperCase()}\n`;
-    txtContent += `# CAMPOS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)\n`;
+    txtContent += `# CAMPUS IA — PRÉ-CURSO DE INTELIGÊNCIA ARTIFICIAL (200 HORAS)\n`;
     txtContent += `# DISCIPLINA ${discNum} | MATERIAL DIDÁTICO OFICIAL — MODO DE PRODUÇÃO\n\n`;
     disc.pages.forEach((p, idx) => {
       txtContent += `--- Página ${idx + 1}: ${p.header}\n${p.text}\n\n`;
@@ -602,7 +602,7 @@ export function seedAllCourseMaterials() {
     // 5. Gera o README.md oficial da disciplina
     const readmePath = path.join(fullDirPath, 'README.md');
     const readmeContent = `# ${disc.title}\n\n` +
-      `Plataforma CAMPOS IA — Pré-Curso de Inteligência Artificial (200 horas).\n` +
+      `Plataforma CAMPUS IA — Pré-Curso de Inteligência Artificial (200 horas).\n` +
       `Componente Curricular ${discNum} (Carga horária: 10 horas regimental).\n\n` +
       `Acervo didático oficial de apoio ao aprendizado, laboratórios práticos e suporte via Tutor IA com RAG.\n\n` +
       `### Arquivos disponíveis no diretório:\n` +

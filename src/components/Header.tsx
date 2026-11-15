@@ -43,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Barra Institucional Superior */}
       <div className="bg-[#004d25] text-white px-3 sm:px-4 py-1 text-xs flex justify-between items-center tracking-wide">
         <div className="flex items-center space-x-1.5 sm:space-x-2 truncate pr-2">
-          <span className="font-black text-emerald-200 tracking-wider font-mono text-[10px] sm:text-xs shrink-0">CAMPOS IA</span>
+          <span className="font-black text-emerald-200 tracking-wider font-mono text-[10px] sm:text-xs shrink-0">CAMPUS IA</span>
           <span className="text-emerald-400/60 shrink-0">•</span>
           <span className="text-emerald-100/90 font-medium truncate text-[10px] sm:text-xs">
             <span className="inline sm:hidden">Pré-Curso de IA (200h)</span>
@@ -68,7 +68,7 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Barra de Navegação Principal */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-14 sm:h-16">
-          {/* Logo e Identidade Visual CAMPOS IA */}
+          {/* Logo e Identidade Visual CAMPUS IA */}
           <div className="flex items-center space-x-2.5 sm:space-x-3 cursor-pointer select-none" onClick={() => setActiveTab('dashboard')}>
             <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-[#006633] to-[#004d25] text-white flex items-center justify-center shadow-md border border-emerald-500/30 shrink-0">
               <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-200" />
@@ -76,7 +76,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div>
               <div className="flex items-center space-x-1.5 sm:space-x-2">
                 <span className="font-black text-gray-950 tracking-tight text-lg sm:text-2xl font-mono">
-                  CAMPOS IA
+                  CAMPUS IA
                 </span>
                 <span className="bg-[#006633] text-white text-[9px] sm:text-[10px] font-extrabold px-1.5 sm:px-2 py-0.5 rounded uppercase tracking-wider shadow-xs">
                   200H

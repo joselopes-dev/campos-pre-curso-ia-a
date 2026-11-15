@@ -51,7 +51,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <div className="relative z-10 max-w-3xl">
           <div className="inline-flex items-center space-x-2 bg-emerald-500/20 backdrop-blur-xs border border-emerald-400/30 px-3.5 py-1 rounded-full text-xs font-semibold mb-4 text-emerald-100">
             <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
-            <span className="font-mono font-bold">CAMPOS IA</span>
+            <span className="font-mono font-bold">CAMPUS IA</span>
             <span>•</span>
             <span>Pré-Curso de Inteligência Artificial (200h)</span>
           </div>
@@ -289,7 +289,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <div className="flex items-start space-x-3">
           <ShieldCheck className="w-5 h-5 text-emerald-700 mt-0.5 shrink-0" />
           <div className="text-xs space-y-0.5">
-            <p className="font-bold text-emerald-900">Ambiente de Produção CAMPOS IA — Carga Horária Oficial de 200 Horas</p>
+            <p className="font-bold text-emerald-900">Ambiente de Produção CAMPUS IA — Carga Horária Oficial de 200 Horas</p>
             <p className="text-emerald-800">
               Matriz curricular oficial com 20 disciplinas de 10 horas cada, banco relacional com integridade referencial, controle de autenticação e emissão oficial de certificados.
             </p>

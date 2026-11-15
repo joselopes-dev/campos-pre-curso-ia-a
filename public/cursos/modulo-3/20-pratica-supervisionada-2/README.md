@@ -1,6 +1,6 @@
 # PPS-308: Pratica Profissional Supervisionada II (TCC Aplicado)
 
-Plataforma CAMPOS IA — Pré-Curso de Inteligência Artificial (200 horas).
+Plataforma CAMPUS IA — Pré-Curso de Inteligência Artificial (200 horas).
 Componente Curricular 20 (Carga horária: 10 horas regimental).
 
 Acervo didático oficial de apoio ao aprendizado, laboratórios práticos e suporte via Tutor IA com RAG.
