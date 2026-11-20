@@ -12,7 +12,8 @@ import {
   Database, 
   Sparkles,
   Layers,
-  Award
+  Award,
+  Compass
 } from 'lucide-react';
 
 interface DashboardProps {
@@ -21,6 +22,7 @@ interface DashboardProps {
   disciplines: Discipline[];
   onSelectDiscipline: (disciplineId: string) => void;
   openTutor: () => void;
+  openVocational: () => void;
   openAuditModal: () => void;
   setActiveTab: (tab: 'dashboard' | 'catalogo' | 'sala' | 'certificados') => void;
 }
@@ -31,13 +33,14 @@ export const Dashboard: React.FC<DashboardProps> = ({
   disciplines,
   onSelectDiscipline,
   openTutor,
+  openVocational,
   openAuditModal,
   setActiveTab,
 }) => {
   const overallPercent = progressData?.overallPercent || 0;
   const hoursCompleted = progressData?.hoursCompleted || 0;
   const completedDisciplines = progressData?.completedDisciplinesCount || 0;
-  const inProgressDisciplines = progressData?.inProgressDisciplinesCount || 1;
+  const inProgressDisciplines = progressData?.inProgressDisciplinesCount ?? 0;
 
   // Encontra a disciplina atual para retomada rápida
   const resumeDisciplineId = progressData?.nextToResume?.disciplineId || 'disc-01';
@@ -77,6 +80,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <Bot className="w-4 h-4" />
               <span>Perguntar ao Tutor IA</span>
             </button>
+            <button
+              onClick={openVocational}
+              className="bg-amber-500/20 hover:bg-amber-500/30 text-amber-50 font-medium px-4 py-2.5 rounded-lg text-sm border border-amber-300/40 transition-all flex items-center space-x-2 cursor-pointer"
+            >
+              <Compass className="w-4 h-4 text-amber-200" />
+              <span>Orientação Vocacional</span>
+            </button>
           </div>
         </div>
       </div>
@@ -97,7 +107,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <div className="w-full bg-gray-100 rounded-full h-2 mt-3">
               <div
                 className="bg-[#006633] h-2 rounded-full transition-all duration-500"
-                style={{ width: `${Math.max(overallPercent, 3)}%` }}
+                style={{ width: `${overallPercent > 0 ? Math.max(overallPercent, 3) : 0}%` }}
               ></div>
             </div>
           </div>
@@ -305,3 +315,4 @@ export const Dashboard: React.FC<DashboardProps> = ({
     </div>
   );
 };
+

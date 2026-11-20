@@ -10,7 +10,8 @@ import {
   ShieldCheck, 
   BookOpen, 
   Activity, 
-  ChevronDown
+  ChevronDown,
+  Compass
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -18,6 +19,7 @@ interface HeaderProps {
   activeTab: 'dashboard' | 'catalogo' | 'sala' | 'certificados' | 'gestao';
   setActiveTab: (tab: 'dashboard' | 'catalogo' | 'sala' | 'certificados' | 'gestao') => void;
   openTutor: () => void;
+  openVocational: () => void;
   openAuditModal: () => void;
   openAuthModal: () => void;
   onLogout: () => void;
@@ -30,6 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
   activeTab,
   setActiveTab,
   openTutor,
+  openVocational,
   openAuditModal,
   openAuthModal,
   onLogout,
@@ -140,16 +143,26 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </nav>
 
-          {/* Ações Direitas: Tutor IA e Perfil */}
-          <div className="flex items-center space-x-3">
+          {/* Ações Direitas: Tutor IA, Orientação Vocacional e Perfil */}
+          <div className="flex items-center space-x-2 shrink-0">
             {/* Botão Tutor IA */}
             <button
               onClick={openTutor}
-              className="flex items-center space-x-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white px-3.5 py-2 rounded-lg text-sm font-medium shadow-sm transition-all cursor-pointer"
-              title="Abrir o assistente pedagógico de IA"
+              className="flex items-center space-x-1.5 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-sm font-medium shadow-sm transition-all cursor-pointer whitespace-nowrap shrink-0"
+              title="Tutor IA: ensinar, explicar conteúdos e esclarecer dúvidas das disciplinas"
             >
-              <Bot className="w-4 h-4 animate-pulse" />
-              <span className="hidden sm:inline font-semibold">Tutor IA</span>
+              <Bot className="w-4 h-4 animate-pulse shrink-0" />
+              <span className="hidden lg:inline font-semibold">Tutor IA</span>
+            </button>
+
+            {/* Botão Orientador Vocacional IA */}
+            <button
+              onClick={openVocational}
+              className="flex items-center space-x-1.5 bg-amber-50 hover:bg-amber-100 text-[#004d25] border border-amber-300 px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-sm font-semibold shadow-xs transition-all cursor-pointer whitespace-nowrap shrink-0"
+              title="Orientador Vocacional IA: entrevista para descobrir seus interesses, cursos e profissões"
+            >
+              <Compass className="w-4 h-4 text-amber-700 shrink-0" />
+              <span className="hidden lg:inline">Orientação Vocacional</span>
             </button>
 
             {/* Perfil do Usuário Autenticado */}
@@ -271,6 +284,14 @@ export const Header: React.FC<HeaderProps> = ({
           <span className="text-[10px] mt-0.5">Tutor IA</span>
         </button>
 
+        <button
+          onClick={openVocational}
+          className="flex flex-col items-center justify-center p-1.5 rounded-lg text-xs font-semibold text-amber-800 hover:text-amber-950 transition-colors cursor-pointer flex-1"
+        >
+          <Compass className="w-4 h-4 text-amber-600" />
+          <span className="text-[10px] mt-0.5">Vocacional</span>
+        </button>
+
         {(user?.role === 'professor' || user?.role === 'administrador') && (
           <button
             onClick={() => setActiveTab('gestao')}
@@ -288,3 +309,4 @@ export const Header: React.FC<HeaderProps> = ({
     </header>
   );
 };
+

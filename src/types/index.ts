@@ -169,3 +169,41 @@ export interface DisciplineFileContent {
   charactersCount?: number;
 }
 
+export interface VocationalProfessionRecommendation {
+  name: string;
+  justification: string;
+}
+
+export interface VocationalDiagnosis {
+  profileTitle: string;
+  mainInterests: string[];
+  perceivedSkills: string[];
+  workPreferences: string[];
+  compatibleAreas: string[];
+  recommendedProfessions: VocationalProfessionRecommendation[];
+  studyPaths: string[];
+  disclaimer: string;
+}
+
+export interface VocationalMessage {
+  id: string;
+  sessionId: string;
+  role: 'user' | 'assistant';
+  content: string;
+  stage: number; // 1 a 6 durante entrevista; 7 após diagnóstico
+  isDiagnosis?: boolean;
+  diagnosis?: VocationalDiagnosis | null;
+  timestamp: string;
+}
+
+export interface VocationalSession {
+  id: string;
+  userId: string;
+  status: 'in_progress' | 'completed';
+  currentStage: number; // 1 a 6 durante entrevista; 7 após diagnóstico
+  diagnosis: VocationalDiagnosis | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+

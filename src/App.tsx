@@ -5,6 +5,7 @@ import { Dashboard } from './components/Dashboard.tsx';
 import { CurriculumCatalog } from './components/CurriculumCatalog.tsx';
 import { Classroom } from './components/Classroom.tsx';
 import { TutorIAChat } from './components/TutorIAChat.tsx';
+import { VocationalCounselorChat } from './components/VocationalCounselorChat.tsx';
 import { CertificatesModal } from './components/CertificatesModal.tsx';
 import { AcademicManagement } from './components/AcademicManagement.tsx';
 import { SystemAuditModal } from './components/SystemAuditModal.tsx';
@@ -18,6 +19,7 @@ export default function App() {
 
   // Modais e painéis flutuantes
   const [isTutorOpen, setIsTutorOpen] = useState<boolean>(false);
+  const [isVocationalOpen, setIsVocationalOpen] = useState<boolean>(false);
   const [tutorContext, setTutorContext] = useState<{ disciplineId?: string; lessonId?: string }>({});
   const [isAuditOpen, setIsAuditOpen] = useState<boolean>(false);
   const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
@@ -152,6 +154,7 @@ export default function App() {
           setTutorContext({});
           setIsTutorOpen(true);
         }}
+        openVocational={() => setIsVocationalOpen(true)}
         openAuditModal={() => setIsAuditOpen(true)}
         openAuthModal={() => setIsAuthOpen(true)}
         onLogout={handleLogout}
@@ -233,6 +236,7 @@ export default function App() {
               setTutorContext({});
               setIsTutorOpen(true);
             }}
+            openVocational={() => setIsVocationalOpen(true)}
             openAuditModal={() => setIsAuditOpen(true)}
             setActiveTab={setActiveTab}
           />
@@ -345,6 +349,14 @@ export default function App() {
         initialLessonId={tutorContext.lessonId}
       />
 
+      {/* Orientador Vocacional IA Drawer Independente */}
+      <VocationalCounselorChat
+        isOpen={isVocationalOpen}
+        onClose={() => setIsVocationalOpen(false)}
+        user={user}
+        openAuthModal={() => setIsAuthOpen(true)}
+      />
+
       {/* Modal de Diagnóstico Técnico & Deploy Render */}
       <SystemAuditModal
         isOpen={isAuditOpen}
@@ -366,3 +378,4 @@ export default function App() {
     </>
   );
 }
+
