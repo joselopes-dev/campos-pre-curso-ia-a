@@ -4,6 +4,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { DISCIPLINES, MODULES, getDisciplineLessons } from './seed-data.ts';
+import { INITIAL_ACADEMIC_WORKS } from './academic-works-seed.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -63,6 +64,32 @@ export async function runMigrations() {
       const sql002 = fs.readFileSync(migration002Path, 'utf8');
       await client.query(sql002);
       console.log('✅ [Migrate] 002_vocational_counselor.sql aplicado.');
+    }
+
+    // Executa arquivo SQL 003 (Trabalhos Acadêmicos - aditivo e não destrutivo)
+    const migration003Path = path.join(__dirname, 'migrations', '003_academic_works.sql');
+    if (fs.existsSync(migration003Path)) {
+      const sql003 = fs.readFileSync(migration003Path, 'utf8');
+      await client.query(sql003);
+      console.log('✅ [Migrate] 003_academic_works.sql aplicado.');
+
+      // Seed inicial único (apenas se nunca foi semeado e tabela está vazia, preservando exclusões/edições futuras)
+      const seedCheck = await client.query('SELECT id FROM academic_works_seed_state WHERE id = 1');
+      if (seedCheck.rows.length === 0) {
+        const countRes = await client.query('SELECT COUNT(*)::int AS total FROM academic_works');
+        if ((countRes.rows[0]?.total ?? 0) === 0) {
+          for (const item of INITIAL_ACADEMIC_WORKS) {
+            await client.query(
+              `INSERT INTO academic_works (id, title, authors, description, work_url, cover_image_url, created_at, updated_at)
+               VALUES ($1, $2, $3, $4, $5, $6, $7, $7)
+               ON CONFLICT (id) DO NOTHING`,
+              [item.id, item.title, item.authors, item.description, item.workUrl, item.coverImageUrl, item.createdAt]
+            );
+          }
+          console.log(`✅ [Migrate] Seed inicial de ${INITIAL_ACADEMIC_WORKS.length} trabalhos acadêmicos inserido.`);
+        }
+        await client.query('INSERT INTO academic_works_seed_state (id) VALUES (1) ON CONFLICT (id) DO NOTHING');
+      }
     }
 
     // Seed dos 20 componentes curriculares

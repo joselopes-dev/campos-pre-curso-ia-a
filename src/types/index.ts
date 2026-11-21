@@ -206,4 +206,17 @@ export interface VocationalSession {
   updatedAt: string;
 }
 
+export interface AcademicWork {
+  id: string;
+  title: string;
+  authors: string;
+  description?: string | null;
+  workUrl: string;
+  coverImageUrl?: string | null;
+  hasCustomImage?: boolean;
+  createdBy?: string | null;
+  updatedBy?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
 

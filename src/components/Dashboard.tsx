@@ -13,7 +13,8 @@ import {
   Sparkles,
   Layers,
   Award,
-  Compass
+  Compass,
+  BookMarked
 } from 'lucide-react';
 
 interface DashboardProps {
@@ -24,7 +25,7 @@ interface DashboardProps {
   openTutor: () => void;
   openVocational: () => void;
   openAuditModal: () => void;
-  setActiveTab: (tab: 'dashboard' | 'catalogo' | 'sala' | 'certificados') => void;
+  setActiveTab: (tab: 'dashboard' | 'catalogo' | 'sala' | 'certificados' | 'trabalhos') => void;
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({
@@ -86,6 +87,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
             >
               <Compass className="w-4 h-4 text-amber-200" />
               <span>Orientação Vocacional</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('trabalhos')}
+              className="bg-emerald-900/60 hover:bg-emerald-900/80 text-white font-medium px-4 py-2.5 rounded-lg text-sm border border-emerald-300/30 transition-all flex items-center space-x-2 cursor-pointer"
+            >
+              <BookMarked className="w-4 h-4 text-emerald-200" />
+              <span>Trabalhos Acadêmicos</span>
             </button>
           </div>
         </div>

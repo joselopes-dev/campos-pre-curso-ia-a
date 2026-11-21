@@ -11,10 +11,11 @@ import { AcademicManagement } from './components/AcademicManagement.tsx';
 import { SystemAuditModal } from './components/SystemAuditModal.tsx';
 import { AuthModal } from './components/AuthModal.tsx';
 import { VLibrasWidget } from './components/VLibrasWidget.tsx';
+import { AcademicWorksPage } from './components/AcademicWorksPage.tsx';
 
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'catalogo' | 'sala' | 'certificados' | 'gestao'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'catalogo' | 'sala' | 'certificados' | 'gestao' | 'trabalhos'>('dashboard');
   const [selectedDisciplineId, setSelectedDisciplineId] = useState<string>('disc-01');
 
   // Modais e painéis flutuantes
@@ -314,6 +315,14 @@ export default function App() {
             user={user}
           />
         )}
+
+        {/* Trabalhos Acadêmicos */}
+        {activeTab === 'trabalhos' && (
+          <AcademicWorksPage
+            user={user}
+            onBack={() => setActiveTab('dashboard')}
+          />
+        )}
       </main>
 
       {/* Rodapé Institucional CAMPUS IA */}
@@ -378,4 +387,3 @@ export default function App() {
     </>
   );
 }
-

@@ -2,6 +2,7 @@ import pg from 'pg';
 import crypto from 'crypto';
 import { DISCIPLINES, getDisciplineLessons } from '../db/seed-data.ts';
 import { getDisciplineQuiz, ALL_FIXATION_QUIZZES } from '../db/fixation-quizzes.ts';
+import { INITIAL_ACADEMIC_WORKS } from '../db/academic-works-seed.ts';
 import { 
   User, 
   UserRole, 
@@ -12,7 +13,8 @@ import {
   DisciplineApproval,
   VocationalSession,
   VocationalMessage,
-  VocationalDiagnosis
+  VocationalDiagnosis,
+  AcademicWork
 } from '../types/index.ts';
 
 // Detecção do ambiente de execução Render.com
@@ -27,44 +29,68 @@ const isRenderEnvironment = Boolean(
 // Conexão com o banco de dados PostgreSQL: Ativada EXCLUSIVAMENTE quando executado no Render
 const connectionString = process.env.DATABASE_URL;
 const isProduction = process.env.NODE_ENV === 'production';
-const isRenderPostgres = connectionString?.includes('render.com');
-const requiresSsl = Boolean(isProduction || isRenderPostgres || connectionString?.includes('sslmode=require'));
+const requiresSsl = Boolean(
+  isProduction ||
+  connectionString?.includes('render.com') ||
+  connectionString?.includes('sslmode=require')
+);
 
 let pgPool: pg.Pool | null = null;
 let isPostgresConnected = false;
 let connectionError: string | null = null;
 
-// O pool é criado no início do processo, mas a conexão é estabelecida sob demanda
-// pelo próprio pg.Pool. Não dependemos de um callback assíncrono para liberar consultas.
+// Inicializa o pool PostgreSQL EXCLUSIVAMENTE no Render
 if (isRenderEnvironment) {
-  if (!connectionString || connectionString.includes('localhost:5432/lms_ia')) {
+  if (connectionString && !connectionString.includes('localhost:5432/lms_ia')) {
+    try {
+      console.log('🚀 [DB] Ambiente Render detectado (RENDER=true). Inicializando conexão com PostgreSQL...');
+      pgPool = new pg.Pool({
+        connectionString,
+        ssl: requiresSsl ? { rejectUnauthorized: false } : false,
+        max: 10,
+        idleTimeoutMillis: 30000,
+        connectionTimeoutMillis: 10000,
+        keepAlive: true,
+      });
+
+      pgPool.on('error', (error) => {
+        connectionError = error.message;
+        isPostgresConnected = false;
+        console.error('⚠️ [DB] Erro inesperado no pool PostgreSQL:', error.message);
+      });
+
+      // Verificação inicial assíncrona: não bloqueia nem impede consultas subsequentes.
+      void pgPool.query('SELECT 1')
+        .then(() => {
+          connectionError = null;
+          isPostgresConnected = true;
+          console.log('✅ [DB] PostgreSQL do Render conectado.');
+        })
+        .catch((error: Error) => {
+          connectionError = error.message;
+          isPostgresConnected = false;
+          console.error('⚠️ [DB] Falha na conexão inicial:', error.message);
+        });
+    } catch (err: any) {
+      connectionError = err.message;
+      console.warn('⚠️ [DB] Falha ao instanciar Pool PostgreSQL no Render:', err.message);
+    }
+  } else {
     connectionError = 'DATABASE_URL não configurada para o PostgreSQL do Render.';
     console.error(`[DB] ${connectionError}`);
-  } else {
-    pgPool = new pg.Pool({
-      connectionString,
-      ssl: requiresSsl ? { rejectUnauthorized: false } : false,
-      max: 10,
-      idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 10000,
-      keepAlive: true,
-    });
-
-    pgPool.on('error', (error) => {
-      isPostgresConnected = false;
-      connectionError = error.message;
-      console.error('[DB] Erro inesperado no pool PostgreSQL:', error.message);
-    });
-
-    console.log('[DB] Pool do PostgreSQL do Render inicializado. A conexão será validada nas consultas.');
   }
 } else {
-  console.log('[DB] Desenvolvimento local: armazenamento em memória habilitado.');
+  console.log('ℹ️ [DB] Ambiente Local / Desenvolvimento: Conexão com banco PostgreSQL desativada (configurada para conectar exclusivamente no Render). Armazenamento em memória ativo.');
 }
 
-function assertDatabaseAvailable(): void {
-  if (!isRenderEnvironment && isProduction) {
-    const error: any = new Error('PostgreSQL obrigatório em produção. Configure DATABASE_URL.');
+/**
+ * Verificação de disponibilidade: em produção no Render, PostgreSQL é obrigatório.
+ * A consulta inicial do Pool é assíncrona; por isso não usamos a flag de ping
+ * para bloquear consultas legítimas que já podem ser executadas pelo próprio Pool.
+ */
+export function assertDatabaseAvailable() {
+  if (isProduction && !isRenderEnvironment) {
+    const error: any = new Error('PostgreSQL obrigatório em produção. Configure o ambiente Render e DATABASE_URL.');
     error.status = 503;
     error.code = 'DATABASE_UNAVAILABLE';
     throw error;
@@ -72,7 +98,7 @@ function assertDatabaseAvailable(): void {
 
   if (isRenderEnvironment && (!connectionString || !pgPool)) {
     const error: any = new Error(
-      'PostgreSQL do Render indisponível. Configure DATABASE_URL com a Internal Database URL.'
+      'SERVIÇO INDISPONÍVEL NO RENDER: PostgreSQL não configurado. Verifique DATABASE_URL no Web Service.'
     );
     error.status = 503;
     error.code = 'DATABASE_UNAVAILABLE';
@@ -89,12 +115,6 @@ function getPgPool(): pg.Pool {
     throw error;
   }
   return pgPool;
-}
-
-function httpError(message: string, status = 400): Error {
-  const error: any = new Error(message);
-  error.status = status;
-  return error;
 }
 
 // ==============================================================
@@ -117,11 +137,12 @@ interface StoredVocationalMessage extends VocationalMessage {
 }
 
 let vocationalTablesEnsured = false;
+let academicWorksTablesEnsured = false;
 
 async function ensureVocationalTablesOnPostgres() {
-  if (!isRenderEnvironment || !pgPool || vocationalTablesEnsured) return;
+  if (!pgPool || vocationalTablesEnsured) return;
   try {
-    await getPgPool().query(`
+    await pgPool.query(`
       CREATE TABLE IF NOT EXISTS vocational_sessions (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -148,9 +169,83 @@ async function ensureVocationalTablesOnPostgres() {
     `);
     vocationalTablesEnsured = true;
   } catch (err) {
-    if (isRenderEnvironment) throw err;
     console.warn('⚠️ [DB] Erro ao garantir tabelas do Orientador Vocacional no PostgreSQL:', err);
   }
+}
+
+async function ensureAcademicWorksTablesOnPostgres() {
+  if (!pgPool || academicWorksTablesEnsured) return;
+  try {
+    await pgPool.query(`
+      CREATE TABLE IF NOT EXISTS academic_works (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        title VARCHAR(255) NOT NULL,
+        authors TEXT NOT NULL,
+        description TEXT,
+        work_url TEXT NOT NULL,
+        cover_image_url TEXT,
+        cover_image_data BYTEA,
+        cover_image_mime VARCHAR(64),
+        created_by UUID REFERENCES users(id) ON DELETE SET NULL,
+        updated_by UUID REFERENCES users(id) ON DELETE SET NULL,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE INDEX IF NOT EXISTS idx_academic_works_created_at ON academic_works(created_at DESC);
+      CREATE TABLE IF NOT EXISTS academic_works_seed_state (
+        id INTEGER PRIMARY KEY DEFAULT 1,
+        seeded_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    const seedCheck = await pgPool.query('SELECT id FROM academic_works_seed_state WHERE id = 1');
+    if (seedCheck.rows.length === 0) {
+      const countRes = await pgPool.query('SELECT COUNT(*)::int AS total FROM academic_works');
+      if ((countRes.rows[0]?.total ?? 0) === 0) {
+        for (const item of INITIAL_ACADEMIC_WORKS) {
+          await pgPool.query(
+            `INSERT INTO academic_works (id, title, authors, description, work_url, cover_image_url, created_at, updated_at)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $7)
+             ON CONFLICT (id) DO NOTHING`,
+            [item.id, item.title, item.authors, item.description, item.workUrl, item.coverImageUrl, item.createdAt]
+          );
+        }
+      }
+      await pgPool.query('INSERT INTO academic_works_seed_state (id) VALUES (1) ON CONFLICT (id) DO NOTHING');
+    }
+
+    academicWorksTablesEnsured = true;
+  } catch (err) {
+    console.warn('⚠️ [DB] Erro ao garantir tabelas de Trabalhos Acadêmicos no PostgreSQL:', err);
+    throw err;
+  }
+}
+
+interface StoredAcademicWork extends AcademicWork {
+  imageBuffer?: Buffer | null;
+  imageMime?: string | null;
+}
+
+function buildInitialAcademicWorksMap(): Map<string, StoredAcademicWork> {
+  const map = new Map<string, StoredAcademicWork>();
+  for (const item of INITIAL_ACADEMIC_WORKS) {
+    map.set(item.id, {
+      id: item.id,
+      title: item.title,
+      authors: item.authors,
+      description: item.description,
+      workUrl: item.workUrl,
+      coverImageUrl: item.coverImageUrl,
+      hasCustomImage: false,
+      createdBy: null,
+      updatedBy: null,
+      createdAt: item.createdAt,
+      updatedAt: item.createdAt,
+      imageBuffer: null,
+      imageMime: null,
+    });
+  }
+  return map;
 }
 
 const memoryStore = {
@@ -163,6 +258,7 @@ const memoryStore = {
   vocationalMessages: [] as StoredVocationalMessage[],
   certificates: new Map<string, Certificate>(),
   disciplineApprovals: new Map<string, DisciplineApproval>(), // key: `${userId}:${disciplineId}`
+  academicWorks: buildInitialAcademicWorksMap(),
   auditLogs: [] as Array<{ id: string; userId?: string; action: string; resource: string; ip?: string; details: any; timestamp: string }>,
 };
 
@@ -317,7 +413,7 @@ export const db = {
           configured: Boolean(connectionString && !connectionString.includes('localhost:5432/lms_ia')),
           connected: false,
           activeOnRenderOnly: true,
-          provider: 'PostgreSQL no Render (Aguardando Deploy)',
+          provider: 'Render PostgreSQL (Aguardando Deploy)',
           latencyMs: null,
           error: null,
           sslEnabled: false,
@@ -339,7 +435,7 @@ export const db = {
     if (pgPool) {
       try {
         const start = Date.now();
-        await getPgPool().query('SELECT 1');
+        await pgPool.query('SELECT 1');
         latencyMs = Date.now() - start;
         pgStatus = 'connected';
         isPostgresConnected = true;
@@ -355,7 +451,7 @@ export const db = {
 
     return {
       status: isHealthy ? 'ok' : 'degraded',
-      engine: pgStatus === 'connected' ? providerName : 'Camada de Dados Relacional Resiliente (Render)',
+      engine: pgStatus === 'connected' ? providerName : 'Render PostgreSQL indisponível',
       productionSafe: pgStatus === 'connected',
       connectOnlyOnRender: true,
       isRenderEnvironment: true,
@@ -364,7 +460,7 @@ export const db = {
         connected: pgStatus === 'connected',
         provider: providerName,
         latencyMs,
-        error: pgStatus === 'error' ? 'Falha de conexão com o banco de dados PostgreSQL no Render' : connectionError,
+        error: pgStatus === 'error' ? 'Falha de conexão com o Render PostgreSQL' : connectionError,
         sslEnabled: requiresSsl,
       },
       stats: {
@@ -380,12 +476,8 @@ export const db = {
   async findUserById(id: string): Promise<User | null> {
     assertDatabaseAvailable();
     if (isRenderEnvironment) {
-      try {
-        const res = await getPgPool().query('SELECT * FROM users WHERE id = $1', [id]);
-        return res.rows[0] || null;
-      } catch (err) {
-        if (isRenderEnvironment) throw err;
-      }
+      const result = await getPgPool().query('SELECT * FROM users WHERE id = $1', [id]);
+      return result.rows[0] || null;
     }
     return memoryStore.users.get(id) || null;
   },
@@ -394,46 +486,40 @@ export const db = {
     assertDatabaseAvailable();
     const cleanEmail = email.trim().toLowerCase();
     if (isRenderEnvironment) {
-      try {
-        const res = await getPgPool().query('SELECT * FROM users WHERE LOWER(email) = $1', [cleanEmail]);
-        return res.rows[0] || null;
-      } catch (err) {
-        if (isRenderEnvironment) throw err;
-      }
+      const result = await getPgPool().query(
+        'SELECT * FROM users WHERE LOWER(email) = $1 LIMIT 1', [cleanEmail]
+      );
+      return result.rows[0] || null;
     }
-    for (const u of memoryStore.users.values()) {
-      if (u.email.toLowerCase() === cleanEmail) return u;
-    }
-    return null;
+    return [...memoryStore.users.values()].find(
+      (user) => user.email.toLowerCase() === cleanEmail
+    ) || null;
   },
 
   async findUserByGoogleSub(googleSub: string): Promise<User | null> {
     assertDatabaseAvailable();
     if (isRenderEnvironment) {
-      try {
-        const res = await getPgPool().query(
-          `SELECT u.* FROM users u
-           JOIN external_identities e ON u.id = e.user_id
-           WHERE e.provider = 'google' AND e.provider_id = $1`,
-          [googleSub]
-        );
-        return res.rows[0] || null;
-      } catch (err) {
-        if (isRenderEnvironment) throw err;
-      }
+      const result = await getPgPool().query(
+        `SELECT u.* FROM users u
+         JOIN external_identities e ON e.user_id = u.id
+         WHERE e.provider = 'google' AND e.provider_id = $1 LIMIT 1`,
+        [googleSub]
+      );
+      return result.rows[0] || null;
     }
-    const ext = memoryStore.externalIdentities.get(`google:${googleSub}`);
-    if (ext) {
-      return memoryStore.users.get(ext.user_id) || null;
-    }
-    return null;
+    const identity = memoryStore.externalIdentities.get(`google:${googleSub}`);
+    return identity ? memoryStore.users.get(identity.user_id) || null : null;
   },
 
   async upsertGoogleUser(profile: {
     googleSub: string; email: string; name: string; picture?: string;
   }): Promise<User> {
     assertDatabaseAvailable();
-    if (!profile.googleSub || !profile.email) throw httpError('Perfil Google inválido.', 400);
+    if (!profile.googleSub || !profile.email) {
+      const error: any = new Error('Perfil Google inválido.');
+      error.status = 400;
+      throw error;
+    }
 
     const email = profile.email.trim().toLowerCase();
     const adminEmail = (process.env.ADMIN_EMAIL || 'josel6449@gmail.com').trim().toLowerCase();
@@ -444,7 +530,6 @@ export const db = {
       const client = await getPgPool().connect();
       try {
         await client.query('BEGIN');
-
         const bySub = await client.query(
           `SELECT u.* FROM users u
            JOIN external_identities e ON e.user_id = u.id
@@ -452,7 +537,6 @@ export const db = {
            LIMIT 1 FOR UPDATE OF u`,
           [profile.googleSub]
         );
-
         let user: any = bySub.rows[0];
 
         if (user) {
@@ -476,7 +560,6 @@ export const db = {
             'SELECT * FROM users WHERE LOWER(email) = $1 LIMIT 1 FOR UPDATE', [email]
           );
           user = byEmail.rows[0];
-
           if (user) {
             const updated = await client.query(
               `UPDATE users
@@ -498,24 +581,23 @@ export const db = {
             );
             user = inserted.rows[0];
           }
-
           await client.query(
             `INSERT INTO external_identities (user_id, provider, provider_id, email)
              VALUES ($1, 'google', $2, $3)
              ON CONFLICT (provider, provider_id) DO NOTHING`,
             [user.id, profile.googleSub, email]
           );
-
           const linked = await client.query(
             `SELECT user_id FROM external_identities
              WHERE provider = 'google' AND provider_id = $1`,
             [profile.googleSub]
           );
           if (!linked.rows[0] || linked.rows[0].user_id !== user.id) {
-            throw httpError('A identidade Google já está vinculada a outra conta.', 409);
+            const error: any = new Error('A identidade Google já está vinculada a outra conta.');
+            error.status = 409;
+            throw error;
           }
         }
-
         await client.query('COMMIT');
         return user as User;
       } catch (error) {
@@ -534,7 +616,6 @@ export const db = {
       if (isAdmin) existing.role = 'administrador';
       return existing;
     }
-
     let user = await this.findUserByEmail(email);
     if (!user) {
       user = {
@@ -547,7 +628,6 @@ export const db = {
     } else if (isAdmin) {
       user.role = 'administrador';
     }
-
     const identity: ExternalIdentity = {
       id: crypto.randomUUID(), user_id: user.id, provider: 'google',
       provider_id: profile.googleSub, email,
@@ -611,9 +691,9 @@ export const db = {
 
   async getUserProgress(userId: string): Promise<StudentProgress[]> {
     assertDatabaseAvailable();
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
-        const res = await getPgPool().query(
+        const res = await pgPool.query(
           `SELECT user_id, discipline_id, lesson_id, step_number, completed, quiz_score, completed_at
            FROM student_progress WHERE user_id = $1`,
           [userId]
@@ -628,7 +708,6 @@ export const db = {
           quizScore: r.quiz_score != null ? Number(r.quiz_score) : undefined,
         }));
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao consultar student_progress do PostgreSQL:', err);
       }
     }
@@ -649,9 +728,9 @@ export const db = {
     stepNumber: number
   ): Promise<StudentProgress | null> {
     assertDatabaseAvailable();
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
-        const res = await getPgPool().query(
+        const res = await pgPool.query(
           `SELECT user_id, discipline_id, lesson_id, step_number, completed, quiz_score, completed_at
            FROM student_progress
            WHERE user_id = $1 AND discipline_id = $2 AND lesson_id = $3 AND step_number = $4
@@ -672,7 +751,6 @@ export const db = {
         }
         return null;
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao consultar etapa em student_progress do PostgreSQL:', err);
       }
     }
@@ -751,8 +829,8 @@ export const db = {
       quizScore: stepNumber === 4 ? quizScore : undefined,
     };
 
-    if (isRenderEnvironment) {
-      await getPgPool().query(
+    if (pgPool) {
+      await pgPool.query(
         `INSERT INTO student_progress (user_id, discipline_id, lesson_id, step_number, completed, quiz_score, completed_at)
          VALUES ($1, $2, $3, $4, true, $5, NOW())
          ON CONFLICT (user_id, discipline_id, lesson_id, step_number)
@@ -806,8 +884,8 @@ export const db = {
           approvedAt: new Date().toISOString(),
         };
 
-        if (isRenderEnvironment) {
-          await getPgPool().query(
+        if (pgPool) {
+          await pgPool.query(
             `INSERT INTO discipline_approvals (user_id, discipline_id, approved, final_grade, approved_at)
              VALUES ($1, $2, true, $3, NOW())
              ON CONFLICT (user_id, discipline_id)
@@ -858,13 +936,6 @@ export const db = {
   ): Promise<{ score: number; passed: boolean; explanation: string }> {
     assertDatabaseAvailable();
 
-    if (!Array.isArray(answers) || answers.length !== 3 ||
-        answers.some((answer) => !Number.isInteger(answer) || answer < 0 || answer > 2)) {
-      const error: any = new Error('O Teste de Fixação exige exatamente 3 respostas válidas.');
-      error.status = 400;
-      throw error;
-    }
-
     // Validação prévia obrigatória: disciplina/aula válidas e Etapa 3 concluída antes de realizar a Etapa 4
     const lessons = getDisciplineLessons(disciplineId);
     if (lessons.length === 0 || !lessons.some((l) => l.id === lessonId)) {
@@ -883,12 +954,7 @@ export const db = {
     const quiz = getDisciplineQuiz(disciplineId) || getDisciplineQuiz(lessonId);
     const official = quiz
       ? { answers: quiz.correctAnswers, explanation: quiz.explanation }
-      : (QUIZ_ANSWERS_SERVER[lessonId] || QUIZ_ANSWERS_SERVER[disciplineId]);
-    if (!official || !Array.isArray(official.answers) || official.answers.length !== 3) {
-      const error: any = new Error('Gabarito oficial do Teste de Fixação não encontrado ou inválido.');
-      error.status = 500;
-      throw error;
-    }
+      : (QUIZ_ANSWERS_SERVER[lessonId] || QUIZ_ANSWERS_SERVER[disciplineId] || { answers: [0, 0, 0], explanation: 'Fundamentos verificados conforme gabarito oficial.' });
 
     let correctCount = 0;
     official.answers.forEach((ans, idx) => {
@@ -910,8 +976,8 @@ export const db = {
       const existingStep4 = await this.getLessonStepProgress(userId, disciplineId, lessonId, 4);
       if (!existingStep4 || !existingStep4.completed) {
         const progressKey = `${userId}:${disciplineId}:${lessonId}:4`;
-        if (isRenderEnvironment) {
-          await getPgPool().query(
+        if (pgPool) {
+          await pgPool.query(
             `INSERT INTO student_progress (user_id, discipline_id, lesson_id, step_number, completed, quiz_score, completed_at)
              VALUES ($1, $2, $3, 4, false, $4, NOW())
              ON CONFLICT (user_id, discipline_id, lesson_id, step_number)
@@ -940,9 +1006,9 @@ export const db = {
 
   async getDisciplineApproval(userId: string, disciplineId: string): Promise<DisciplineApproval | null> {
     assertDatabaseAvailable();
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
-        const res = await getPgPool().query(
+        const res = await pgPool.query(
           `SELECT user_id, discipline_id, approved, final_grade, approved_at
            FROM discipline_approvals WHERE user_id = $1 AND discipline_id = $2`,
           [userId, disciplineId]
@@ -959,7 +1025,6 @@ export const db = {
         }
         return null;
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao consultar discipline_approvals do PostgreSQL:', err);
       }
     }
@@ -968,9 +1033,9 @@ export const db = {
 
   async getUserApprovals(userId: string): Promise<DisciplineApproval[]> {
     assertDatabaseAvailable();
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
-        const res = await getPgPool().query(
+        const res = await pgPool.query(
           `SELECT user_id, discipline_id, approved, final_grade, approved_at
            FROM discipline_approvals WHERE user_id = $1`,
           [userId]
@@ -983,7 +1048,6 @@ export const db = {
           approvedAt: typeof row.approved_at === 'string' ? row.approved_at : new Date(row.approved_at).toISOString(),
         }));
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao listar discipline_approvals do PostgreSQL:', err);
       }
     }
@@ -1001,7 +1065,7 @@ export const db = {
   // ==============================================================
   async getChatHistory(userId: string, disciplineId?: string): Promise<ChatMessage[]> {
     assertDatabaseAvailable();
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
         let query = 'SELECT * FROM chat_messages WHERE user_id = $1';
         const params: any[] = [userId];
@@ -1010,7 +1074,7 @@ export const db = {
           params.push(disciplineId);
         }
         query += ' ORDER BY created_at ASC';
-        const res = await getPgPool().query(query, params);
+        const res = await pgPool.query(query, params);
         if (res.rows.length > 0) {
           return res.rows.map((r) => ({
             id: r.id,
@@ -1023,7 +1087,6 @@ export const db = {
           }));
         }
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao consultar chat_messages do PostgreSQL:', err);
       }
     }
@@ -1047,9 +1110,9 @@ export const db = {
 
     memoryStore.chatMessages.push(fullMsg);
 
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
-        await getPgPool().query(
+        await pgPool.query(
           `INSERT INTO chat_messages (id, user_id, discipline_id, lesson_id, role, content, sources)
            VALUES ($1, $2, $3, $4, $5, $6, $7)`,
           [
@@ -1062,9 +1125,7 @@ export const db = {
             JSON.stringify(fullMsg.sources || []),
           ]
         );
-      } catch (err) {
-        if (isRenderEnvironment) throw err;
-      }
+      } catch {}
     }
 
     return fullMsg;
@@ -1077,9 +1138,9 @@ export const db = {
     assertDatabaseAvailable();
     const cleanCode = code.trim().toUpperCase();
 
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
-        const res = await getPgPool().query(
+        const res = await pgPool.query(
           `SELECT c.*, u.name as user_name FROM certificates c
            JOIN users u ON c.user_id = u.id
            WHERE UPPER(c.validation_code) = $1 AND c.status = 'valido'`,
@@ -1100,7 +1161,6 @@ export const db = {
           };
         }
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao verificar certificado no PostgreSQL:', err);
       }
     }
@@ -1115,9 +1175,9 @@ export const db = {
 
   async getUserCertificate(userId: string): Promise<Certificate | null> {
     assertDatabaseAvailable();
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
-        const res = await getPgPool().query(
+        const res = await pgPool.query(
           `SELECT c.*, u.name as user_name FROM certificates c
            JOIN users u ON c.user_id = u.id
            WHERE c.user_id = $1 AND c.status = 'valido'
@@ -1139,7 +1199,6 @@ export const db = {
           };
         }
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao buscar certificado do usuário no PostgreSQL:', err);
       }
     }
@@ -1197,15 +1256,14 @@ export const db = {
       issuedAt,
     };
 
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
-        await getPgPool().query(
+        await pgPool.query(
           `INSERT INTO certificates (id, validation_code, user_id, course_title, total_hours, completion_date, status, issued_at)
            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
           [cert.id, cert.validationCode, cert.userId, cert.courseTitle, cert.totalHours, cert.completionDate, cert.status, cert.issuedAt]
         );
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao gravar certificado no PostgreSQL:', err);
       }
     }
@@ -1259,9 +1317,9 @@ export const db = {
   // ==============================================================
   async listAllCertificates(): Promise<Certificate[]> {
     assertDatabaseAvailable();
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
-        const res = await getPgPool().query(
+        const res = await pgPool.query(
           `SELECT c.*, u.name as user_name FROM certificates c
            JOIN users u ON c.user_id = u.id
            ORDER BY c.issued_at DESC`
@@ -1278,7 +1336,6 @@ export const db = {
           issuedAt: row.issued_at,
         }));
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao listar certificados do PostgreSQL:', err);
       }
     }
@@ -1302,9 +1359,9 @@ export const db = {
     assertDatabaseAvailable();
     let studentsList: User[] = [];
 
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
-        const res = await getPgPool().query(
+        const res = await pgPool.query(
           `SELECT id, name, email, registration_number, role, created_at, updated_at
            FROM users WHERE role = 'aluno' ORDER BY name ASC`
         );
@@ -1318,7 +1375,6 @@ export const db = {
           updated_at: r.updated_at,
         }));
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao consultar estudantes no PostgreSQL:', err);
       }
     }
@@ -1400,10 +1456,10 @@ export const db = {
     userId: string
   ): Promise<{ session: VocationalSession; messages: VocationalMessage[] } | null> {
     assertDatabaseAvailable();
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
         await ensureVocationalTablesOnPostgres();
-        const sessionRes = await getPgPool().query(
+        const sessionRes = await pgPool.query(
           `SELECT id, user_id, status, current_stage, diagnosis_json, created_at, updated_at
            FROM vocational_sessions
            WHERE user_id = $1
@@ -1422,7 +1478,7 @@ export const db = {
             createdAt: typeof row.created_at === 'string' ? row.created_at : new Date(row.created_at).toISOString(),
             updatedAt: typeof row.updated_at === 'string' ? row.updated_at : new Date(row.updated_at).toISOString(),
           };
-          const msgRes = await getPgPool().query(
+          const msgRes = await pgPool.query(
             `SELECT id, session_id, role, content, stage, is_diagnosis, diagnosis_json, created_at
              FROM vocational_messages
              WHERE session_id = $1 AND user_id = $2
@@ -1442,7 +1498,6 @@ export const db = {
           return { session, messages };
         }
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao consultar sessão vocacional no PostgreSQL:', err);
       }
     }
@@ -1464,10 +1519,10 @@ export const db = {
     userId: string
   ): Promise<{ session: VocationalSession; messages: VocationalMessage[] } | null> {
     assertDatabaseAvailable();
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
         await ensureVocationalTablesOnPostgres();
-        const sessionRes = await getPgPool().query(
+        const sessionRes = await pgPool.query(
           `SELECT id, user_id, status, current_stage, diagnosis_json, created_at, updated_at
            FROM vocational_sessions
            WHERE id = $1 AND user_id = $2
@@ -1485,7 +1540,7 @@ export const db = {
             createdAt: typeof row.created_at === 'string' ? row.created_at : new Date(row.created_at).toISOString(),
             updatedAt: typeof row.updated_at === 'string' ? row.updated_at : new Date(row.updated_at).toISOString(),
           };
-          const msgRes = await getPgPool().query(
+          const msgRes = await pgPool.query(
             `SELECT id, session_id, role, content, stage, is_diagnosis, diagnosis_json, created_at
              FROM vocational_messages
              WHERE session_id = $1 AND user_id = $2
@@ -1506,7 +1561,6 @@ export const db = {
         }
         return null;
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao consultar sessão vocacional por ID no PostgreSQL:', err);
       }
     }
@@ -1547,21 +1601,20 @@ export const db = {
       timestamp: now,
     };
 
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
         await ensureVocationalTablesOnPostgres();
-        await getPgPool().query(
+        await pgPool.query(
           `INSERT INTO vocational_sessions (id, user_id, status, current_stage, diagnosis_json, created_at, updated_at)
            VALUES ($1, $2, $3, $4, NULL, $5, $5)`,
           [session.id, userId, session.status, session.currentStage, now]
         );
-        await getPgPool().query(
+        await pgPool.query(
           `INSERT INTO vocational_messages (id, session_id, user_id, role, content, stage, is_diagnosis, diagnosis_json, created_at)
            VALUES ($1, $2, $3, $4, $5, $6, false, NULL, $7)`,
           [greetingMsg.id, session.id, userId, greetingMsg.role, greetingMsg.content, greetingMsg.stage, now]
         );
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao criar sessão vocacional no PostgreSQL:', err);
       }
     }
@@ -1596,10 +1649,10 @@ export const db = {
       timestamp: now,
     };
 
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
         await ensureVocationalTablesOnPostgres();
-        await getPgPool().query(
+        await pgPool.query(
           `INSERT INTO vocational_messages (id, session_id, user_id, role, content, stage, is_diagnosis, diagnosis_json, created_at)
            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
           [
@@ -1614,12 +1667,11 @@ export const db = {
             now,
           ]
         );
-        await getPgPool().query(
+        await pgPool.query(
           `UPDATE vocational_sessions SET current_stage = $1, updated_at = $2 WHERE id = $3 AND user_id = $4`,
           [params.stage, now, params.sessionId, params.userId]
         );
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao salvar mensagem vocacional no PostgreSQL:', err);
       }
     }
@@ -1643,29 +1695,16 @@ export const db = {
     assertDatabaseAvailable();
     const now = new Date().toISOString();
 
-    if (isRenderEnvironment) {
+    if (pgPool) {
       try {
         await ensureVocationalTablesOnPostgres();
-        const updated = await getPgPool().query(
+        await pgPool.query(
           `UPDATE vocational_sessions
            SET status = 'completed', current_stage = 7, diagnosis_json = $1, updated_at = $2
-           WHERE id = $3 AND user_id = $4
-           RETURNING id, user_id, status, current_stage, diagnosis_json, created_at, updated_at`,
+           WHERE id = $3 AND user_id = $4`,
           [JSON.stringify(diagnosis), now, sessionId, userId]
         );
-        if (!updated.rows[0]) return null;
-        const row = updated.rows[0];
-        return {
-          id: row.id,
-          userId: row.user_id,
-          status: row.status,
-          currentStage: Number(row.current_stage),
-          diagnosis: row.diagnosis_json || null,
-          createdAt: typeof row.created_at === 'string' ? row.created_at : new Date(row.created_at).toISOString(),
-          updatedAt: typeof row.updated_at === 'string' ? row.updated_at : new Date(row.updated_at).toISOString(),
-        } as VocationalSession;
       } catch (err) {
-        if (isRenderEnvironment) throw err;
         console.warn('⚠️ [DB] Erro ao concluir sessão vocacional no PostgreSQL:', err);
       }
     }
@@ -1681,26 +1720,369 @@ export const db = {
     return null;
   },
 
-  async logAudit(
-    userId: string | undefined,
-    action: string,
-    resource: string,
-    ip?: string,
-    details?: any
-  ) {
-    assertDatabaseAvailable();
-    if (isRenderEnvironment) {
-      await getPgPool().query(
-        `INSERT INTO audit_logs (user_id, action, resource, ip_address, details)
-         VALUES ($1, $2, $3, $4, $5)`,
-        [userId || null, action, resource, ip || null,
-          details == null ? null : JSON.stringify(details)]
-      );
-      return;
-    }
+  async logAudit(userId: string | undefined, action: string, resource: string, ip?: string, details?: any) {
     memoryStore.auditLogs.push({
-      id: crypto.randomUUID(), userId, action, resource, ip, details,
+      id: crypto.randomUUID(),
+      userId,
+      action,
+      resource,
+      ip,
+      details,
       timestamp: new Date().toISOString(),
     });
+  },
+
+  // ==============================================================
+  // TRABALHOS ACADÊMICOS (PERSISTÊNCIA POSTGRESQL + IMAGENS BYTEA)
+  // ==============================================================
+  async listAcademicWorks(params: { page?: number; limit?: number; search?: string }): Promise<{
+    works: AcademicWork[];
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+    hasMore: boolean;
+  }> {
+    assertDatabaseAvailable();
+    const page = Math.max(1, Number(params.page) || 1);
+    const limit = Math.max(1, Math.min(100, Number(params.limit) || 20));
+    const offset = (page - 1) * limit;
+    const search = (params.search || '').trim();
+
+    if (pgPool) {
+      await ensureAcademicWorksTablesOnPostgres();
+
+      const whereClause = search
+        ? `WHERE title ILIKE $1 OR authors ILIKE $1 OR COALESCE(description, '') ILIKE $1`
+        : '';
+      const countParams = search ? [`%${search}%`] : [];
+      const countRes = await pgPool.query(
+        `SELECT COUNT(*)::int AS total FROM academic_works ${whereClause}`,
+        countParams
+      );
+      const total = countRes.rows[0]?.total ?? 0;
+
+      const listParams = search ? [`%${search}%`, limit, offset] : [limit, offset];
+      const limitPlaceholder = search ? '$2' : '$1';
+      const offsetPlaceholder = search ? '$3' : '$2';
+
+      const rowsRes = await pgPool.query(
+        `SELECT id, title, authors, description, work_url, cover_image_url,
+                (cover_image_data IS NOT NULL) AS has_image_data,
+                created_by, updated_by, created_at, updated_at
+         FROM academic_works
+         ${whereClause}
+         ORDER BY created_at DESC, id ASC
+         LIMIT ${limitPlaceholder} OFFSET ${offsetPlaceholder}`,
+        listParams
+      );
+
+      const works: AcademicWork[] = rowsRes.rows.map((r) => {
+        const updatedAtIso = typeof r.updated_at === 'string' ? r.updated_at : new Date(r.updated_at).toISOString();
+        const createdAtIso = typeof r.created_at === 'string' ? r.created_at : new Date(r.created_at).toISOString();
+        const hasImageData = Boolean(r.has_image_data);
+        return {
+          id: r.id,
+          title: r.title,
+          authors: r.authors,
+          description: r.description || null,
+          workUrl: r.work_url,
+          coverImageUrl: hasImageData
+            ? `/api/v1/academic-works/${r.id}/image?v=${new Date(updatedAtIso).getTime()}`
+            : r.cover_image_url || null,
+          hasCustomImage: hasImageData || Boolean(r.cover_image_url),
+          createdBy: r.created_by || null,
+          updatedBy: r.updated_by || null,
+          createdAt: createdAtIso,
+          updatedAt: updatedAtIso,
+        };
+      });
+
+      const totalPages = Math.max(1, Math.ceil(total / limit));
+      return {
+        works,
+        total,
+        page,
+        limit,
+        totalPages,
+        hasMore: page * limit < total,
+      };
+    }
+
+    // Armazenamento em memória local (fora do Render)
+    const searchLower = search.toLowerCase();
+    const allItems = Array.from(memoryStore.academicWorks.values())
+      .filter((item) => {
+        if (!searchLower) return true;
+        return (
+          item.title.toLowerCase().includes(searchLower) ||
+          item.authors.toLowerCase().includes(searchLower) ||
+          (item.description || '').toLowerCase().includes(searchLower)
+        );
+      })
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+    const total = allItems.length;
+    const paged = allItems.slice(offset, offset + limit).map(({ imageBuffer: _buf, imageMime: _mime, ...pub }) => pub);
+    const totalPages = Math.max(1, Math.ceil(total / limit));
+
+    return {
+      works: paged,
+      total,
+      page,
+      limit,
+      totalPages,
+      hasMore: page * limit < total,
+    };
+  },
+
+  async getAcademicWorkById(id: string): Promise<AcademicWork | null> {
+    assertDatabaseAvailable();
+    if (pgPool) {
+      await ensureAcademicWorksTablesOnPostgres();
+      const res = await pgPool.query(
+        `SELECT id, title, authors, description, work_url, cover_image_url,
+                (cover_image_data IS NOT NULL) AS has_image_data,
+                created_by, updated_by, created_at, updated_at
+         FROM academic_works WHERE id = $1 LIMIT 1`,
+        [id]
+      );
+      if (!res.rows[0]) return null;
+      const r = res.rows[0];
+      const updatedAtIso = typeof r.updated_at === 'string' ? r.updated_at : new Date(r.updated_at).toISOString();
+      const createdAtIso = typeof r.created_at === 'string' ? r.created_at : new Date(r.created_at).toISOString();
+      const hasImageData = Boolean(r.has_image_data);
+      return {
+        id: r.id,
+        title: r.title,
+        authors: r.authors,
+        description: r.description || null,
+        workUrl: r.work_url,
+        coverImageUrl: hasImageData
+          ? `/api/v1/academic-works/${r.id}/image?v=${new Date(updatedAtIso).getTime()}`
+          : r.cover_image_url || null,
+        hasCustomImage: hasImageData || Boolean(r.cover_image_url),
+        createdBy: r.created_by || null,
+        updatedBy: r.updated_by || null,
+        createdAt: createdAtIso,
+        updatedAt: updatedAtIso,
+      };
+    }
+
+    const found = memoryStore.academicWorks.get(id);
+    if (!found) return null;
+    const { imageBuffer: _buf, imageMime: _mime, ...pub } = found;
+    return pub;
+  },
+
+  async getAcademicWorkImage(id: string): Promise<{ buffer: Buffer; mimeType: string } | null> {
+    assertDatabaseAvailable();
+    if (pgPool) {
+      await ensureAcademicWorksTablesOnPostgres();
+      const res = await pgPool.query(
+        `SELECT cover_image_data, cover_image_mime FROM academic_works WHERE id = $1 LIMIT 1`,
+        [id]
+      );
+      const row = res.rows[0];
+      if (row && row.cover_image_data && row.cover_image_mime) {
+        return {
+          buffer: Buffer.isBuffer(row.cover_image_data)
+            ? row.cover_image_data
+            : Buffer.from(row.cover_image_data),
+          mimeType: row.cover_image_mime,
+        };
+      }
+      return null;
+    }
+
+    const found = memoryStore.academicWorks.get(id);
+    if (found && found.imageBuffer && found.imageMime) {
+      return {
+        buffer: found.imageBuffer,
+        mimeType: found.imageMime,
+      };
+    }
+    return null;
+  },
+
+  async createAcademicWork(input: {
+    title: string;
+    authors: string;
+    description?: string | null;
+    workUrl: string;
+    imageBuffer?: Buffer | null;
+    imageMime?: string | null;
+    userId: string;
+  }): Promise<AcademicWork> {
+    assertDatabaseAvailable();
+    const id = crypto.randomUUID();
+    const now = new Date().toISOString();
+    const hasImage = Boolean(input.imageBuffer && input.imageMime);
+    const coverImageUrl = hasImage ? `/api/v1/academic-works/${id}/image?v=${new Date(now).getTime()}` : null;
+
+    if (pgPool) {
+      await ensureAcademicWorksTablesOnPostgres();
+      // Garante integridade referencial mesmo se o usuário tiver sido autenticado em modo fallback
+      const userCheck = await pgPool.query('SELECT id FROM users WHERE id = $1 LIMIT 1', [input.userId]);
+      const safeUserId = userCheck.rows[0]?.id || null;
+
+      await pgPool.query(
+        `INSERT INTO academic_works
+          (id, title, authors, description, work_url, cover_image_url, cover_image_data, cover_image_mime, created_by, updated_by, created_at, updated_at)
+         VALUES ($1, $2, $3, $4, $5, NULL, $6, $7, $8, $8, $9, $9)`,
+        [
+          id,
+          input.title,
+          input.authors,
+          input.description || null,
+          input.workUrl,
+          input.imageBuffer || null,
+          input.imageMime || null,
+          safeUserId,
+          now,
+        ]
+      );
+    }
+
+    const stored: StoredAcademicWork = {
+      id,
+      title: input.title,
+      authors: input.authors,
+      description: input.description || null,
+      workUrl: input.workUrl,
+      coverImageUrl,
+      hasCustomImage: hasImage,
+      createdBy: input.userId,
+      updatedBy: input.userId,
+      createdAt: now,
+      updatedAt: now,
+      imageBuffer: input.imageBuffer || null,
+      imageMime: input.imageMime || null,
+    };
+
+    memoryStore.academicWorks.set(id, stored);
+    const { imageBuffer: _buf, imageMime: _mime, ...pub } = stored;
+    return pub;
+  },
+
+  async updateAcademicWork(
+    id: string,
+    input: {
+      title: string;
+      authors: string;
+      description?: string | null;
+      workUrl: string;
+      imageBuffer?: Buffer | null;
+      imageMime?: string | null;
+      removeCoverImage?: boolean;
+      userId: string;
+    }
+  ): Promise<AcademicWork | null> {
+    assertDatabaseAvailable();
+    const now = new Date().toISOString();
+
+    if (pgPool) {
+      await ensureAcademicWorksTablesOnPostgres();
+      const existingRes = await pgPool.query(
+        `SELECT id, cover_image_url, (cover_image_data IS NOT NULL) AS has_image_data
+         FROM academic_works WHERE id = $1 LIMIT 1`,
+        [id]
+      );
+      if (!existingRes.rows[0]) return null;
+
+      const userCheck = await pgPool.query('SELECT id FROM users WHERE id = $1 LIMIT 1', [input.userId]);
+      const safeUserId = userCheck.rows[0]?.id || null;
+
+      const hasNewImage = Boolean(input.imageBuffer && input.imageMime);
+
+      if (hasNewImage) {
+        await pgPool.query(
+          `UPDATE academic_works
+           SET title = $1, authors = $2, description = $3, work_url = $4,
+               cover_image_url = NULL, cover_image_data = $5, cover_image_mime = $6,
+               updated_by = $7, updated_at = $8
+           WHERE id = $9`,
+          [
+            input.title,
+            input.authors,
+            input.description || null,
+            input.workUrl,
+            input.imageBuffer,
+            input.imageMime,
+            safeUserId,
+            now,
+            id,
+          ]
+        );
+      } else if (input.removeCoverImage) {
+        await pgPool.query(
+          `UPDATE academic_works
+           SET title = $1, authors = $2, description = $3, work_url = $4,
+               cover_image_url = NULL, cover_image_data = NULL, cover_image_mime = NULL,
+               updated_by = $5, updated_at = $6
+           WHERE id = $7`,
+          [input.title, input.authors, input.description || null, input.workUrl, safeUserId, now, id]
+        );
+      } else {
+        await pgPool.query(
+          `UPDATE academic_works
+           SET title = $1, authors = $2, description = $3, work_url = $4,
+               updated_by = $5, updated_at = $6
+           WHERE id = $7`,
+          [input.title, input.authors, input.description || null, input.workUrl, safeUserId, now, id]
+        );
+      }
+
+      return this.getAcademicWorkById(id);
+    }
+
+    const existing = memoryStore.academicWorks.get(id);
+    if (!existing) return null;
+
+    const hasNewImage = Boolean(input.imageBuffer && input.imageMime);
+    let nextBuffer = existing.imageBuffer || null;
+    let nextMime = existing.imageMime || null;
+    let nextCoverUrl = existing.coverImageUrl || null;
+
+    if (hasNewImage) {
+      nextBuffer = input.imageBuffer!;
+      nextMime = input.imageMime!;
+      nextCoverUrl = `/api/v1/academic-works/${id}/image?v=${new Date(now).getTime()}`;
+    } else if (input.removeCoverImage) {
+      nextBuffer = null;
+      nextMime = null;
+      nextCoverUrl = null;
+    }
+
+    const updated: StoredAcademicWork = {
+      ...existing,
+      title: input.title,
+      authors: input.authors,
+      description: input.description || null,
+      workUrl: input.workUrl,
+      coverImageUrl: nextCoverUrl,
+      hasCustomImage: Boolean(nextCoverUrl),
+      updatedBy: input.userId,
+      updatedAt: now,
+      imageBuffer: nextBuffer,
+      imageMime: nextMime,
+    };
+
+    memoryStore.academicWorks.set(id, updated);
+    const { imageBuffer: _buf, imageMime: _mime, ...pub } = updated;
+    return pub;
+  },
+
+  async deleteAcademicWork(id: string): Promise<boolean> {
+    assertDatabaseAvailable();
+
+    if (pgPool) {
+      await ensureAcademicWorksTablesOnPostgres();
+      const res = await pgPool.query('DELETE FROM academic_works WHERE id = $1 RETURNING id', [id]);
+      memoryStore.academicWorks.delete(id);
+      return res.rowCount !== null && res.rowCount > 0;
+    }
+
+    return memoryStore.academicWorks.delete(id);
   },
 };

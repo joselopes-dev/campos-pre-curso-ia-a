@@ -16,8 +16,8 @@ import {
 
 interface HeaderProps {
   user: User | null;
-  activeTab: 'dashboard' | 'catalogo' | 'sala' | 'certificados' | 'gestao';
-  setActiveTab: (tab: 'dashboard' | 'catalogo' | 'sala' | 'certificados' | 'gestao') => void;
+  activeTab: 'dashboard' | 'catalogo' | 'sala' | 'certificados' | 'gestao' | 'trabalhos';
+  setActiveTab: (tab: 'dashboard' | 'catalogo' | 'sala' | 'certificados' | 'gestao' | 'trabalhos') => void;
   openTutor: () => void;
   openVocational: () => void;
   openAuditModal: () => void;
@@ -309,4 +309,3 @@ export const Header: React.FC<HeaderProps> = ({
     </header>
   );
 };
-

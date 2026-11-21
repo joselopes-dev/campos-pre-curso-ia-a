@@ -8,6 +8,7 @@ import { tutorRouter } from './routes/tutor.ts';
 import { vocationalRouter } from './routes/vocational.ts';
 import { certificatesRouter } from './routes/certificates.ts';
 import { adminRouter } from './routes/admin.ts';
+import { academicWorksRouter } from './routes/academicWorks.ts';
 
 export function createExpressApp(): Express {
   const app = express();
@@ -21,10 +22,14 @@ export function createExpressApp(): Express {
     next();
   });
 
-  // Parsers de Body e Cookies
+  app.use(cookieParser());
+
+  // Rota de Trabalhos Acadêmicos possui parser dedicado (até 4MB para upload de imagem Base64 até 2MB)
+  app.use('/api/v1/academic-works', academicWorksRouter);
+
+  // Parsers de Body padrão
   app.use(express.json({ limit: '2mb' }));
   app.use(express.urlencoded({ extended: true, limit: '2mb' }));
-  app.use(cookieParser());
 
   // Log de requisições seguro (sem exibir tokens ou payloads sensíveis)
   app.use((req: Request, _res: Response, next: NextFunction) => {
@@ -70,4 +75,3 @@ export function createExpressApp(): Express {
 
   return app;
 }
-
